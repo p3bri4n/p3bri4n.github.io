@@ -1,0 +1,32 @@
+---
+import Layout from './Layout.astro';
+import type { Lang } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  date: Date;
+  readingTime: number;
+  minReadLabel: string;
+  altHrefFr: string;
+  altHrefEn: string;
+}
+
+const { lang, title, description, date, readingTime, minReadLabel, altHrefFr, altHrefEn } = Astro.props;
+const formattedDate = date.toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout lang={lang} pageKey="posts" title={title} description={description} altHrefFr={altHrefFr} altHrefEn={altHrefEn}>
+  <article class="prose prose-slate dark:prose-invert max-w-none">
+    <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">
+      {formattedDate} · {readingTime} {minReadLabel}
+    </p>
+    <h1>{title}</h1>
+    <slot />
+  </article>
+</Layout>

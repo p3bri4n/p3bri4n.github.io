@@ -1,0 +1,105 @@
+---
+export interface Props {
+  intensity?: 'low' | 'medium' | 'high';
+}
+
+const { intensity = 'low' } = Astro.props;
+const opacityMap = { low: '0.25', medium: '0.4', high: '0.6' };
+const opacity = opacityMap[intensity];
+---
+
+<div class="aurora-background" aria-hidden="true">
+  <div class="aurora-layer aurora-1"></div>
+  <div class="aurora-layer aurora-2"></div>
+  <div class="aurora-layer aurora-3"></div>
+</div>
+
+<style define:vars={{ opacity }}>
+  .aurora-background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: var(--opacity);
+  }
+
+  .aurora-layer {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+  }
+
+  .aurora-1 {
+    background: radial-gradient(ellipse at top left, var(--aurora-1), transparent 40%);
+    filter: blur(60px);
+  }
+
+  .aurora-2 {
+    background: radial-gradient(ellipse at bottom right, var(--aurora-2), transparent 40%);
+    filter: blur(80px);
+  }
+
+  .aurora-3 {
+    background: radial-gradient(ellipse at center, var(--aurora-3), transparent 50%);
+    filter: blur(100px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .aurora-1 {
+      animation: aurora-float 20s ease-in-out infinite;
+    }
+    .aurora-2 {
+      animation: aurora-float 25s ease-in-out infinite reverse;
+    }
+    .aurora-3 {
+      animation: aurora-float 30s ease-in-out infinite;
+    }
+  }
+
+  @keyframes aurora-float {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    25% {
+      transform: translate(-5%, 5%) rotate(1deg) scale(1.05);
+    }
+    50% {
+      transform: translate(5%, -5%) rotate(-1deg) scale(0.95);
+    }
+    75% {
+      transform: translate(-3%, -3%) rotate(0.5deg) scale(1.02);
+    }
+  }
+
+  :global(.dark) .aurora-background {
+    opacity: calc(var(--opacity) * 0.6);
+  }
+
+  .aurora-background.is-paused .aurora-layer {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .aurora-background {
+      display: none;
+    }
+  }
+
+  @media print {
+    .aurora-background {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const aurora = document.querySelector('.aurora-background');
+  if (aurora) {
+    const sync = () => aurora.classList.toggle('is-paused', document.hidden);
+    document.addEventListener('visibilitychange', sync);
+    sync();
+  }
+</script>

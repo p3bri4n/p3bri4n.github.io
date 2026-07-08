@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --aurora-1: hsl(280, 100%, 70%);
+  --aurora-2: hsl(200, 100%, 60%);
+  --aurora-3: hsl(340, 100%, 65%);
+  --aurora-4: hsl(150, 70%, 60%);
+
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-bg-solid: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+  --glass-blur: 12px;
+  --glass-accent-bg: rgba(2, 132, 199, 0.1);
+  --glass-accent-border: rgba(2, 132, 199, 0.4);
+}
+
+.dark {
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-solid: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+  --glass-accent-bg: rgba(56, 189, 248, 0.12);
+  --glass-accent-border: rgba(56, 189, 248, 0.4);
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+}
+
+.dark .glass-card:hover {
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Fond translucide "solide" (sans flou imbriqué) pour les étiquettes posées
+   sur un .glass-panel/.glass-card déjà flouté : un backdrop-filter imbriqué
+   coûterait un passage de composition en plus, et deux flous superposés
+   écrasent le contraste du texte. */
+.glass-tag:not(.hidden) {
+  display: inline-flex;
+  align-items: center;
+}
+
+.glass-tag {
+  background: var(--glass-bg-solid);
+  border: 1px solid var(--glass-border);
+  color: rgb(51 65 85);
+  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+
+.dark .glass-tag {
+  color: rgb(226 232 240);
+}
+
+a.glass-tag:hover {
+  color: rgb(2 132 199);
+  border-color: var(--glass-accent-border);
+  background: var(--glass-accent-bg);
+}
+
+.dark a.glass-tag:hover {
+  color: rgb(56 189 248);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel,
+  .glass-card {
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .dark .glass-panel,
+  .dark .glass-card {
+    background: rgba(15, 23, 42, 0.92);
+  }
+}
+
+@media print {
+  .glass-panel,
+  .glass-card {
+    background: white;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+  }
+}
+
+/* Désactive l'animation de transition de page pour une navigation ponctuelle
+   (ex: changement de langue) : le contenu change instantanément, sans glissement. */
+.no-transition::view-transition-group(*),
+.no-transition::view-transition-old(*),
+.no-transition::view-transition-new(*) {
+  animation: none !important;
+}

@@ -1,0 +1,33 @@
+---
+interface Props {
+  nom: string;
+  image?: string;
+  size?: number;
+}
+
+const { nom, image, size = 96 } = Astro.props;
+const initiales = nom
+  .split(' ')
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((mot) => mot[0]?.toUpperCase())
+  .join('');
+---
+
+{image ? (
+  <img
+    src={image}
+    alt={nom}
+    width={size}
+    height={size}
+    class="rounded-full object-cover"
+    style={`width: ${size}px; height: ${size}px;`}
+  />
+) : (
+  <div
+    class="rounded-full bg-sky-600 text-white flex items-center justify-center font-semibold"
+    style={`width: ${size}px; height: ${size}px; font-size: ${size / 2.5}px;`}
+  >
+    {initiales}
+  </div>
+)}

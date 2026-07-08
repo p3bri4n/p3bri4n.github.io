@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getProjects, getProjectsIntro, getUi } from '../i18n/content';
+import { tagValue, parseFeaturedName } from '../i18n/skills';
+import { site } from '../config';
+
+const lang = 'fr' as const;
+const projects = getProjects(lang);
+const intro = getProjectsIntro(lang);
+const ui = getUi(lang);
+
+interface Project {
+  slug: string;
+  nom: string;
+  description_courte: string;
+  description: string;
+  tags: string[];
+  image: string;
+  lien: string;
+}
+
+const list = (projects as Project[]).map((project) => ({
+  ...project,
+  nom: parseFeaturedName(project.nom).value,
+}));
+---
+
+<Layout lang={lang} pageKey="projets" title={ui.nav.projets} description={ui.meta.projetsDescription}>
+  <p class="text-slate-600 dark:text-slate-300 whitespace-pre-line mb-10">{intro.texte}</p>
+
+  <div class="grid gap-6 sm:grid-cols-2 mb-16">
+    {list.map((project) => (
+      <ProjectCard
+        href={`#${project.slug}`}
+        nom={project.nom}
+        description_courte={project.description_courte}
+        tags={project.tags}
+        image={project.image}
+      />
+    ))}
+  </div>
+
+  <div class="space-y-16">
+    {list.map((project) => {
+      const href = project.lien || (site.social.github ? `${site.social.github}/${project.slug}` : '');
+      return (
+        <section id={project.slug} class="scroll-mt-20 border-t border-slate-200 dark:border-slate-800 pt-8">
+          <h2 class="text-xl font-semibold mb-3">{project.nom}</h2>
+          <p class="text-slate-600 dark:text-slate-300 whitespace-pre-line mb-4">{project.description}</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            {project.tags.map((tag) => (
+              <span class="glass-tag px-2.5 py-1 text-xs rounded-full">
+                {tagValue(tag)}
+              </span>
+            ))}
+          </div>
+          {href && (
+            <a href={href} target="_blank" rel="noopener noreferrer" class="text-sky-600 dark:text-sky-400 hover:underline text-sm">
+              {ui.projects.viewProject}
+            </a>
+          )}
+        </section>
+      );
+    })}
+  </div>
+</Layout>

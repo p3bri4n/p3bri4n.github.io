@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogPost from '../../../layouts/BlogPost.astro';
+import { ROUTES } from '../../../i18n/routes';
+import { getUi } from '../../../i18n/content';
+import { getReadingTime } from '../../../i18n/readingTime';
+
+const lang = 'en' as const;
+const ui = getUi(lang);
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const enPosts = allPosts.filter((post) => post.id.startsWith('en/'));
+  const frPosts = allPosts.filter((post) => post.id.startsWith('fr/'));
+
+  return enPosts.map((post) => {
+    const translation = post.data.translationKey
+      ? frPosts.find((p) => p.data.translationKey === post.data.translationKey)
+      : undefined;
+
+    return {
+      params: { slug: post.id.slice(3) },
+      props: {
+        post,
+        altHrefFr: translation ? `${ROUTES.posts.fr}/${translation.id.slice(3)}` : ROUTES.posts.fr,
+      },
+    };
+  });
+}
+
+const { post, altHrefFr } = Astro.props;
+const { Content } = await render(post);
+const slug = post.id.slice(3);
+const readingTime = getReadingTime(post.body ?? '', post.data.complexity);
+---
+
+<BlogPost
+  lang={lang}
+  title={post.data.title}
+  description={post.data.description}
+  date={post.data.date}
+  readingTime={readingTime}
+  minReadLabel={ui.posts.minRead}
+  altHrefFr={altHrefFr}
+  altHrefEn={`${ROUTES.posts.en}/${slug}`}
+>
+  <Content />
+</BlogPost>

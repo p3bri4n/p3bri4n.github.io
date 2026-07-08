@@ -1,0 +1,45 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { getUi } from '../../i18n/content';
+import { ROUTES } from '../../i18n/routes';
+import { getReadingTime } from '../../i18n/readingTime';
+
+const lang = 'fr' as const;
+const ui = getUi(lang);
+
+const posts = (await getCollection('blog', ({ id, data }) => id.startsWith('fr/') && !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout lang={lang} pageKey="posts" title={ui.nav.posts} description={ui.meta.postsDescription}>
+  <ul class="space-y-6">
+    {posts.map((post) => (
+      <li>
+        <a href={`${ROUTES.posts[lang]}/${post.id.slice(3)}`} class="block group">
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            {post.data.date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+            {' · '}{getReadingTime(post.body ?? '', post.data.complexity)} {ui.posts.minRead}
+          </p>
+          <h2 class="font-semibold text-lg group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+            {post.data.title}
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300">{post.data.description}</p>
+        </a>
+        {post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-2">
+            {post.data.tags.map((tag: string) => (
+              <span class="glass-tag px-2.5 py-1 text-xs rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </li>
+    ))}
+  </ul>
+  {posts.length === 0 && (
+    <p class="text-slate-500 dark:text-slate-400">{ui.posts.noArticles}</p>
+  )}
+</Layout>

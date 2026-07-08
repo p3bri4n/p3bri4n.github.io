@@ -1,0 +1,131 @@
+---
+import '../styles/global.css';
+import { ClientRouter, slide } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AuroraBackground from '../components/AuroraBackground.astro';
+import { site } from '../config';
+import { getUi } from '../i18n/content';
+import { ROUTES, type Lang, type PageKey } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  pageKey: PageKey;
+  title?: string;
+  description?: string;
+  altHrefFr?: string;
+  altHrefEn?: string;
+}
+
+const { lang, pageKey, title, description, altHrefFr, altHrefEn } = Astro.props;
+const ui = getUi(lang);
+const pageTitle = title ? `${title} — ${site.name}` : site.name;
+const pageDescription = description ?? ui.meta.defaultDescription;
+const hrefFr = altHrefFr ?? ROUTES[pageKey].fr;
+const hrefEn = altHrefEn ?? ROUTES[pageKey].en;
+
+// Ordre du menu principal : sert à faire glisser la transition de page dans le
+// sens du menu (vers une section plus loin = avance, plus tôt = retour), plutôt
+// que selon l'historique du navigateur.
+const NAV_ORDER: PageKey[] = ['home', 'posts', 'projets', 'about'];
+const navOrder = NAV_ORDER.map((key) => ({ fr: ROUTES[key].fr, en: ROUTES[key].en }));
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth bg-white dark:bg-slate-900" data-href-fr={hrefFr} data-href-en={hrefEn}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="alternate" hreflang="fr" href={`${site.url}${hrefFr}`} />
+    <link rel="alternate" hreflang="en" href={`${site.url}${hrefEn}`} />
+    <ClientRouter />
+    <script is:inline>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = stored ? stored === 'dark' : prefersDark;
+      document.documentElement.classList.toggle('dark', isDark);
+    </script>
+    <script is:inline>
+      const storedLang = localStorage.getItem('lang');
+      if (!storedLang) {
+        const browserLang = (navigator.language || navigator.languages?.[0] || 'fr').toLowerCase();
+        const preferred = browserLang.startsWith('en') ? 'en' : 'fr';
+        localStorage.setItem('lang', preferred);
+        const currentLang = document.documentElement.lang;
+        if (preferred !== currentLang) {
+          const target =
+            preferred === 'en'
+              ? document.documentElement.dataset.hrefEn
+              : document.documentElement.dataset.hrefFr;
+          if (target) window.location.replace(target);
+        }
+      }
+    </script>
+    <script define:vars={{ navOrder }}>
+      // Direction de la transition = position relative des pages dans le menu
+      // principal (et non l'historique du navigateur), et pas de transition du
+      // tout pour le changement de langue (contenu identique, juste traduit).
+      function sectionIndex(pathname) {
+        const p = pathname.replace(/\/$/, '') || '/';
+        for (let i = 1; i < navOrder.length; i++) {
+          const { fr, en } = navOrder[i];
+          if (p === fr || p === en || p.startsWith(fr + '/') || p.startsWith(en + '/')) return i;
+        }
+        if (p === navOrder[0].fr || p === navOrder[0].en) return 0;
+        return -1;
+      }
+
+      document.addEventListener('astro:before-preparation', (event) => {
+        if (event.sourceElement?.closest?.('[data-set-lang]')) {
+          document.documentElement.classList.add('no-transition');
+          return;
+        }
+        const fromIndex = sectionIndex(event.from.pathname);
+        const toIndex = sectionIndex(event.to.pathname);
+        if (fromIndex !== -1 && toIndex !== -1 && fromIndex !== toIndex) {
+          event.direction = toIndex > fromIndex ? 'forward' : 'back';
+        }
+      });
+
+      // Bug connu des View Transitions : swapRootAttributes() remplace tous les
+      // attributs de <html> par ceux de la page statique entrante, ce qui efface
+      // toute classe ajoutée dynamiquement ("dark", "no-transition") si elle n'est
+      // pas aussi reportée sur le document entrant avant le swap.
+      document.addEventListener('astro:before-swap', (event) => {
+        if (document.documentElement.classList.contains('dark')) {
+          event.newDocument.documentElement.classList.add('dark');
+        }
+        if (document.documentElement.classList.contains('no-transition')) {
+          event.newDocument.documentElement.classList.add('no-transition');
+        }
+      });
+
+      document.addEventListener('astro:after-swap', () => {
+        document.documentElement.classList.remove('no-transition');
+      });
+    </script>
+  </head>
+  <body class="min-h-screen text-slate-800 dark:text-slate-100 flex flex-col">
+    <AuroraBackground />
+    <Header lang={lang} ui={ui} hrefFr={hrefFr} hrefEn={hrefEn} />
+    <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-10" transition:name="page" transition:animate={slide({ duration: '350ms' })}>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll<HTMLAnchorElement>('a[data-mail-user]').forEach((link) => {
+          const user = link.dataset.mailUser;
+          const domain = link.dataset.mailDomain;
+          if (user && domain) {
+            link.href = `mailto:${user}@${domain}`;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

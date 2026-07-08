@@ -1,0 +1,73 @@
+---
+interface Stat {
+  valeur: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+const { stats } = Astro.props;
+
+const parsed = stats.map((stat) => {
+  const match = /^(\d+)(.*)$/.exec(stat.valeur.trim());
+  return {
+    label: stat.label,
+    raw: stat.valeur,
+    target: match ? Number(match[1]) : null,
+    suffix: match ? match[2] : '',
+  };
+});
+---
+
+<div class="glass-panel rounded-lg grid grid-cols-3 gap-4 py-8">
+  {parsed.map((stat) => (
+    <div class="text-center">
+      <p
+        class:list={['kpi-value text-2xl font-bold text-sky-600 dark:text-sky-400']}
+        data-target={stat.target ?? undefined}
+        data-suffix={stat.suffix}
+      >
+        {stat.target !== null ? `0${stat.suffix}` : stat.raw}
+      </p>
+      <p class="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
+    </div>
+  ))}
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const duration = 1200;
+
+    function animate(el: HTMLElement) {
+      const target = parseInt(el.dataset.target ?? '0', 10);
+      const suffix = el.dataset.suffix ?? '';
+      const start = performance.now();
+
+      function step(now: number) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = `${Math.round(eased * target)}${suffix}`;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    const counters = document.querySelectorAll<HTMLElement>('.kpi-value[data-target]');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            animate(entry.target as HTMLElement);
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    counters.forEach((el) => observer.observe(el));
+  });
+</script>

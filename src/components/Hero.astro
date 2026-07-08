@@ -1,0 +1,122 @@
+---
+interface Props {
+  greeting: string;
+  name: string;
+  title: string;
+  description: string;
+  projectsHref: string;
+  projectsLabel: string;
+  blogHref: string;
+  blogLabel: string;
+  skillsLabel?: string;
+  tags?: string[];
+}
+
+const {
+  greeting,
+  name,
+  title,
+  description,
+  projectsHref,
+  projectsLabel,
+  blogHref,
+  blogLabel,
+  skillsLabel,
+  tags = [],
+} = Astro.props;
+---
+
+<section class="hero-section min-h-[70vh] flex flex-col items-center justify-center text-center py-16">
+  <p class="text-sm uppercase tracking-widest text-sky-600 dark:text-sky-400 font-semibold mb-3">
+    {greeting}
+  </p>
+  <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-4">
+    <span class="hero-gradient-text">{name}</span>
+  </h1>
+  <p class="text-xl sm:text-2xl font-medium text-slate-700 dark:text-slate-200 mb-4">{title}</p>
+  <p class="text-lg text-slate-600 dark:text-slate-300 max-w-xl mb-8">{description}</p>
+
+  <div class="flex flex-wrap gap-3 justify-center mb-10">
+    <a
+      href={projectsHref}
+      class="group inline-flex items-center gap-2 px-6 py-3 rounded-md bg-sky-600 text-white font-medium hover:bg-sky-700 transition-colors shadow-lg shadow-sky-600/30"
+    >
+      {projectsLabel}
+      <svg
+        class="w-4 h-4 transition-transform group-hover:translate-x-1"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
+    <a
+      href={blogHref}
+      class="inline-flex items-center px-6 py-3 rounded-md border border-slate-300 dark:border-slate-700 font-medium hover:border-sky-400 dark:hover:border-sky-600 transition-colors"
+    >
+      {blogLabel}
+    </a>
+  </div>
+
+  {tags.length > 0 && (
+    <div>
+      {skillsLabel && (
+        <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-3">{skillsLabel}</p>
+      )}
+      <div class="flex flex-wrap gap-2 justify-center">
+        {tags.map((tag) => (
+          <span class="glass-tag px-2.5 py-1 text-xs rounded-full">{tag}</span>
+        ))}
+      </div>
+    </div>
+  )}
+</section>
+
+<style>
+  .hero-section {
+    animation: hero-fade-up 0.8s ease-out both;
+  }
+
+  .hero-gradient-text {
+    background: linear-gradient(135deg, var(--aurora-1), var(--aurora-2), var(--aurora-3));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: hero-gradient-flow 6s ease infinite;
+  }
+
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes hero-gradient-flow {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-section,
+    .hero-gradient-text {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import { site } from '../config';
+
+interface Props {
+  class?: string;
+  ariaLabel?: string;
+}
+
+const { class: className, ariaLabel } = Astro.props;
+---
+
+<a
+  href="#"
+  data-mail-user={site.mailUser}
+  data-mail-domain={site.mailDomain}
+  aria-label={ariaLabel}
+  class={className}
+>
+  <slot />
+</a>

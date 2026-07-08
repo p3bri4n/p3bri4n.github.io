@@ -1,0 +1,32 @@
+---
+import { tagValue } from '../i18n/skills';
+
+interface Props {
+  href: string;
+  nom: string;
+  description_courte: string;
+  tags: string[];
+  image: string;
+}
+
+const { href, nom, description_courte, tags, image } = Astro.props;
+const src = image || '/images/project-placeholder.svg';
+---
+
+<a
+  href={href}
+  class="glass-card block rounded-lg overflow-hidden hover:border-sky-400/60 dark:hover:border-sky-500/40"
+>
+  <img src={src} alt="" class="w-full aspect-video object-cover bg-slate-100 dark:bg-slate-800" loading="lazy" />
+  <div class="p-4">
+    <h3 class="font-semibold mb-1">{nom}</h3>
+    <p class="text-sm text-slate-600 dark:text-slate-300 mb-3">{description_courte}</p>
+    <div class="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <span class="glass-tag px-2.5 py-1 text-xs rounded-full">
+          {tagValue(tag)}
+        </span>
+      ))}
+    </div>
+  </div>
+</a>

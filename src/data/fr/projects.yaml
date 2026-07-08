@@ -1,0 +1,139 @@
+# Pour ajouter un projet, il suffit d'ajouter une entrée à cette liste.
+# - image : chemin dans public/ (ex: "/images/mon-projet.png"). Laisser vide pour le placeholder par défaut.
+# - lien : URL du dépôt ou de la démo. Laisser vide pour utiliser automatiquement PUBLIC_GITHUB_URL/<slug>.
+# - nom : ajouter un "!" à la fin (ex: "Chocolatine!") pour mettre le projet en avant sur
+#   l'accueil. Le "!" est retiré à l'affichage.
+# - tags : format "Catégorie:Valeur" (ex: "Langages:Python"). Un "!" en fin de valeur
+#   (ex: "Langages:Python!") met la compétence en avant sur l'accueil. Ces tags
+#   alimentent aussi la section Compétences, calculée automatiquement à partir de
+#   ceux-ci et de ceux du parcours (src/data/fr/profile.yaml). Catégories utilisées :
+#   Langages, Outils, Méthodologies, Domaines.
+
+- slug: "chocolatine"
+  nom: "Chocolatine!"
+  description_courte: "Query builder SQL en Python, typé et sans concaténation de chaînes."
+  description: >
+    Bibliothèque Python permettant de construire des requêtes SQL complexes de
+    façon programmatique, avec autocomplétion IDE complète et vérification de
+    type à l'exécution. Gère notamment les jointures, sous-requêtes, CTE
+    (y compris récursives), fonctions fenêtrées, agrégations et opérations
+    ensemblistes (UNION/INTERSECT/EXCEPT), sans jamais passer par de la
+    concaténation de chaînes. Publiée sur PyPI, couverte à 99% par les tests.
+  tags: ["Langages:Python", "Langages:SQL", "Domaines:Query Builder", "Outils:PyPI", "Méthodologies:Tests"]
+  image: ""
+  lien: ""
+
+- slug: "pitchoune"
+  nom: "Pitchoune"
+  description_courte: "Bibliothèque Python (Polars) pour charger/sauvegarder des données et dialoguer avec des LLM."
+  description: >
+    Surcouche à Polars pour charger et sauvegarder des données (xlsx, csv, tsv,
+    jsonl) en mode normal ou streaming, avec injection colonne par colonne dans
+    des fonctions décorées et reprise sur erreur. Inclut aussi une intégration
+    de chat avec un LLM, en local via Ollama ou via l'API OpenAI.
+  tags: ["Langages:Python", "Outils:Polars", "Domaines:Data", "Outils:LLM", "Outils:Ollama"]
+  image: ""
+  lien: ""
+
+- slug: "legitifier"
+  nom: "Legitifier"
+  description_courte: "Outil CLI pour évaluer la crédibilité de dépôts GitHub (fake stars, claims trompeurs)."
+  description: >
+    Outil en ligne de commande qui évalue la crédibilité d'un dépôt GitHub,
+    en particulier dans le domaine IA/ML où les affirmations exagérées sont
+    fréquentes. Analyse les signaux sociaux (patterns de stars, ratio de forks),
+    les métadonnées du dépôt, la qualité du code (secrets, tests, documentation)
+    et l'historique (dormance, funnels Telegram). Chaque vérification est une
+    heuristique définie en YAML, facile à auditer ou étendre. Supporte
+    l'analyse par LLM (OpenAI, Anthropic ou Ollama en local).
+  tags: ["Langages:Python", "Outils:CLI", "Domaines:Sécurité", "Méthodologies:Open Source", "Outils:LLM"]
+  image: ""
+  lien: ""
+
+- slug: "agentic-ai-playground"
+  nom: "Agentic AI Playground!"
+  description_courte: "Stack Docker Compose pour un agent IA local (LangGraph, MCP, vLLM)."
+  description: >
+    Stack Docker Compose pour faire tourner un agent IA entièrement en local :
+    Open WebUI comme interface, un agent LangGraph pour l'orchestration, des
+    services de gestion de skills et de contexte (RAG via Qdrant), un client MCP
+    qui démarre à la demande des serveurs MCP (filesystem, git, playwright,
+    terminal maison), le tout servi par vLLM. Chaque service a sa propre suite
+    de tests isolée, sans dépendance à de vrais services tiers.
+  tags: ["Outils:Docker!", "Outils:LangGraph", "Domaines:Agents IA", "Outils:MCP", "Outils:vLLM", "Méthodologies:RAG"]
+  image: ""
+  lien: ""
+
+- slug: "solar-system-edu"
+  nom: "Solar System Edu"
+  description_courte: "Simulateur de système solaire à but éducatif."
+  description: >
+    Simulateur du système solaire à visée pédagogique.
+  tags: ["Langages:Python", "Méthodologies:Simulation", "Domaines:Éducatif"]
+  image: ""
+  lien: "https://github.com/p3bri4n/solar-system-simu-edu"
+
+- slug: "risc-v-32-edu"
+  nom: "RISC-V 32 Edu!"
+  description_courte: "Simulateur pédagogique d'un processeur RISC-V 32 bits, du NAND à l'out-of-order."
+  description: >
+    Simulateur pédagogique d'un processeur RISC-V 32 bits (RV32I), construit
+    depuis les portes logiques NAND jusqu'à l'exécution out-of-order
+    (algorithme de Tomasulo) avec hiérarchie mémoire complète. Propose
+    plusieurs modes d'exécution : CPU séquentiel, pipeline 5 étages avec
+    forwarding et prédiction de branchement, et exécution out-of-order
+    superscalaire (Reservation Stations, Reorder Buffer, Register Alias
+    Table, Common Data Bus). Hiérarchie mémoire configurable avec caches
+    L1/L2 et prefetching.
+  tags: ["Langages:Python", "Domaines:RISC-V", "Méthodologies:Architecture", "Méthodologies:Simulation", "Domaines:Éducatif"]
+  image: ""
+  lien: ""
+
+- slug: "fastapi-fr"
+  nom: "FastAPI (traduction FR)"
+  description_courte: "Contributions à la traduction française de la documentation FastAPI."
+  description: >
+    Fork du framework FastAPI utilisé pour contribuer à la traduction française
+    de sa documentation officielle, dont la page sur la programmation
+    asynchrone et son analogie du chef cuisinant des burgers en file d'attente.
+  tags: ["Langages:Python", "Outils:FastAPI", "Méthodologies:Documentation", "Méthodologies:Traduction", "Méthodologies:Open Source"]
+  image: ""
+  lien: "https://github.com/p3bri4n/fastapi"
+
+- slug: "agreste"
+  nom: "Agreste XLSX Scraping"
+  description_courte: "Scraping automatisé des fichiers xlsx du site agreste.agriculture.gouv.fr."
+  description: >
+    Script de scraping découvrant et téléchargeant automatiquement les
+    nouveaux fichiers xlsx publiés sur le site agreste.agriculture.gouv.fr,
+    en ne récupérant que les fichiers nouveaux, en streaming pour limiter la
+    consommation mémoire, avec support d'un certificat pour sécuriser la
+    connexion.
+  tags: ["Langages:Python", "Méthodologies:Scraping", "Méthodologies:Automatisation"]
+  image: ""
+  lien: ""
+
+- slug: "registration"
+  nom: "Registration API"
+  description_courte: "Application Flask de démonstration d'architecture propre (inscription + activation par e-mail)."
+  description: >
+    Application web Flask de démonstration : inscription d'utilisateurs et
+    activation de compte par code PIN envoyé par e-mail. Pensée pour illustrer
+    une architecture propre sans framework superflu (Flask uniquement) et un
+    minimum de dépendances externes — dont Chocolatine pour la génération des
+    requêtes SQL. Base MySQL, mots de passe chiffrés avec Bcrypt.
+  tags: ["Langages:Python", "Outils:Flask", "Outils:MySQL", "Méthodologies:Architecture", "Outils:Docker"]
+  image: ""
+  lien: ""
+
+- slug: "scw"
+  nom: "Scaleway Python Client"
+  description_courte: "Client Python non-officiel pour l'API Scaleway (RDB, Registry, Functions)."
+  description: >
+    Client Python pour l'API Scaleway couvrant la gestion des bases de données
+    managées (RDB : instances, bases, utilisateurs, privilèges), du registre
+    de conteneurs (Registry : images) et des Functions/Containers serverless
+    (namespaces, déploiement).
+  tags: ["Langages:Python", "Outils:Scaleway", "Domaines:Cloud", "Outils:API Client"]
+  image: ""
+  lien: ""

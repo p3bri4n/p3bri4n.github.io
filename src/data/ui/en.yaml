@@ -1,0 +1,37 @@
+nav:
+  home: "Home"
+  posts: "Posts"
+  projets: "Projects"
+  about: "About"
+
+skillCategories: ["Languages", "Tools", "Methodologies", "Domains"]
+
+home:
+  greeting: "Hello, I'm"
+  viewProjects: "View projects"
+  readBlog: "Read the blog"
+  skillsLabel: "Key skills"
+
+about:
+  skillsTitle: "Skills"
+  showAllSkills: "Show all skills"
+  showFeaturedSkills: "Show featured skills"
+
+projects:
+  viewProject: "View project →"
+
+posts:
+  noArticles: "No articles yet."
+  minRead: "min read"
+
+meta:
+  defaultDescription: "AI engineer — blog and bio."
+  homeDescription: "AI engineer, technical blog and notes."
+  postsDescription: "Articles and notes."
+  aboutDescription: "Bio and professional experience."
+  projetsDescription: "My personal and professional projects."
+
+aria:
+  themeToggle: "Toggle light / dark theme"
+  email: "Email"
+  languageSwitch: "Switch language"

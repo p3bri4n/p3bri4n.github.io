@@ -1,0 +1,46 @@
+---
+import { site } from '../config';
+import HeaderTools from './HeaderTools.astro';
+import { ROUTES, type Lang } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  ui: any;
+  hrefFr: string;
+  hrefEn: string;
+}
+
+const { lang, ui, hrefFr, hrefEn } = Astro.props;
+
+const links = [
+  { href: ROUTES.home[lang], label: ui.nav.home },
+  { href: ROUTES.posts[lang], label: ui.nav.posts },
+  { href: ROUTES.projets[lang], label: ui.nav.projets },
+  { href: ROUTES.about[lang], label: ui.nav.about },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => currentPath === href;
+---
+
+<header class="border-b border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md">
+  <nav class="max-w-3xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-y-2">
+    <a href={ROUTES.home[lang]} class="font-semibold tracking-tight">{site.name}</a>
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+          class={
+            isActive(link.href)
+              ? 'text-sky-600 dark:text-sky-400 font-medium'
+              : 'hover:text-sky-600 dark:hover:text-sky-400 transition-colors'
+          }
+        >
+          {link.label}
+        </a>
+      ))}
+      <HeaderTools lang={lang} ui={ui} hrefFr={hrefFr} hrefEn={hrefEn} />
+    </div>
+  </nav>
+</header>

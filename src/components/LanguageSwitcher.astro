@@ -1,0 +1,51 @@
+---
+import type { Lang } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  hrefFr: string;
+  hrefEn: string;
+  ariaLabel: string;
+}
+
+const { lang, hrefFr, hrefEn, ariaLabel } = Astro.props;
+---
+
+<div class="flex items-center gap-1 text-sm" role="group" aria-label={ariaLabel}>
+  <a
+    href={hrefFr}
+    data-set-lang="fr"
+    aria-current={lang === 'fr' ? 'true' : undefined}
+    class={
+      lang === 'fr'
+        ? 'font-semibold text-sky-600 dark:text-sky-400'
+        : 'text-slate-500 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors'
+    }
+  >
+    FR
+  </a>
+  <span class="text-slate-300 dark:text-slate-700">/</span>
+  <a
+    href={hrefEn}
+    data-set-lang="en"
+    aria-current={lang === 'en' ? 'true' : undefined}
+    class={
+      lang === 'en'
+        ? 'font-semibold text-sky-600 dark:text-sky-400'
+        : 'text-slate-500 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors'
+    }
+  >
+    EN
+  </a>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLAnchorElement>('a[data-set-lang]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const lang = link.dataset.setLang;
+        if (lang) localStorage.setItem('lang', lang);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,55 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Avatar from '../../../components/Avatar.astro';
+import KpiStats from '../../../components/KpiStats.astro';
+import SkillGroup from '../../../components/SkillGroup.astro';
+import Timeline from '../../../components/Timeline.astro';
+import { getProfile, getProjects, getUi } from '../../../i18n/content';
+import { countEntriesWithSkill, computeSkills } from '../../../i18n/skills';
+
+const lang = 'en' as const;
+const profile = getProfile(lang);
+const projects = getProjects(lang);
+const ui = getUi(lang);
+
+const currentYear = new Date().getFullYear();
+const freelanceMissions = countEntriesWithSkill(profile.parcours, 'Freelancing');
+const skills = computeSkills(profile.parcours, projects as { tags: string[] }[], ui.skillCategories);
+
+const stats = profile.stats.map((stat: { kind?: string; valeur?: string; label: string }) => {
+  if (stat.kind === 'experience') {
+    return { valeur: `${currentYear - profile.experienceDepuis} years`, label: stat.label };
+  }
+  if (stat.kind === 'freelance') {
+    return { valeur: String(freelanceMissions), label: stat.label };
+  }
+  return { valeur: stat.valeur!, label: stat.label };
+});
+---
+
+<Layout lang={lang} pageKey="about" title={ui.nav.about} description={ui.meta.aboutDescription}>
+  <section class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-10">
+    <Avatar nom={profile.nom} image={profile.avatar} size={96} />
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight mb-1">{profile.nom}</h1>
+      <p class="text-lg text-sky-600 dark:text-sky-400">{profile.titre}</p>
+    </div>
+  </section>
+
+  <section class="mb-10">
+    <p class="text-slate-600 dark:text-slate-300 whitespace-pre-line">{profile.bio}</p>
+  </section>
+
+  <section class="mb-14">
+    <KpiStats stats={stats} />
+  </section>
+
+  <section class="mb-14">
+    <h2 class="text-xl font-semibold mb-6">{ui.about.skillsTitle}</h2>
+    <SkillGroup groups={skills} showAllLabel={ui.about.showAllSkills} showFeaturedLabel={ui.about.showFeaturedSkills} />
+  </section>
+
+  <section>
+    <Timeline entries={profile.parcours} />
+  </section>
+</Layout>

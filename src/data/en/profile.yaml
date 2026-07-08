@@ -1,0 +1,75 @@
+nom: "Pierre-Emmanuel Brian"
+titre: "AI Engineer"
+avatar: ""
+experienceDepuis: 2016
+stats:
+  - kind: "experience"
+    label: "of experience"
+  - kind: "freelance"
+    label: "freelance engagements"
+  - valeur: "AI / NLP"
+    label: "specialty"
+accroche: >
+  Passionate about AI and emerging technologies, I put that passion to work
+  through rigor and strategic thinking to build innovative solutions for
+  your business or clients.
+
+bio: >
+  Passionate about AI and emerging technologies, I put that passion to work
+  through rigor and strategic thinking to build innovative solutions for
+  your business or clients.
+
+parcours:
+  - periode: "June 2026"
+    titre: "Engineering degree in Computer Science and Information Systems (ISI)"
+    lieu: "Université de Technologie de Troyes (UTT)"
+    description: >
+      Obtained through accreditation of prior experience (VAE) - Equivalent to a Master's degree (Bac+5)
+    competences: ["Methodologies:VAE", "Domains:Information Systems"]
+  - periode: "March 2025 — March 2026"
+    titre: "AI Engineer"
+    lieu: "KPAM"
+    description: >
+      Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics.
+    competences: ["Languages:Python!", "Domains:NLP!", "Tools:LLM!", "Tools:BERT", "Methodologies:Fine-tuning", "Methodologies:Reverse engineering", "Methodologies:Vibe coding", "Methodologies:Testing", "Methodologies:Freelancing"]
+  - periode: "January 2024 — March 2025"
+    titre: "Software Engineer"
+    lieu: "CVG médical"
+    description: >
+      Designed & built SmartCry (RPA) to automate responses to public hospital tenders in France.
+    competences: ["Languages:Python", "Tools:Playwright", "Tools:RPA", "Methodologies:Automation", "Methodologies:Monitoring", "Methodologies:Freelancing"]
+  - periode: "July 2024 — January 2025"
+    titre: "Business Analyst"
+    lieu: "Airbus"
+    description: >
+      Test-based validation of offshore development for the FlowMetrics project & built a supply chain POC.
+    competences: ["Methodologies:Testing", "Methodologies:Business Analysis", "Domains:Supply Chain"]
+  - periode: "July 2022 — November 2023"
+    titre: "Product Management Business Partner (PMBP)"
+    lieu: "Airbus"
+    description: >
+      Managed digital projects and data development in aeronautical industrial production (A350/A330 programs).
+    competences: ["Methodologies:Product Management", "Domains:Data", "Domains:Aerospace"]
+  - periode: "February 2018 — March 2021 (4 years)"
+    titre: "Consulting Software Engineer"
+    lieu: "Inetum, Néo-Soft"
+    description: >
+      Versatile developer on multi-client missions in aerospace and industry, growing into a technical lead role.
+    competences: ["Methodologies:Development", "Methodologies:Technical Lead", "Methodologies:Consulting"]
+  - periode: "October 2021 — July 2022"
+    titre: "Mentor (freelance)"
+    lieu: "OpenClassrooms"
+    description: >
+      Mentored more than 40 students on the "Python Application Developer" track & assessed final project defenses.
+    competences: ["Languages:Python", "Methodologies:Mentoring", "Methodologies:Teaching"]
+  - periode: "January 2018"
+    titre: "Professional certification as software designer / developer"
+    lieu: "AFPA (Balma)"
+    description: >
+      Java / JEE.
+    competences: ["Languages:Java", "Tools:JEE"]
+
+objectifs:
+  - "Keep up a sustained technology watch to stay current with the latest innovations, and highlight the most promising ones through my blog."
+  - "Ensure the sustainability of the projects I work on, with a strong emphasis on frugality (financial and environmental), and on data security / privacy (hello GDPR)."
+  - "Put humanity first by championing what sets us apart from machines — the capacity to feel, create, and make conscious, deliberate choices. AI is only a tool meant to enhance our humanity, and I hope, reconnect us to it."

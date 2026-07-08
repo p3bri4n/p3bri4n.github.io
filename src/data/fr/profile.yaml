@@ -1,0 +1,71 @@
+nom: "Pierre-Emmanuel Brian"
+titre: "IA engineer"
+avatar: ""
+experienceDepuis: 2016
+stats:
+  - kind: "experience"
+    label: "d'expérience"
+  - kind: "freelance"
+    label: "missions freelance"
+  - valeur: "IA / NLP"
+    label: "spécialité"
+accroche: >
+  Passionné d'IA et de nouvelles technologie, je mets ma passion au service de ma rigueur et de mon sens stratégique pour mettre au point des solutions innovantes pour votre entreprise/client.
+
+bio: >
+  Passionné d'IA et de nouvelles technologie, je mets ma passion au service de ma rigueur et de mon sens stratégique pour mettre au point des solutions innovantes pour votre entreprise/client.
+
+parcours:
+  - periode: "Juin 2026"
+    titre: "Diplôme d'ingénieur en Informatique et Systèmes d'information (ISI)"
+    lieu: "Université de Technologie de Troyes (UTT)"
+    description: >
+      Obtention via la validation des acquis de l'expérience (VAE) - Vaut master II (Bac+5)
+    competences: ["Méthodologies:VAE", "Domaines:Systèmes d'information"]
+  - periode: "Mars 2025 — Mars 2026"
+    titre: "Ingénieur IA"
+    lieu: "KPAM"
+    description: >
+      Conception & développement de la suite logicielle Athena pour remplacer 15 outils Excel/VBA legacy dans le domaine de l'analyse de l'expérience client.
+    competences: ["Langages:Python!", "Domaines:NLP!", "Outils:LLM!", "Outils:BERT", "Méthodologies:Fine-tuning", "Méthodologies:Rétro-ingénierie", "Méthodologies:Vibe coding", "Méthodologies:Tests", "Méthodologies:Freelancing"]
+  - periode: "Janvier 2024 — Mars 2025"
+    titre: "Ingénieur logiciel"
+    lieu: "CVG médical"
+    description: >
+      Conception & développement du logiciel SmartCry (RPA) pour automatiser la réponse à des appels d'offre de l'hôpital public français
+    competences: ["Langages:Python", "Outils:Playwright", "Outils:RPA", "Méthodologies:Automatisation", "Méthodologies:Supervision", "Méthodologies:Freelancing"]
+  - periode: "Juillet 2024 — Janvier 2025"
+    titre: "Business Analyst"
+    lieu: "Airbus"
+    description: >
+      Validation par les tests du développement offshore pour le projet FlowMetrics & développement d'un POC dans le domaine de la supply chain
+    competences: ["Méthodologies:Tests", "Méthodologies:Business Analysis", "Domaines:Supply Chain"]
+  - periode: "Juillet 2022 — Novembre 2023"
+    titre: "Product Management Business Partner (PMBP)"
+    lieu: "Airbus"
+    description: >
+      Management de projets digitaux et développement data dans la production industrielle aéronautique (programmes A350/A330).
+    competences: ["Méthodologies:Product Management", "Domaines:Data", "Domaines:Aéronautique"]
+  - periode: "Février 2018 — Mars 2021 (4 ans)"
+    titre: "Ingénieur informatique consultant"
+    lieu: "Inetum, Néo-Soft"
+    description: >
+      Développeur polyvalent sur des missions multi-clients dans l'aéronautique et l'industrie, avec une évolution vers un rôle de lead technique.
+    competences: ["Méthodologies:Développement", "Méthodologies:Lead technique", "Méthodologies:Conseil"]
+  - periode: "Octobre 2021 — Juillet 2022"
+    titre: "Mentor (freelance)"
+    lieu: "OpenClassrooms"
+    description: >
+      Mentorat de plus de 40 étudiants sur le parcours "Développeur d'applications Python" & évaluations lors des soutenances
+    competences: ["Langages:Python", "Méthodologies:Mentorat", "Méthodologies:Pédagogie"]
+  - periode: "Janvier 2018"
+    titre: "Titre professionnel de concepteur / développeur informatique"
+    lieu: "AFPA (Balma)"
+    description: >
+      Java / JEE.
+    competences: ["Langages:Java", "Outils:JEE"]
+
+objectifs:
+  - "Continuer à réaliser une veille technologique soutenue pour être au fait des dernières innovations & mettre en avant les plus prometteuses à travers mon blog."
+  - "Garantir la soutenabilité des projets sur lesquels j'évolue, notamment à travers une emphase forte sur la frugalité (financière et à portée écologique), et la sécurité / confidentialité des données (hello RGPD)."
+  - "Mettre l'humain en avant en promouvant ce qui nous distingue des machines, la capacité à ressentir, créer, faire des choix conscients assumés. L'IA n'est qu'un outil destiné à nous améliorer à travers notre humanité, et je l'espère nous reconnecter."

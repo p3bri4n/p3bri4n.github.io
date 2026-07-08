@@ -1,0 +1,55 @@
+---
+import type { SkillGroupData } from '../i18n/skills';
+
+interface Props {
+  groups: SkillGroupData[];
+  showAllLabel: string;
+  showFeaturedLabel: string;
+}
+
+const { groups, showAllLabel, showFeaturedLabel } = Astro.props;
+const hasExtra = groups.some((group) => group.items.some((item) => !item.featured));
+---
+
+<div class="grid gap-6 sm:grid-cols-2">
+  {groups.map((group) => (
+    <div class="glass-panel rounded-lg p-4">
+      <h3 class="font-semibold mb-2">{group.categorie}</h3>
+      <div class="flex flex-wrap gap-2">
+        {group.items.map((item) => (
+          <span
+            class={`glass-tag px-2.5 py-1 text-xs rounded-full${item.featured ? '' : ' skill-extra hidden'}`}
+          >
+            {item.value}
+          </span>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+{hasExtra && (
+  <button
+    id="skills-toggle"
+    type="button"
+    data-expanded="false"
+    data-show-all={showAllLabel}
+    data-show-featured={showFeaturedLabel}
+    class="mt-4 text-sm text-sky-600 dark:text-sky-400 hover:underline"
+  >
+    {showAllLabel}
+  </button>
+)}
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const button = document.getElementById('skills-toggle');
+    button?.addEventListener('click', () => {
+      const expanded = button.dataset.expanded === 'true';
+      document.querySelectorAll<HTMLElement>('.skill-extra').forEach((el) => {
+        el.classList.toggle('hidden', expanded);
+      });
+      button.dataset.expanded = String(!expanded);
+      button.textContent = expanded ? button.dataset.showAll! : button.dataset.showFeatured!;
+    });
+  });
+</script>

@@ -1,0 +1,37 @@
+nav:
+  home: "Accueil"
+  posts: "Posts"
+  projets: "Projets"
+  about: "À propos"
+
+skillCategories: ["Langages", "Outils", "Méthodologies", "Domaines"]
+
+home:
+  greeting: "Bonjour, je suis"
+  viewProjects: "Voir les projets"
+  readBlog: "Voir le blog"
+  skillsLabel: "Compétences clés"
+
+about:
+  skillsTitle: "Compétences"
+  showAllSkills: "Voir toutes les compétences"
+  showFeaturedSkills: "Voir les compétences phares"
+
+projects:
+  viewProject: "Voir le projet →"
+
+posts:
+  noArticles: "Aucun article pour le moment."
+  minRead: "min de lecture"
+
+meta:
+  defaultDescription: "Ingénieur IA — blog et bio."
+  homeDescription: "Ingénieur IA, blog technique et notes de veille."
+  postsDescription: "Articles et notes."
+  aboutDescription: "Bio et parcours professionnel."
+  projetsDescription: "Mes projets personnels et professionnels."
+
+aria:
+  themeToggle: "Basculer entre thème clair et sombre"
+  email: "E-mail"
+  languageSwitch: "Changer de langue"
