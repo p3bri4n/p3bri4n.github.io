@@ -25,7 +25,7 @@ const isActive = (href: string) => currentPath === href;
 
 <header class="border-b border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md">
   <nav class="max-w-3xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-y-2">
-    <a href={ROUTES.home[lang]} class="font-semibold tracking-tight">{site.name}</a>
+    <a href={ROUTES.home[lang]} class="logo-terminal text-base font-semibold tracking-tight">{site.name}</a>
     <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
       {links.map((link) => (
         <a
@@ -33,8 +33,8 @@ const isActive = (href: string) => currentPath === href;
           aria-current={isActive(link.href) ? 'page' : undefined}
           class={
             isActive(link.href)
-              ? 'text-sky-600 dark:text-sky-400 font-medium'
-              : 'hover:text-sky-600 dark:hover:text-sky-400 transition-colors'
+              ? 'uppercase font-medium text-sky-600 dark:text-sky-400'
+              : 'uppercase font-medium hover:text-sky-600 dark:hover:text-sky-400 transition-colors'
           }
         >
           {link.label}
@@ -44,3 +44,9 @@ const isActive = (href: string) => currentPath === href;
     </div>
   </nav>
 </header>
+
+<style>
+  .logo-terminal {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+</style>
