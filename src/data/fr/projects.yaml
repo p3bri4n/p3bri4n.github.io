@@ -126,6 +126,22 @@
   image: ""
   lien: "https://github.com/p3bri4n/registration-API-edu"
 
+- slug: "athena"
+  nom: "Athena!"
+  description_courte: "Suite logicielle propriétaire (KPAM) pour gérer le dataflow du traitement d'un avis client."
+  description: "Suite logicielle propriétaire (KPAM) complète pour gérer le dataflow du traitement d'un avis client. Utilisation de l'IA pour classifier, tonaliser, corriger les verbatims."
+  tags: ["Langages:Python", "Outils:Docker", "Outils:Flet", "Outils:BERT!", "Outils:LLM!"]
+  image: "/images/logo-athena.jpeg"
+  lien: ""
+
+- slug: "smartcry"
+  nom: "SmartCry!"
+  description_courte: "RPA d'assistance propriétaire (CVG Medical) pour le remplissage de formulaires de réponse aux appels d'offres de l'hôpital public Français."
+  description: "RPA d'assistance au remplissage de formulaires de réponse aux appels d'offres de l'hôpital public Français. Réduction substancielle du temps de traitement d'un dossier."
+  tags: ["Domaines:Santé", "Domaines:Automatisation", "Langages:Python", "Outils:Playwright", "Outils:RPA"]
+  image: "/images/logo-smartcry.jpeg"
+  lien: ""
+
 - slug: "scw"
   nom: "Scaleway Python Client"
   description_courte: "Client Python non-officiel pour l'API Scaleway (RDB, Registry, Functions)."

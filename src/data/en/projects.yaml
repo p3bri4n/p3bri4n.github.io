@@ -123,6 +123,22 @@
   image: ""
   lien: "https://github.com/p3bri4n/registration-API-edu"
 
+- slug: "athena"
+  nom: "Athena!"
+  description_courte: "Proprietary software suite (KPAM) to manage the dataflow of customer review processing."
+  description: "A complete proprietary software suite (KPAM) to manage the dataflow of customer review processing. Uses AI to classify, adjust tone and correct verbatims."
+  tags: ["Languages:Python", "Tools:Docker", "Tools:Flet", "Tools:BERT!", "Tools:LLM!"]
+  image: "/images/logo-athena.jpeg"
+  lien: ""
+
+- slug: "smartcry"
+  nom: "SmartCry!"
+  description_courte: "Proprietary RPA assistant (CVG Medical) for filling out tender response forms for French public hospitals."
+  description: "An RPA assistant for filling out tender response forms for French public hospitals. Substantially reduces the time needed to process a case file."
+  tags: ["Domains:Healthcare", "Domains:Automation", "Languages:Python", "Tools:Playwright", "Tools:RPA"]
+  image: "/images/logo-smartcry.jpeg"
+  lien: ""
+
 - slug: "scw"
   nom: "Scaleway Python Client"
   description_courte: "An unofficial Python client for the Scaleway API (RDB, Registry, Functions)."
