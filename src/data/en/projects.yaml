@@ -18,11 +18,11 @@
     aggregations and set operations (UNION/INTERSECT/EXCEPT), without ever
     resorting to string concatenation. Published on PyPI, 99% test coverage.
   tags: ["Languages:Python", "Languages:SQL", "Domains:Query Builder", "Tools:PyPI", "Methodologies:Testing"]
-  image: ""
+  image: "/images/logo-chocolatine.jpg"
   lien: ""
 
 - slug: "pitchoune"
-  nom: "Pitchoune"
+  nom: "Pitchoune!"
   description_courte: "A Python library on top of Polars to load/save data and chat with LLMs."
   description: >
     A wrapper around Polars for loading and saving data (xlsx, csv, tsv,
@@ -30,11 +30,11 @@
     decorated functions and recovery on failure. Also includes an LLM chat
     integration, locally via Ollama or through the OpenAI API.
   tags: ["Languages:Python", "Tools:Polars", "Domains:Data", "Tools:LLM", "Tools:Ollama"]
-  image: ""
+  image: "/images/logo-pitchoune.jpeg"
   lien: ""
 
 - slug: "legitifier"
-  nom: "Legitifier"
+  nom: "Legitifier!"
   description_courte: "A CLI tool to assess the credibility of GitHub repositories (fake stars, misleading claims)."
   description: >
     A command-line tool that evaluates the credibility of a GitHub
@@ -45,7 +45,7 @@
     heuristic, easy to audit or extend. Supports LLM-based analysis (OpenAI,
     Anthropic, or local Ollama).
   tags: ["Languages:Python", "Tools:CLI", "Domains:Security", "Methodologies:Open Source", "Tools:LLM"]
-  image: ""
+  image: "/images/logo-legitifier.jpeg"
   lien: ""
 
 - slug: "agentic-ai-playground"
@@ -59,7 +59,7 @@
     server), all served by vLLM. Each service has its own isolated test
     suite, with no dependency on real third-party services.
   tags: ["Tools:Docker!", "Tools:LangGraph", "Domains:AI Agents", "Tools:MCP", "Tools:vLLM", "Methodologies:RAG"]
-  image: ""
+  image: "/images/logo-agentic-ai-playground.jpg"
   lien: ""
 
 - slug: "solar-system-edu"
@@ -83,7 +83,7 @@
     Buffer, Register Alias Table, Common Data Bus). Configurable memory
     hierarchy with L1/L2 caches and prefetching.
   tags: ["Languages:Python", "Domains:RISC-V", "Methodologies:Architecture", "Methodologies:Simulation", "Domains:Education"]
-  image: ""
+  image: "/images/logo-risc-v-32-edu.jpg"
   lien: ""
 
 - slug: "fastapi-fr"
@@ -108,7 +108,7 @@
     to secure the connection.
   tags: ["Languages:Python", "Methodologies:Scraping", "Methodologies:Automation"]
   image: ""
-  lien: ""
+  lien: "https://github.com/p3bri4n/agreste-xlsx-scraping-edu"
 
 - slug: "registration"
   nom: "Registration API"
@@ -121,7 +121,7 @@
     MySQL backend, passwords hashed with Bcrypt.
   tags: ["Languages:Python", "Tools:Flask", "Tools:MySQL", "Methodologies:Architecture", "Tools:Docker"]
   image: ""
-  lien: ""
+  lien: "https://github.com/p3bri4n/registration-API-edu"
 
 - slug: "scw"
   nom: "Scaleway Python Client"
@@ -133,4 +133,4 @@
     Functions/Containers (namespaces, deployment).
   tags: ["Languages:Python", "Tools:Scaleway", "Domains:Cloud", "Tools:API Client"]
   image: ""
-  lien: ""
+  lien: "https://github.com/p3bri4n/scw-py-client"

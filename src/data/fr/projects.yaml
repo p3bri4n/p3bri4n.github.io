@@ -11,7 +11,7 @@
 
 - slug: "chocolatine"
   nom: "Chocolatine!"
-  description_courte: "Query builder SQL en Python, typé et sans concaténation de chaînes."
+  description_courte: "Query builder SQL en Python, plus fort que du pain au chocolat !"
   description: >
     Bibliothèque Python permettant de construire des requêtes SQL complexes de
     façon programmatique, avec autocomplétion IDE complète et vérification de
@@ -20,11 +20,11 @@
     ensemblistes (UNION/INTERSECT/EXCEPT), sans jamais passer par de la
     concaténation de chaînes. Publiée sur PyPI, couverte à 99% par les tests.
   tags: ["Langages:Python", "Langages:SQL", "Domaines:Query Builder", "Outils:PyPI", "Méthodologies:Tests"]
-  image: ""
+  image: "/images/logo-chocolatine.jpg"
   lien: ""
 
 - slug: "pitchoune"
-  nom: "Pitchoune"
+  nom: "Pitchoune!"
   description_courte: "Bibliothèque Python (Polars) pour charger/sauvegarder des données et dialoguer avec des LLM."
   description: >
     Surcouche à Polars pour charger et sauvegarder des données (xlsx, csv, tsv,
@@ -32,11 +32,11 @@
     des fonctions décorées et reprise sur erreur. Inclut aussi une intégration
     de chat avec un LLM, en local via Ollama ou via l'API OpenAI.
   tags: ["Langages:Python", "Outils:Polars", "Domaines:Data", "Outils:LLM", "Outils:Ollama"]
-  image: ""
+  image: "/images/logo-pitchoune.jpeg"
   lien: ""
 
 - slug: "legitifier"
-  nom: "Legitifier"
+  nom: "Legitifier!"
   description_courte: "Outil CLI pour évaluer la crédibilité de dépôts GitHub (fake stars, claims trompeurs)."
   description: >
     Outil en ligne de commande qui évalue la crédibilité d'un dépôt GitHub,
@@ -47,7 +47,7 @@
     heuristique définie en YAML, facile à auditer ou étendre. Supporte
     l'analyse par LLM (OpenAI, Anthropic ou Ollama en local).
   tags: ["Langages:Python", "Outils:CLI", "Domaines:Sécurité", "Méthodologies:Open Source", "Outils:LLM"]
-  image: ""
+  image: "/images/logo-legitifier.jpeg"
   lien: ""
 
 - slug: "agentic-ai-playground"
@@ -61,7 +61,7 @@
     terminal maison), le tout servi par vLLM. Chaque service a sa propre suite
     de tests isolée, sans dépendance à de vrais services tiers.
   tags: ["Outils:Docker!", "Outils:LangGraph", "Domaines:Agents IA", "Outils:MCP", "Outils:vLLM", "Méthodologies:RAG"]
-  image: ""
+  image: "/images/logo-agentic-ai-playground.jpg"
   lien: ""
 
 - slug: "solar-system-edu"
@@ -86,7 +86,7 @@
     Table, Common Data Bus). Hiérarchie mémoire configurable avec caches
     L1/L2 et prefetching.
   tags: ["Langages:Python", "Domaines:RISC-V", "Méthodologies:Architecture", "Méthodologies:Simulation", "Domaines:Éducatif"]
-  image: ""
+  image: "/images/logo-risc-v-32-edu.jpg"
   lien: ""
 
 - slug: "fastapi-fr"
@@ -111,7 +111,7 @@
     connexion.
   tags: ["Langages:Python", "Méthodologies:Scraping", "Méthodologies:Automatisation"]
   image: ""
-  lien: ""
+  lien: "https://github.com/p3bri4n/agreste-xlsx-scraping-edu"
 
 - slug: "registration"
   nom: "Registration API"
@@ -124,7 +124,7 @@
     requêtes SQL. Base MySQL, mots de passe chiffrés avec Bcrypt.
   tags: ["Langages:Python", "Outils:Flask", "Outils:MySQL", "Méthodologies:Architecture", "Outils:Docker"]
   image: ""
-  lien: ""
+  lien: "https://github.com/p3bri4n/registration-API-edu"
 
 - slug: "scw"
   nom: "Scaleway Python Client"
@@ -136,4 +136,4 @@
     (namespaces, déploiement).
   tags: ["Langages:Python", "Outils:Scaleway", "Domaines:Cloud", "Outils:API Client"]
   image: ""
-  lien: ""
+  lien: "https://github.com/p3bri4n/scw-py-client"
