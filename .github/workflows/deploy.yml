@@ -38,6 +38,7 @@ jobs:
           PUBLIC_GITHUB_URL: ${{ vars.PUBLIC_GITHUB_URL }}
           PUBLIC_LINKEDIN_URL: ${{ vars.PUBLIC_LINKEDIN_URL }}
           PUBLIC_TWITTER_URL: ${{ vars.PUBLIC_TWITTER_URL }}
+          PUBLIC_EASTER_EGG_GAME: ${{ vars.PUBLIC_EASTER_EGG_GAME }}
         run: npm run build
 
       - name: Upload artifact
