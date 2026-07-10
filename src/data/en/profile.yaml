@@ -10,14 +10,14 @@ stats:
   - valeur: "AI / NLP"
     label: "specialty"
 accroche: >
-  Passionate about AI and emerging technologies, I put that passion to work
-  through rigor and strategic thinking to build innovative solutions for
-  your business or clients.
+  Passionate about AI and emerging technologies, I combine rigor and
+  strategic thinking to design innovative solutions tailored to your
+  challenges.
 
 bio: >
-  Passionate about AI and emerging technologies, I put that passion to work
-  through rigor and strategic thinking to build innovative solutions for
-  your business or clients.
+  Passionate about AI and emerging technologies, I combine rigor and
+  strategic thinking to design innovative solutions tailored to your
+  challenges.
 
 parcours:
   - periode: "June 2026"
@@ -31,7 +31,7 @@ parcours:
     lieu: "KPAM"
     description: >
       Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics.
-    competences: ["Languages:Python!", "Domains:NLP!", "Tools:LLM!", "Tools:BERT", "Methodologies:Fine-tuning", "Methodologies:Reverse engineering", "Methodologies:Vibe coding", "Methodologies:Testing", "Methodologies:Freelancing"]
+    competences: ["Languages:Python!", "Domains:NLP!", "Domains:Big data", "Tools:LLM!", "Tools:BERT", "Methodologies:Fine-tuning", "Methodologies:Reverse engineering", "Methodologies:Vibe coding", "Methodologies:Testing", "Methodologies:Freelancing"]
   - periode: "January 2024 — March 2025"
     titre: "Software Engineer"
     lieu: "CVG médical"
@@ -43,13 +43,19 @@ parcours:
     lieu: "Airbus"
     description: >
       Test-based validation of offshore development for the FlowMetrics project & built a supply chain POC.
-    competences: ["Methodologies:Testing", "Methodologies:Business Analysis", "Domains:Supply Chain"]
+    competences: ["Methodologies:Testing", "Methodologies:Business Analysis", "Domains:Big data", "Domains:Supply Chain"]
   - periode: "July 2022 — November 2023"
     titre: "Product Management Business Partner (PMBP)"
     lieu: "Airbus"
     description: >
       Managed digital projects and data development in aeronautical industrial production (A350/A330 programs).
-    competences: ["Methodologies:Product Management", "Domains:Data", "Domains:Aerospace"]
+    competences: ["Languages:Python", "Tools:PySpark", "Methodologies:Product Management", "Domains:Big data", "Domains:Aerospace", "Methodologies:Freelancing"]
+  - periode: "June 2022 — July 2022"
+    titre: "DevOps Engineer"
+    lieu: "Digitcuto"
+    description: >
+      Built continuous integration tooling for a client in medical robotics.
+    competences: ["Languages:Python!", "Methodologies:CI/CD", "Tools:Jama", "Tools:Gitlab", "Domains:Robotics", "Domains:Medical", "Methodologies:Freelancing"]
   - periode: "February 2018 — March 2021 (4 years)"
     titre: "Consulting Software Engineer"
     lieu: "Inetum, Néo-Soft"
@@ -61,7 +67,7 @@ parcours:
     lieu: "OpenClassrooms"
     description: >
       Mentored more than 40 students on the "Python Application Developer" track & assessed final project defenses.
-    competences: ["Languages:Python", "Methodologies:Mentoring", "Methodologies:Teaching"]
+    competences: ["Languages:Python", "Methodologies:Mentoring", "Methodologies:Teaching", "Methodologies:Freelancing"]
   - periode: "January 2018"
     titre: "Professional certification as software designer / developer"
     lieu: "AFPA (Balma)"

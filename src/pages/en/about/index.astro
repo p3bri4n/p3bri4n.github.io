@@ -27,8 +27,8 @@ const stats = profile.stats.map((stat: { kind?: string; valeur?: string; label: 
 });
 ---
 
-<Layout lang={lang} pageKey="about" title={ui.nav.about} description={ui.meta.aboutDescription}>
-  <section class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-10">
+<Layout lang={lang} pageKey="about" title={ui.nav.about} description={ui.meta.aboutDescription} wide>
+  <section class="flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-left gap-6 mb-10">
     <Avatar nom={profile.nom} image={profile.avatar} size={96} />
     <div>
       <h1 class="text-3xl font-bold tracking-tight mb-1">{profile.nom}</h1>
@@ -36,12 +36,21 @@ const stats = profile.stats.map((stat: { kind?: string; valeur?: string; label: 
     </div>
   </section>
 
-  <section class="mb-10">
+  <section class="mb-10 text-center sm:text-left">
     <p class="text-slate-600 dark:text-slate-300 whitespace-pre-line">{profile.bio}</p>
   </section>
 
   <section class="mb-14">
     <KpiStats stats={stats} />
+  </section>
+
+  <section class="mb-14">
+    <h2 class="text-xl font-semibold mb-6">{ui.about.objectifsTitle}</h2>
+    <ul class="glass-panel rounded-lg p-6 space-y-3 list-disc list-inside text-slate-600 dark:text-slate-300">
+      {profile.objectifs.map((objectif: string) => (
+        <li>{objectif}</li>
+      ))}
+    </ul>
   </section>
 
   <section class="mb-14">

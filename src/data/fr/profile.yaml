@@ -10,10 +10,10 @@ stats:
   - valeur: "IA / NLP"
     label: "spécialité"
 accroche: >
-  Passionné d'IA et de nouvelles technologie, je mets ma passion au service de ma rigueur et de mon sens stratégique pour mettre au point des solutions innovantes pour votre entreprise/client.
+  Passionné d'IA et de nouvelles technologies, j'allie rigueur et sens stratégique pour concevoir des solutions innovantes adaptées à vos enjeux.
 
 bio: >
-  Passionné d'IA et de nouvelles technologie, je mets ma passion au service de ma rigueur et de mon sens stratégique pour mettre au point des solutions innovantes pour votre entreprise/client.
+  Passionné d'IA et de nouvelles technologies, j'allie rigueur et sens stratégique pour concevoir des solutions innovantes adaptées à vos enjeux.
 
 parcours:
   - periode: "Juin 2026"
@@ -27,7 +27,7 @@ parcours:
     lieu: "KPAM"
     description: >
       Conception & développement de la suite logicielle Athena pour remplacer 15 outils Excel/VBA legacy dans le domaine de l'analyse de l'expérience client.
-    competences: ["Langages:Python!", "Domaines:NLP!", "Outils:LLM!", "Outils:BERT", "Méthodologies:Fine-tuning", "Méthodologies:Rétro-ingénierie", "Méthodologies:Vibe coding", "Méthodologies:Tests", "Méthodologies:Freelancing"]
+    competences: ["Langages:Python!", "Domaines:NLP!", "Domaines:Big data", "Outils:LLM!", "Outils:BERT", "Méthodologies:Fine-tuning", "Méthodologies:Rétro-ingénierie", "Méthodologies:Vibe coding", "Méthodologies:Tests", "Méthodologies:Freelancing"]
   - periode: "Janvier 2024 — Mars 2025"
     titre: "Ingénieur logiciel"
     lieu: "CVG médical"
@@ -39,13 +39,19 @@ parcours:
     lieu: "Airbus"
     description: >
       Validation par les tests du développement offshore pour le projet FlowMetrics & développement d'un POC dans le domaine de la supply chain
-    competences: ["Méthodologies:Tests", "Méthodologies:Business Analysis", "Domaines:Supply Chain"]
+    competences: ["Méthodologies:Tests", "Méthodologies:Business Analysis", "Domaines:Big data", "Domaines:Supply Chain"]
   - periode: "Juillet 2022 — Novembre 2023"
     titre: "Product Management Business Partner (PMBP)"
     lieu: "Airbus"
     description: >
       Management de projets digitaux et développement data dans la production industrielle aéronautique (programmes A350/A330).
-    competences: ["Méthodologies:Product Management", "Domaines:Data", "Domaines:Aéronautique"]
+    competences: ["Langages:Python", "Outils:PySpark", "Méthodologies:Product Management", "Domaines:Big data", "Domaines:Aéronautique", "Méthodologies:Freelancing"]
+  - periode: "Juin 2022 — Juillet 2022"
+    titre: "Ingénieur DevOps"
+    lieu: "Digitcuto"
+    description: >
+      Développement d'outils d'intégration continue pour un client dans le domaine de la robotique médicale.
+    competences: ["Langages:Python!", "Méthodologies:CI/CD", "Outils:Jama", "Outils:Gitlab", "Domaines:Robotique", "Domaines:Médical", "Méthodologies:Freelancing"]
   - periode: "Février 2018 — Mars 2021 (4 ans)"
     titre: "Ingénieur informatique consultant"
     lieu: "Inetum, Néo-Soft"
@@ -57,7 +63,7 @@ parcours:
     lieu: "OpenClassrooms"
     description: >
       Mentorat de plus de 40 étudiants sur le parcours "Développeur d'applications Python" & évaluations lors des soutenances
-    competences: ["Langages:Python", "Méthodologies:Mentorat", "Méthodologies:Pédagogie"]
+    competences: ["Langages:Python", "Méthodologies:Mentorat", "Méthodologies:Pédagogie", "Méthodologies:Freelancing"]
   - periode: "Janvier 2018"
     titre: "Titre professionnel de concepteur / développeur informatique"
     lieu: "AFPA (Balma)"
