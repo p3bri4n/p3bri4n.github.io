@@ -52,8 +52,7 @@ const navOrder = NAV_ORDER.map((key) => ({ fr: ROUTES[key].fr, en: ROUTES[key].e
     <ClientRouter />
     <script is:inline>
       const stored = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = stored ? stored === 'dark' : prefersDark;
+      const isDark = stored ? stored === 'dark' : true;
       document.documentElement.classList.toggle('dark', isDark);
     </script>
     <script is:inline>
