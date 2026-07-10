@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { ClientRouter, slide } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
 import AuroraBackground from '../components/AuroraBackground.astro';
 import { site } from '../config';
 import { getUi } from '../i18n/content';
@@ -15,9 +16,10 @@ interface Props {
   description?: string;
   altHrefFr?: string;
   altHrefEn?: string;
+  wide?: boolean;
 }
 
-const { lang, pageKey, title, description, altHrefFr, altHrefEn } = Astro.props;
+const { lang, pageKey, title, description, altHrefFr, altHrefEn, wide = false } = Astro.props;
 const ui = getUi(lang);
 const pageTitle = title ? `${title} — ${site.name}` : site.name;
 const pageDescription = description ?? ui.meta.defaultDescription;
@@ -45,6 +47,8 @@ const navOrder = NAV_ORDER.map((key) => ({ fr: ROUTES[key].fr, en: ROUTES[key].e
     <meta name="description" content={pageDescription} />
     <link rel="alternate" hreflang="fr" href={`${site.url}${hrefFr}`} />
     <link rel="alternate" hreflang="en" href={`${site.url}${hrefEn}`} />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} — FR`} href={`${site.url}/rss.xml`} />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} — EN`} href={`${site.url}/en/rss.xml`} />
     <ClientRouter />
     <script is:inline>
       const stored = localStorage.getItem('theme');
@@ -92,6 +96,20 @@ const navOrder = NAV_ORDER.map((key) => ({ fr: ROUTES[key].fr, en: ROUTES[key].e
         if (fromIndex !== -1 && toIndex !== -1 && fromIndex !== toIndex) {
           event.direction = toIndex > fromIndex ? 'forward' : 'back';
         }
+
+        // Le header sticky peut être caché (scroll vers le bas) ou dans un état
+        // intermédiaire au moment où la transition démarre. Comme il n'est pas
+        // dans le scope transition:name="page" (seul <main> glisse), un
+        // changement d'état vertical du header en même temps que le slide
+        // horizontal de <main> se perçoit comme un mouvement diagonal. On
+        // remet tout à plat juste avant la capture des images de transition.
+        document.getElementById('site-header')?.classList.remove('-translate-y-full');
+        // scrollTo instantané : <html> a scroll-smooth (scroll-behavior: smooth),
+        // donc un scrollTo(0, 0) classique anime le retour en haut au lieu de
+        // sauter directement — cette animation de scroll se jouait *en même
+        // temps* que le slide horizontal de la transition, d'où l'impression
+        // de mouvement diagonal. "instant" court-circuite le CSS.
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       });
 
       // Bug connu des View Transitions : swapRootAttributes() remplace tous les
@@ -114,11 +132,17 @@ const navOrder = NAV_ORDER.map((key) => ({ fr: ROUTES[key].fr, en: ROUTES[key].e
   </head>
   <body class="min-h-screen text-slate-800 dark:text-slate-100 flex flex-col">
     <AuroraBackground />
-    <Header lang={lang} ui={ui} hrefFr={hrefFr} hrefEn={hrefEn} />
-    <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-10" transition:name="page" transition:animate={slide({ duration: '350ms' })}>
+    <Header lang={lang} ui={ui} hrefFr={hrefFr} hrefEn={hrefEn} wide={wide} />
+    <main
+      data-content-column
+      class:list={['flex-1 w-full mx-auto px-4 pt-10 pb-28', wide ? 'max-w-5xl' : 'max-w-3xl']}
+      transition:name="page"
+      transition:animate={slide({ duration: '350ms' })}
+    >
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} ui={ui} wide={wide} />
+    <ScrollToTop ariaLabel={ui.aria.scrollTop} />
     <script>
       document.addEventListener('astro:page-load', () => {
         document.querySelectorAll<HTMLAnchorElement>('a[data-mail-user]').forEach((link) => {

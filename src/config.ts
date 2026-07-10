@@ -17,6 +17,7 @@ export const site = {
   contactEmail,
   mailUser,
   mailDomain,
+  easterEggGame: required('PUBLIC_EASTER_EGG_GAME'),
   social: {
     github: import.meta.env.PUBLIC_GITHUB_URL ?? '',
     linkedin: import.meta.env.PUBLIC_LINKEDIN_URL ?? '',

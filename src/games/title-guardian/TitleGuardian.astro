@@ -1,0 +1,1078 @@
+---
+// Easter egg "Title Guardian" : voir README.md dans ce dossier pour la
+// documentation complète (concept, cycle de vie, effets, constantes).
+// Le style ci-dessous est `is:global` car il cible des éléments rendus par
+// Header.astro (#site-logo, #logo-slash, .rip-message...), pas par ce
+// composant lui-même — le scoping par défaut d'Astro ne s'appliquerait pas.
+---
+
+<div id="game-area" class="hidden absolute inset-0 z-10">
+  <canvas id="brick-canvas" class="absolute inset-0 w-full h-full cursor-none"></canvas>
+</div>
+
+<style is:global>
+  @keyframes logo-glitch {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    10% {
+      transform: translateX(-2px);
+    }
+    20% {
+      transform: translateX(2px);
+    }
+    30% {
+      transform: translateX(-1px);
+    }
+    40% {
+      transform: translateX(1px);
+    }
+    50% {
+      transform: translateX(-2px);
+    }
+    60% {
+      transform: translateX(2px);
+    }
+    70%,
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .logo-glitching {
+    animation: logo-glitch 1.3s steps(3, end);
+  }
+
+  @keyframes slash-spin {
+    0% {
+      transform: rotate(0deg) scale(1);
+      color: inherit;
+    }
+    50% {
+      transform: rotate(180deg) scale(1.4);
+      color: rgb(56 189 248);
+    }
+    100% {
+      transform: rotate(360deg) scale(1);
+      color: inherit;
+    }
+  }
+
+  .slash-spin {
+    display: inline-block;
+    animation: slash-spin 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes logo-powerup {
+    0%,
+    100% {
+      transform: scale(1.89);
+      text-shadow:
+        0 0 8px rgba(251, 146, 60, 0.9),
+        0 0 16px rgba(239, 68, 68, 0.7),
+        0 0 26px rgba(250, 204, 21, 0.5);
+    }
+    50% {
+      transform: scale(2.16);
+      text-shadow:
+        0 0 14px rgba(251, 146, 60, 1),
+        0 0 26px rgba(239, 68, 68, 0.9),
+        0 0 38px rgba(250, 204, 21, 0.7);
+    }
+  }
+
+  .logo-powerup {
+    display: inline-block;
+    transform-origin: left center;
+    color: rgb(251 146 60);
+    animation: logo-powerup 0.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes logo-hit {
+    0%,
+    100% {
+      color: inherit;
+    }
+    50% {
+      color: rgb(239 68 68);
+    }
+  }
+
+  .logo-hit {
+    animation: logo-hit 0.25s ease-in-out;
+  }
+
+  .slash-shield {
+    position: absolute;
+    pointer-events: none;
+    font-size: 0.94em;
+    font-weight: 800;
+    color: rgb(56 189 248);
+    text-shadow:
+      0 0 6px rgba(56, 189, 248, 0.9),
+      0 0 14px rgba(56, 189, 248, 0.6);
+    transition: top 0.05s linear;
+  }
+
+  .shatter-letter {
+    display: inline-block;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.56, 1), opacity 0.8s ease;
+  }
+
+  @keyframes rip-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .rip-message {
+    display: inline-block;
+    margin-left: 0.5em;
+    font-size: 0.75em;
+    font-style: italic;
+    font-weight: 500;
+    color: rgb(100 116 139);
+    animation: rip-fade-in 0.6s ease both;
+  }
+
+  @keyframes logo-victory {
+    0%,
+    100% {
+      transform: scale(1);
+      color: inherit;
+    }
+    50% {
+      transform: scale(1.3);
+      color: rgb(250 204 21);
+    }
+  }
+
+  .logo-victory {
+    display: inline-block;
+    animation: logo-victory 0.4s ease-in-out 3;
+  }
+
+  .slash-medal {
+    display: inline-block;
+    font-size: 1.1em;
+    filter: drop-shadow(0 0 6px rgba(250, 204, 21, 0.8));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-glitching,
+    .slash-spin,
+    .logo-powerup,
+    .logo-hit,
+    .logo-victory {
+      animation: none;
+    }
+    .shatter-letter {
+      transition: none;
+    }
+    .rip-message {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const GLITCH_INTERVAL = 15000;
+  const GLITCH_ANIM_DURATION = 1300;
+  const INITIAL_DELAY = 600;
+  const SALVO_LETTER_INTERVAL = 130;
+  const WORD_GAP_MIN = 700;
+  const WORD_GAP_MAX = 1700;
+  const LASER_GAP_MIN = 700;
+  const LASER_GAP_MAX = 1600;
+  const LASER_COUNT = 3;
+  const LASER_MELT_INTERVAL = 260;
+  const TRAVEL_TIME_MS = 1700;
+  const DEFLECT_FADE_MS = 450;
+  const OCTOPUS_BOB_AMPLITUDE = 16;
+  const GRAVITY = 0.35;
+  const RESET_DELAY_MS = 5000;
+  const RESET_FADE_MS = 600;
+  const SALVO_ACCEL_FRACTION_MIN = 0.015;
+  const SALVO_ACCEL_FRACTION_MAX = 0.05;
+  const SHIELD_IMPACT_MS = 260;
+
+  function randomBetween(min: number, max: number) {
+    return min + Math.random() * (max - min);
+  }
+
+  // État partagé au niveau du module (et non de la callback astro:page-load) :
+  // le header n'est pas persisté d'une page à l'autre (nouveaux nœuds DOM à
+  // chaque navigation), mais le minuteur du glitch, lui, ne doit jamais
+  // repartir de zéro — seule cette portée module survit aux navigations.
+  let glitchTimer: ReturnType<typeof setInterval> | null = null;
+  let gameActive = false;
+  let gameOverForever = false;
+  let rafId: number | null = null;
+
+  function triggerGlitch() {
+    if (gameActive || gameOverForever || window.innerWidth < 768) return;
+    const logo = document.getElementById('site-logo');
+    const slash = document.getElementById('logo-slash');
+    if (!logo) return;
+    logo.classList.add('logo-glitching');
+    slash?.classList.add('slash-spin');
+    window.setTimeout(() => {
+      logo.classList.remove('logo-glitching');
+      slash?.classList.remove('slash-spin');
+    }, GLITCH_ANIM_DURATION);
+  }
+
+  function restartGlitchTimer() {
+    if (glitchTimer) clearInterval(glitchTimer);
+    glitchTimer = setInterval(triggerGlitch, GLITCH_INTERVAL);
+  }
+
+  // Ne démarre qu'une seule fois, à la toute première exécution du module —
+  // le script lui-même n'est jamais réévalué entre deux navigations SPA.
+  if (!glitchTimer) {
+    restartGlitchTimer();
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    const logo = document.getElementById('site-logo') as HTMLAnchorElement | null;
+    const logoBase = document.getElementById('logo-base');
+    const slash = document.getElementById('logo-slash');
+    const nav = document.querySelector('nav') as HTMLElement | null;
+    const gameArea = document.getElementById('game-area');
+    const canvas = document.getElementById('brick-canvas') as HTMLCanvasElement | null;
+    const fuseBar = document.getElementById('fuse-bar');
+    const fuseFlame = document.getElementById('fuse-flame');
+    if (!logo || !logoBase || !slash || !nav || !gameArea || !canvas || !fuseBar || !fuseFlame) return;
+
+    if (rafId) cancelAnimationFrame(rafId);
+    gameActive = false;
+    gameArea.classList.add('hidden');
+    logo.classList.remove('logo-glitching', 'logo-powerup');
+    slash.classList.remove('slash-shield');
+    slash.style.top = '';
+    slash.style.left = '';
+    document.getElementById('rip-message')?.remove();
+
+    // ---- défense du titre contre le poulpe ----
+    const ctx = canvas.getContext('2d');
+    let W = 0;
+    let H = 0;
+    let SHIELD_X = 0;
+    const PADDLE_H = 18;
+
+    type Phase = 'dodge' | 'laser';
+    let phase: Phase = 'dodge';
+    let paddleY = 0;
+    let octopusPhase = 0;
+    let projectiles: {
+      x: number;
+      y: number;
+      speed: number;
+      accel: number;
+      maxSpeed: number;
+      char: string;
+      trail: { x: number; y: number }[];
+      deflected: boolean;
+      dvx: number;
+      dvy: number;
+      fadeAlpha: number;
+    }[] = [];
+    let logoChars: HTMLElement[] = [];
+    let remainingCount = 0;
+    let menuLetterSpans: HTMLElement[] = [];
+    let wordEndIndices = new Set<number>();
+    let nextLetterIndex = 0;
+    // Lettres du titre touchées : tombent et se posent au sol directement
+    // dans le canvas (même repère que tout le reste du jeu — bien plus
+    // fiable qu'un élément DOM séparé à repositionner à la main).
+    let fallingDebris: { x: number; y: number; vy: number; rot: number; vrot: number; char: string; resting: boolean }[] = [];
+    let laserY = 0;
+    let laserOriginX = 0;
+    let laserBobCenter = 0;
+    let laserActive = false;
+    let laserMeltTimer = 0;
+    let laserShotsFired = 0;
+    // flash d'impact quand le laser est bloqué net par le bouclier : il n'y a
+    // pas de frame où `laserActive` reste vrai pour ce point d'impact (il
+    // s'arrête le frame même du blocage), donc un minuteur dédié permet de
+    // quand même afficher un éclat bref à cet endroit.
+    let shieldImpactTimer = 0;
+    let nextActionTimeout: number | null = null;
+    let resetTimeout: number | null = null;
+    let lastTs = 0;
+    // pause (souris hors fenêtre) : l'action différée en cours (prochaine
+    // lettre, prochain laser...) est annulée puis reprogrammée avec le temps
+    // restant au retour, plutôt que perdue ou laissée courir en aveugle.
+    let paused = false;
+    let pendingActionFn: (() => void) | null = null;
+    let pendingDelay = 0;
+    let pendingScheduledAt = 0;
+    let pendingRemaining = 0;
+    // une seule accélération aléatoire par salve de mot (et non plus une par
+    // lettre) : toutes les lettres d'un même mot tiré accélèrent au même rythme.
+    let currentSalvoAccelFraction = 0;
+    const TRAIL_LENGTH = 5;
+
+    // Mesure la largeur/hauteur réelles de la nav et la position du logo (le
+    // bouclier), pour que le jeu s'adapte à la largeur d'écran.
+    function measureLayout() {
+      const navRect = nav!.getBoundingClientRect();
+      W = navRect.width;
+      H = navRect.height;
+      canvas!.width = W;
+      canvas!.height = H;
+
+      const logoRect = logo!.getBoundingClientRect();
+      SHIELD_X = logoRect.right - navRect.left + 8;
+    }
+
+    // Découpe les 4 liens du menu en lettres individuelles mesurables : le
+    // poulpe se positionnera devant chacune, dans l'ordre, avant de
+    // l'envoyer par salves (un mot entier d'un coup, puis pause) — le menu
+    // se vide donc de gauche à droite au fil du jeu. wordEndIndices retient
+    // l'index de la dernière lettre de chaque mot, pour rythmer les salves.
+    function splitMenuIntoLetters(): { spans: HTMLElement[]; wordEnds: Set<number> } {
+      const linkEls = Array.from(document.querySelectorAll<HTMLElement>('#nav-page-links a'));
+      const spans: HTMLElement[] = [];
+      const wordEnds = new Set<number>();
+      for (const link of linkEls) {
+        const chars = [...(link.textContent ?? '')];
+        link.textContent = '';
+        for (const ch of chars) {
+          const span = document.createElement('span');
+          span.textContent = ch;
+          link.appendChild(span);
+          spans.push(span);
+        }
+        if (spans.length > 0) wordEnds.add(spans.length - 1);
+      }
+      return { spans, wordEnds };
+    }
+
+    // Toujours restaurée en fin de partie (victoire, défaite ou abandon) :
+    // contrairement au logo, le menu reste un élément de navigation
+    // fonctionnel, il ne doit jamais rester mutilé.
+    function restoreMenuLetters() {
+      if (menuLetterSpans.length === 0) return;
+      const byLink = new Map<HTMLElement, string>();
+      for (const span of menuLetterSpans) {
+        const link = span.parentElement as HTMLElement | null;
+        if (!link) continue;
+        byLink.set(link, (byLink.get(link) ?? '') + (span.textContent ?? ''));
+      }
+      for (const [link, text] of byLink) {
+        link.textContent = text;
+      }
+      menuLetterSpans = [];
+      nextLetterIndex = 0;
+    }
+
+    function canvasLocal(rect: DOMRect) {
+      const navRect = nav!.getBoundingClientRect();
+      return { x: rect.left - navRect.left + rect.width / 2, y: rect.top - navRect.top + rect.height / 2 };
+    }
+
+    // Position de la prochaine lettre du menu à voler (le poulpe se tient
+    // devant), ou une position de repli une fois le menu épuisé.
+    function nextTargetPos() {
+      if (nextLetterIndex < menuLetterSpans.length) {
+        return canvasLocal(menuLetterSpans[nextLetterIndex].getBoundingClientRect());
+      }
+      return { x: W - 24, y: H / 2 };
+    }
+
+    // Amplitude de mouvement vertical accentuée : le poulpe se déplace
+    // nettement pendant qu'il tire une salve.
+    function octopusPos() {
+      const target = nextTargetPos();
+      return { x: target.x, y: target.y + Math.sin(octopusPhase) * OCTOPUS_BOB_AMPLITUDE };
+    }
+
+    function updateFuseProgress() {
+      const total = menuLetterSpans.length || 1;
+      const remainingFrac = Math.max(1 - nextLetterIndex / total, 0);
+      fuseFlame!.style.transform = `scaleX(${remainingFrac})`;
+    }
+
+    // Une lettre touchée tombe (gravité) et se pose au sol du canvas, où
+    // elle reste indéfiniment — le titre, lui, se raccourcit aussitôt.
+    function loseTitleLetter() {
+      if (remainingCount <= 0) return;
+      remainingCount--;
+      const span = logoChars[remainingCount];
+      const pos = canvasLocal(span.getBoundingClientRect());
+      const char = span.textContent ?? '';
+      span.style.display = 'none';
+      fallingDebris.push({
+        x: pos.x,
+        y: pos.y,
+        vy: 0,
+        rot: 0,
+        vrot: (Math.random() - 0.5) * 0.25,
+        char,
+        resting: false,
+      });
+      if (remainingCount <= 0) {
+        lose();
+      }
+    }
+
+    function updateDebris(dt: number) {
+      const groundY = H - 4;
+      for (const d of fallingDebris) {
+        if (d.resting) continue;
+        d.vy += GRAVITY * (dt / 16);
+        d.y += d.vy * (dt / 16);
+        d.rot += d.vrot * (dt / 16);
+        if (d.y >= groundY) {
+          d.y = groundY;
+          d.resting = true;
+        }
+      }
+    }
+
+    // Position d'impact réelle du laser quand il n'est pas bloqué : la
+    // lettre la plus à droite encore visible du titre, pas un point fixe.
+    // Le titre rétrécit par la droite au fil de la fonte (voir
+    // loseTitleLetter), alors que le bouclier reste toujours à `SHIELD_X` —
+    // les deux points divergent donc visiblement dès qu'une lettre a fondu,
+    // ce qui est voulu : le rayon doit s'arrêter sur le bouclier s'il
+    // intercepte, sinon sur la lettre qu'il est réellement en train de
+    // faire fondre (plus loin à gauche).
+    function currentLetterImpactPos() {
+      if (remainingCount <= 0) return { x: SHIELD_X, y: laserY };
+      return canvasLocal(logoChars[remainingCount - 1].getBoundingClientRect());
+    }
+
+    // Éclairs de "soudure" façon poste à souder : quelques éclats
+    // lumineux régénérés aléatoirement à chaque frame (d'où l'effet de
+    // crépitement) autour d'un point chaud central, à l'endroit exact où le
+    // laser rencontre son obstacle (bouclier ou lettre).
+    function drawWeldSparks(x: number, y: number, intensity = 1) {
+      if (!ctx) return;
+      ctx.save();
+      ctx.lineCap = 'round';
+      const sparkCount = Math.round(5 * intensity) + 2;
+      for (let i = 0; i < sparkCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const len = (6 + Math.random() * 16) * intensity;
+        ctx.strokeStyle = Math.random() < 0.5 ? '#fef08a' : '#f472b6';
+        ctx.shadowColor = ctx.strokeStyle;
+        ctx.shadowBlur = 10;
+        ctx.lineWidth = 1.5 + Math.random() * 1.5;
+        ctx.globalAlpha = (0.5 + Math.random() * 0.5) * intensity;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + Math.cos(angle) * len, y + Math.sin(angle) * len);
+        ctx.stroke();
+      }
+      // point chaud central, façon flash de soudure.
+      ctx.globalAlpha = intensity;
+      ctx.fillStyle = '#fffbeb';
+      ctx.shadowColor = '#fffbeb';
+      ctx.shadowBlur = 16;
+      ctx.beginPath();
+      ctx.arc(x, y, (2.5 + Math.random() * 2) * intensity, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawDebris() {
+      if (!ctx || fallingDebris.length === 0) return;
+      ctx.font = 'bold 13px ui-monospace, monospace';
+      ctx.fillStyle = '#94a3b8';
+      for (const d of fallingDebris) {
+        ctx.save();
+        ctx.translate(d.x, d.y);
+        ctx.rotate(d.rot);
+        ctx.fillText(d.char, 0, 0);
+        ctx.restore();
+      }
+    }
+
+    function draw() {
+      if (!ctx) return;
+      // fond transparent : rien ne doit trahir la présence d'un cadre de jeu.
+      ctx.clearRect(0, 0, W, H);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      if (gameActive) {
+        ctx.font = '34px serif';
+
+        if (phase === 'dodge') {
+          const pos = octopusPos();
+          ctx.fillText('🐙', pos.x, pos.y);
+
+          ctx.font = 'bold 13px ui-monospace, monospace';
+          ctx.fillStyle = '#f472b6';
+          for (const p of projectiles) {
+            if (p.deflected) {
+              ctx.globalAlpha = Math.max(p.fadeAlpha, 0);
+              ctx.fillText(p.char, p.x, p.y);
+              ctx.globalAlpha = 1;
+              continue;
+            }
+            // traînée : copies fantômes de plus en plus transparentes aux
+            // anciennes positions, sans jamais assombrir tout le canvas (le
+            // fond doit rester invisible).
+            const n = p.trail.length;
+            for (let j = 0; j < n; j++) {
+              ctx.globalAlpha = ((j + 1) / (n + 1)) * 0.45;
+              ctx.fillText(p.char, p.trail[j].x, p.trail[j].y);
+            }
+            ctx.globalAlpha = 1;
+            ctx.fillText(p.char, p.x, p.y);
+          }
+        } else {
+          // le poulpe se déplace (même amplitude) tant qu'il n'a pas encore
+          // tiré, puis se fige exactement sur la hauteur du rayon en cours.
+          const y = laserActive ? laserY : laserBobCenter + Math.sin(octopusPhase) * OCTOPUS_BOB_AMPLITUDE;
+          ctx.fillText('🐙', laserOriginX, y);
+          if (laserActive) {
+            const blockedNow = paddleY - 4 <= laserY && laserY <= paddleY + PADDLE_H + 4;
+            // s'il est bloqué, le rayon s'arrête net au bouclier ; sinon il
+            // continue jusqu'à la lettre qu'il est en train de faire fondre,
+            // plus loin à gauche à mesure que le titre rétrécit.
+            const impact = blockedNow ? { x: SHIELD_X, y: laserY } : currentLetterImpactPos();
+            // pulsation légère du faisceau pour un effet de puissance plus
+            // vivant qu'un simple trait statique.
+            const flicker = 0.85 + Math.sin(performance.now() * 0.05) * 0.15;
+            ctx.save();
+            // halo large : la couche la plus visible de l'effet "puissance".
+            ctx.strokeStyle = '#f472b6';
+            ctx.shadowColor = '#f472b6';
+            ctx.globalAlpha = 0.35 * flicker;
+            ctx.shadowBlur = 34;
+            ctx.lineWidth = 20 * flicker;
+            ctx.beginPath();
+            ctx.moveTo(impact.x, impact.y);
+            ctx.lineTo(laserOriginX - 14, y);
+            ctx.stroke();
+            // couche intermédiaire, plus dense.
+            ctx.globalAlpha = 0.75 * flicker;
+            ctx.shadowBlur = 22;
+            ctx.lineWidth = 8 * flicker;
+            ctx.beginPath();
+            ctx.moveTo(impact.x, impact.y);
+            ctx.lineTo(laserOriginX - 14, y);
+            ctx.stroke();
+            // cœur blanc-chaud, fin et vif.
+            ctx.strokeStyle = '#fffbeb';
+            ctx.shadowColor = '#fffbeb';
+            ctx.globalAlpha = 1;
+            ctx.shadowBlur = 14;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(impact.x, impact.y);
+            ctx.lineTo(laserOriginX - 14, y);
+            ctx.stroke();
+            ctx.restore();
+
+            // impact "soudure" tant que ça fait fondre une lettre (pas
+            // bloqué) : éclairs lumineux crépitants à l'endroit exact.
+            if (!blockedNow) drawWeldSparks(impact.x, impact.y);
+          }
+
+          // flash bref quand le laser vient d'être stoppé net par le
+          // bouclier : `laserActive` est déjà retombé à `false` le frame même
+          // du blocage, donc ce minuteur dédié est ce qui reste pour montrer
+          // l'impact.
+          if (shieldImpactTimer > 0) {
+            drawWeldSparks(SHIELD_X, laserY, shieldImpactTimer / SHIELD_IMPACT_MS);
+          }
+        }
+      }
+
+      drawDebris();
+    }
+
+    // Remplace tout `nextActionTimeout = window.setTimeout(fn, delay)` : garde
+    // en mémoire la fonction, le délai et l'instant de programmation, pour
+    // pouvoir suspendre puis reprendre l'action avec le temps restant exact
+    // (voir pauseGame/resumeGame) plutôt que de la perdre ou de la relancer
+    // depuis zéro.
+    function scheduleAction(fn: () => void, delay: number) {
+      pendingActionFn = fn;
+      pendingDelay = delay;
+      pendingScheduledAt = performance.now();
+      nextActionTimeout = window.setTimeout(() => {
+        nextActionTimeout = null;
+        pendingActionFn = null;
+        fn();
+      }, delay);
+    }
+
+    function clearAllTimers() {
+      if (nextActionTimeout) clearTimeout(nextActionTimeout);
+      nextActionTimeout = null;
+      pendingActionFn = null;
+    }
+
+    // Suspend le jeu (souris hors de la fenêtre) : arrête la boucle de rendu
+    // et l'action différée en cours, sans rien réinitialiser — projectiles,
+    // lettres perdues et progression restent en l'état jusqu'au retour.
+    function pauseGame() {
+      if (!gameActive || paused) return;
+      paused = true;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+      if (nextActionTimeout) {
+        clearTimeout(nextActionTimeout);
+        nextActionTimeout = null;
+        pendingRemaining = Math.max(pendingDelay - (performance.now() - pendingScheduledAt), 0);
+      }
+    }
+
+    // Reprend le jeu là où il en était : relance la boucle (lastTs remis à 0
+    // pour éviter un `dt` géant dû au temps passé en pause) et reprogramme
+    // l'action différée avec le temps restant calculé à la mise en pause.
+    function resumeGame() {
+      if (!gameActive || !paused) return;
+      paused = false;
+      lastTs = 0;
+      rafId = requestAnimationFrame(loop);
+      if (pendingActionFn) {
+        scheduleAction(pendingActionFn, pendingRemaining);
+      }
+    }
+
+    function stopLoopAndListeners() {
+      canvas!.removeEventListener('mousemove', onMouseMove);
+      canvas!.removeEventListener('mouseleave', onCanvasLeave);
+      gameActive = false;
+      paused = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+      clearAllTimers();
+      fuseBar!.classList.add('hidden');
+      projectiles = [];
+      restoreMenuLetters();
+    }
+
+    function fallAndFade(el: HTMLElement, maxOpacity = 0.55) {
+      el.classList.add('shatter-letter');
+      requestAnimationFrame(() => {
+        const fall = 6 + Math.random() * 8;
+        const rot = (Math.random() * 70 - 35).toFixed(1);
+        el.style.transform = `translateY(${fall}px) rotate(${rot}deg)`;
+        el.style.opacity = String(maxOpacity);
+      });
+    }
+
+    // Détache le bouclier de la zone de jeu (qui va être masquée) vers le
+    // <body>, figé à sa position actuelle à l'écran, pour qu'il puisse
+    // continuer à tomber/s'estomper indépendamment et rester visible.
+    function detachShieldToBody() {
+      const rect = slash!.getBoundingClientRect();
+      slash!.classList.remove('slash-shield');
+      slash!.style.left = `${rect.left}px`;
+      slash!.style.top = `${rect.top}px`;
+      slash!.style.position = 'fixed';
+      document.body.appendChild(slash!);
+    }
+
+    function dropShield() {
+      detachShieldToBody();
+      fallAndFade(slash!, 0.5);
+    }
+
+    function showRipMessage() {
+      const isFr = document.documentElement.lang !== 'en';
+      const message = isFr ? 'RIP titre bien-aimé 😢' : 'RIP beloved title 😢';
+      const rip = document.createElement('span');
+      rip.id = 'rip-message';
+      rip.className = 'rip-message';
+      rip.textContent = message;
+      logoBase!.after(rip);
+    }
+
+    // Victoire = titre restauré dans son intégralité (les lettres perdues en
+    // route reviennent, leurs débris disparaissent), avant la médaille. Le
+    // bouclier est remis à sa place dans le logo tout de suite, avant que la
+    // zone de jeu ne soit masquée — sinon il resterait invisible le temps de
+    // l'animation.
+    function playVictoryThenMedal() {
+      gameArea!.classList.add('hidden');
+      fallingDebris = [];
+      for (const span of logoChars) {
+        span.style.display = '';
+        span.style.transform = '';
+        span.style.opacity = '';
+        span.classList.remove('shatter-letter');
+      }
+      slash!.classList.remove('slash-shield');
+      slash!.style.position = '';
+      slash!.style.top = '';
+      slash!.style.left = '';
+      logoBase!.after(slash!);
+
+      logo!.classList.add('logo-victory');
+      window.setTimeout(() => {
+        logo!.classList.remove('logo-victory');
+        slash!.textContent = '🏅';
+        slash!.classList.add('slash-medal');
+        scheduleAutoReset();
+      }, 1300);
+    }
+
+    function fadeOpacity(el: HTMLElement | null, target: number, duration: number) {
+      if (!el) return;
+      el.style.transition = `opacity ${duration}ms ease`;
+      el.style.opacity = String(target);
+    }
+
+    // Remet tout dans l'état initial : titre entier, "/" normal repris dans le
+    // logo (qu'il soit resté détaché dans le <body> après une défaite, ou déjà
+    // dans le logo après une victoire), débris et message RIP effacés, jeu de
+    // nouveau jouable (le minuteur de glitch repart).
+    function performReset() {
+      fallingDebris = [];
+      document.getElementById('rip-message')?.remove();
+      if (ctx) ctx.clearRect(0, 0, W, H);
+      gameArea!.classList.add('hidden');
+
+      for (const span of logoChars) {
+        span.style.display = '';
+        span.style.transform = '';
+        span.style.opacity = '';
+        span.classList.remove('shatter-letter');
+      }
+
+      slash!.classList.remove('slash-shield', 'slash-medal', 'shatter-letter');
+      slash!.style.position = '';
+      slash!.style.top = '';
+      slash!.style.left = '';
+      slash!.style.opacity = '';
+      slash!.style.transform = '';
+      slash!.textContent = '/';
+      logoBase!.after(slash!);
+
+      logo!.classList.remove('logo-powerup', 'logo-victory');
+
+      gameOverForever = false;
+      restartGlitchTimer();
+    }
+
+    // 5 secondes après la fin de partie (victoire ou défaite), la scène finale
+    // (titre détruit + débris, ou médaille) s'estompe, tout est réinitialisé
+    // pendant que c'est invisible, puis le header réapparaît en fondu — pour
+    // qu'une nouvelle partie redevienne possible sans rechargement de page.
+    function scheduleAutoReset() {
+      if (resetTimeout) clearTimeout(resetTimeout);
+      resetTimeout = window.setTimeout(() => {
+        resetTimeout = null;
+        const fadingEls = [logo, gameArea, slash];
+        for (const el of fadingEls) fadeOpacity(el, 0, RESET_FADE_MS);
+
+        window.setTimeout(() => {
+          performReset();
+          for (const el of fadingEls) {
+            if (!el) continue;
+            el.style.transition = 'none';
+            el.style.opacity = '0';
+          }
+          requestAnimationFrame(() => {
+            for (const el of fadingEls) fadeOpacity(el, 1, RESET_FADE_MS);
+            window.setTimeout(() => {
+              for (const el of fadingEls) {
+                if (!el) continue;
+                el.style.opacity = '';
+                el.style.transition = '';
+              }
+            }, RESET_FADE_MS);
+          });
+        }, RESET_FADE_MS);
+      }, RESET_DELAY_MS);
+    }
+
+    // Défaite : le jeu s'arrête, la zone de jeu reste volontairement visible
+    // (pas masquée) pour que les lettres tombées au sol restent affichées le
+    // temps de l'attente avant le fondu/réinitialisation automatique.
+    function lose() {
+      gameOverForever = true;
+      if (glitchTimer) {
+        clearInterval(glitchTimer);
+        glitchTimer = null;
+      }
+      stopLoopAndListeners();
+      logo!.classList.remove('logo-powerup');
+      dropShield();
+      showRipMessage();
+      draw(); // dernier rendu : ne restent que les débris posés au sol.
+      scheduleAutoReset();
+    }
+
+    // Victoire : déclenchée dès que les 3 lasers ont été bloqués — plus de
+    // minuteur global, un événement en entraîne un autre jusqu'à la fin. La
+    // médaille reste affichée quelques secondes avant le fondu/réinitialisation.
+    function win() {
+      gameOverForever = true;
+      if (glitchTimer) {
+        clearInterval(glitchTimer);
+        glitchTimer = null;
+      }
+      stopLoopAndListeners();
+      logo!.classList.remove('logo-powerup');
+      playVictoryThenMedal();
+    }
+
+    function onMouseMove(e: MouseEvent) {
+      if (paused) resumeGame();
+      const rect = canvas!.getBoundingClientRect();
+      const y = e.clientY - rect.top;
+      paddleY = Math.min(Math.max(y - PADDLE_H / 2, 0), H - PADDLE_H);
+      slash!.style.top = `${paddleY}px`;
+    }
+
+    // La souris quitte la fenêtre du navigateur (pas seulement le canvas, qui
+    // ne fait que la hauteur fine de la nav — un mouvement ample pour
+    // esquiver un laser en sortirait trivialement) : le jeu se met en pause
+    // plutôt que de continuer à jouer en aveugle ou de se réinitialiser.
+    function onCanvasLeave() {
+      pauseGame();
+    }
+
+    function flashHit() {
+      logo!.classList.add('logo-hit');
+      window.setTimeout(() => logo!.classList.remove('logo-hit'), 250);
+    }
+
+    // ---- enchaînement d'événements : plus de minuteur global ----
+    // Un mot tiré en entraîne un autre après une pause aléatoire ; le dernier
+    // mot enchaîne sur la séquence des 3 lasers ; chaque laser bloqué
+    // enchaîne sur le suivant, jusqu'au troisième (victoire).
+
+    function fireNextLetterInSalvo() {
+      nextActionTimeout = null;
+      if (!gameActive || phase !== 'dodge' || nextLetterIndex >= menuLetterSpans.length) return;
+
+      const pos = octopusPos();
+      const span = menuLetterSpans[nextLetterIndex];
+      const char = (span.textContent || '?').toUpperCase();
+      span.style.display = 'none';
+      const isLastOfWord = wordEndIndices.has(nextLetterIndex);
+      const isLastOverall = nextLetterIndex === menuLetterSpans.length - 1;
+      const isFirstOfWord = nextLetterIndex === 0 || wordEndIndices.has(nextLetterIndex - 1);
+      // une nouvelle accélération n'est tirée qu'au début de chaque salve de
+      // mot, pas lettre par lettre : le rythme reste cohérent sur tout le mot.
+      if (isFirstOfWord) {
+        currentSalvoAccelFraction = randomBetween(SALVO_ACCEL_FRACTION_MIN, SALVO_ACCEL_FRACTION_MAX);
+      }
+      nextLetterIndex++;
+      updateFuseProgress();
+
+      const distance = pos.x - SHIELD_X;
+      const framesToTravel = TRAVEL_TIME_MS / 16.67;
+      const baseSpeed = distance / framesToTravel;
+      const accel = baseSpeed * currentSalvoAccelFraction;
+      projectiles.push({
+        x: pos.x,
+        y: pos.y,
+        speed: baseSpeed,
+        accel,
+        maxSpeed: baseSpeed * 1.8,
+        char,
+        trail: [],
+        deflected: false,
+        dvx: 0,
+        dvy: 0,
+        fadeAlpha: 1,
+      });
+
+      if (isLastOverall) {
+        scheduleAction(startLaserSequence, randomBetween(WORD_GAP_MIN, WORD_GAP_MAX));
+      } else if (isLastOfWord) {
+        // intervalle aléatoire entre deux mots.
+        scheduleAction(fireNextLetterInSalvo, randomBetween(WORD_GAP_MIN, WORD_GAP_MAX));
+      } else {
+        scheduleAction(fireNextLetterInSalvo, SALVO_LETTER_INTERVAL);
+      }
+    }
+
+    function startLaserSequence() {
+      nextActionTimeout = null;
+      if (!gameActive) return;
+      phase = 'laser';
+      projectiles = [];
+      laserActive = false;
+      laserShotsFired = 0;
+      fuseBar!.classList.add('hidden');
+      // remesure la nav : garantit un rayon qui couvre bien toute sa largeur
+      // réelle, plutôt que de dépendre de la position de la dernière lettre.
+      measureLayout();
+      laserOriginX = W - 20;
+      laserBobCenter = H / 2;
+      scheduleAction(fireNextLaser, randomBetween(LASER_GAP_MIN, LASER_GAP_MAX));
+    }
+
+    // Le laser est persistant : une fois tiré, il reste actif jusqu'à ce que
+    // le bouclier l'intercepte (il s'arrête net) — sinon il fait fondre une
+    // lettre du titre toutes les `LASER_MELT_INTERVAL` ms tant qu'il n'est
+    // pas bloqué.
+    function fireNextLaser() {
+      nextActionTimeout = null;
+      if (!gameActive || laserActive) return;
+      const y = laserBobCenter + Math.sin(octopusPhase) * OCTOPUS_BOB_AMPLITUDE;
+      laserActive = true;
+      laserMeltTimer = 0;
+      laserY = y;
+    }
+
+    function loop(ts: number) {
+      if (!gameActive) return;
+      const dt = lastTs ? ts - lastTs : 16;
+      lastTs = ts;
+      octopusPhase += dt * 0.003;
+      updateDebris(dt);
+      if (shieldImpactTimer > 0) shieldImpactTimer = Math.max(shieldImpactTimer - dt, 0);
+
+      if (phase === 'dodge') {
+        for (let i = projectiles.length - 1; i >= 0; i--) {
+          const p = projectiles[i];
+
+          if (p.deflected) {
+            p.x += p.dvx * (dt / 16);
+            p.y += p.dvy * (dt / 16);
+            p.fadeAlpha -= dt / DEFLECT_FADE_MS;
+            if (p.fadeAlpha <= 0) projectiles.splice(i, 1);
+            continue;
+          }
+
+          p.trail.push({ x: p.x, y: p.y });
+          if (p.trail.length > TRAIL_LENGTH) p.trail.shift();
+          p.speed = Math.min(p.speed + p.accel * (dt / 16), p.maxSpeed);
+          p.x -= p.speed * (dt / 16);
+
+          // interceptée par le bouclier : rebond à 45° (haut ou bas) avec
+          // fondu, plutôt qu'une disparition instantanée.
+          if (p.x <= SHIELD_X + 6 && p.x > SHIELD_X - 6 && p.y >= paddleY - 4 && p.y <= paddleY + PADDLE_H + 4) {
+            p.deflected = true;
+            const bounceSpeed = Math.max(p.speed, 1.4);
+            const upward = Math.random() < 0.5;
+            p.dvx = bounceSpeed * Math.SQRT1_2;
+            p.dvy = bounceSpeed * Math.SQRT1_2 * (upward ? -1 : 1);
+            p.fadeAlpha = 1;
+            continue;
+          }
+
+          // a dépassé le bouclier sans être bloquée
+          if (p.x < SHIELD_X - 6) {
+            projectiles.splice(i, 1);
+            flashHit();
+            loseTitleLetter();
+            if (!gameActive) return; // mort en cours de boucle
+          }
+        }
+      } else if (laserActive) {
+        if (paddleY - 4 <= laserY && laserY <= paddleY + PADDLE_H + 4) {
+          // bloqué : le laser s'arrête net, le suivant s'enchaîne (ou victoire).
+          laserActive = false;
+          shieldImpactTimer = SHIELD_IMPACT_MS;
+          laserShotsFired++;
+          if (laserShotsFired >= LASER_COUNT) {
+            win();
+            return;
+          }
+          scheduleAction(fireNextLaser, randomBetween(LASER_GAP_MIN, LASER_GAP_MAX));
+        } else {
+          laserMeltTimer += dt;
+          if (laserMeltTimer >= LASER_MELT_INTERVAL) {
+            laserMeltTimer -= LASER_MELT_INTERVAL;
+            flashHit();
+            loseTitleLetter();
+            if (!gameActive) return; // mort en cours de boucle
+          }
+        }
+      }
+
+      draw();
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function startGame() {
+      if (gameActive || gameOverForever || window.innerWidth < 768) return;
+      gameActive = true;
+      phase = 'dodge';
+      logo!.classList.remove('logo-glitching');
+      slash!.classList.remove('slash-spin');
+      logo!.classList.add('logo-powerup');
+
+      measureLayout();
+      paddleY = H / 2 - PADDLE_H / 2;
+      projectiles = [];
+      fallingDebris = [];
+      octopusPhase = 0;
+      lastTs = 0;
+      laserActive = false;
+      laserShotsFired = 0;
+      shieldImpactTimer = 0;
+      const split = splitMenuIntoLetters();
+      menuLetterSpans = split.spans;
+      wordEndIndices = split.wordEnds;
+      nextLetterIndex = 0;
+
+      // découpe "pebrian.fr" en lettres individuelles : chaque coup manqué
+      // en fera tomber une, de la droite vers la gauche.
+      const baseChars = [...(logoBase!.textContent ?? '')];
+      logoBase!.textContent = '';
+      logoChars = baseChars.map((ch) => {
+        const span = document.createElement('span');
+        span.textContent = ch;
+        span.style.display = '';
+        span.style.transform = '';
+        span.style.opacity = '';
+        span.classList.remove('shatter-letter');
+        logoBase!.appendChild(span);
+        return span;
+      });
+      remainingCount = logoChars.length;
+
+      // le "/" quitte "pebrian.fr" et devient le bouclier du jeu, positionné
+      // dans le même repère que le canvas (toute la largeur de la nav).
+      gameArea!.appendChild(slash!);
+      slash!.classList.add('slash-shield');
+      slash!.textContent = '|';
+      slash!.style.left = `${SHIELD_X}px`;
+      slash!.style.top = `${paddleY}px`;
+
+      gameArea!.classList.remove('hidden');
+      // écoute sur le canvas lui-même (pas sur window/document) : la nav étant
+      // `sticky top-0`, quitter par le haut sort réellement de la fenêtre du
+      // navigateur (mouseleave s'y déclencherait de toute façon), mais quitter
+      // par le bas ne fait qu'atterrir plus bas dans la page — toujours "dans"
+      // la fenêtre, donc jamais détecté si on écoutait au niveau window. Le
+      // canvas mouseleave, lui, se déclenche symétriquement des deux côtés.
+      // Sortir trivialement de ce canvas fin en esquivant un laser n'est plus
+      // un problème depuis que la sortie déclenche une vraie pause
+      // (pauseGame/resumeGame) plutôt qu'une réinitialisation silencieuse.
+      canvas!.addEventListener('mousemove', onMouseMove);
+      canvas!.addEventListener('mouseleave', onCanvasLeave);
+
+      // mèche qui brûle au fil des mots tirés (progression, pas un minuteur).
+      fuseBar!.classList.remove('hidden');
+      fuseFlame!.style.transform = 'scaleX(1)';
+
+      scheduleAction(fireNextLetterInSalvo, INITIAL_DELAY);
+      rafId = requestAnimationFrame(loop);
+    }
+
+    logo.addEventListener('mouseenter', () => {
+      if (gameActive || gameOverForever) return;
+      const glitching = logo.classList.contains('logo-glitching');
+      if (glitching) {
+        startGame();
+      } else {
+        // anti-triche : survoler le titre en dehors d'un glitch remet le
+        // minuteur à zéro, impossible de "camper" la souris dessus.
+        restartGlitchTimer();
+      }
+    });
+  });
+</script>

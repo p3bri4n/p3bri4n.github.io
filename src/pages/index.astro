@@ -13,7 +13,7 @@ const projects = getProjects(lang);
 const featuredTags = getFeaturedTags(profile.parcours, projects as { tags: string[] }[]);
 ---
 
-<Layout lang={lang} pageKey="home" description={ui.meta.homeDescription}>
+<Layout lang={lang} pageKey="home" description={ui.meta.homeDescription} wide>
   <Hero
     greeting={ui.home.greeting}
     name={profile.nom}

@@ -13,6 +13,7 @@ home:
   skillsLabel: "Key skills"
 
 about:
+  objectifsTitle: "Goals"
   skillsTitle: "Skills"
   showAllSkills: "Show all skills"
   showFeaturedSkills: "Show featured skills"
@@ -35,3 +36,7 @@ aria:
   themeToggle: "Toggle light / dark theme"
   email: "Email"
   languageSwitch: "Switch language"
+  menuToggle: "Open/close menu"
+  backToPosts: "Back to the articles list"
+  scrollTop: "Scroll back to top"
+  rss: "RSS feed"

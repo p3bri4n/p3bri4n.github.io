@@ -34,22 +34,32 @@ const hasExtra = groups.some((group) => group.items.some((item) => !item.feature
     data-expanded="false"
     data-show-all={showAllLabel}
     data-show-featured={showFeaturedLabel}
-    class="mt-4 text-sm text-sky-600 dark:text-sky-400 hover:underline"
+    aria-label={showAllLabel}
+    class="mt-4 p-1.5 rounded-full border border-sky-600/40 dark:border-sky-400/40 text-sky-600 dark:text-sky-400 hover:bg-sky-600/10 dark:hover:bg-sky-400/10 hover:border-sky-600 dark:hover:border-sky-400 transition-colors"
   >
-    {showAllLabel}
+    <svg id="skills-toggle-down" class="w-6 h-6 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M6 9l6 6 6-6"></path>
+    </svg>
+    <svg id="skills-toggle-up" class="w-6 h-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 15l-6-6-6 6"></path>
+    </svg>
   </button>
 )}
 
 <script>
   document.addEventListener('astro:page-load', () => {
     const button = document.getElementById('skills-toggle');
+    const iconDown = document.getElementById('skills-toggle-down');
+    const iconUp = document.getElementById('skills-toggle-up');
     button?.addEventListener('click', () => {
       const expanded = button.dataset.expanded === 'true';
       document.querySelectorAll<HTMLElement>('.skill-extra').forEach((el) => {
         el.classList.toggle('hidden', expanded);
       });
       button.dataset.expanded = String(!expanded);
-      button.textContent = expanded ? button.dataset.showAll! : button.dataset.showFeatured!;
+      button.setAttribute('aria-label', expanded ? button.dataset.showAll! : button.dataset.showFeatured!);
+      iconDown?.classList.toggle('hidden', !expanded);
+      iconUp?.classList.toggle('hidden', expanded);
     });
   });
 </script>

@@ -13,6 +13,7 @@ home:
   skillsLabel: "Compétences clés"
 
 about:
+  objectifsTitle: "Objectifs"
   skillsTitle: "Compétences"
   showAllSkills: "Voir toutes les compétences"
   showFeaturedSkills: "Voir les compétences phares"
@@ -35,3 +36,7 @@ aria:
   themeToggle: "Basculer entre thème clair et sombre"
   email: "E-mail"
   languageSwitch: "Changer de langue"
+  menuToggle: "Ouvrir/fermer le menu"
+  backToPosts: "Retour à la liste des articles"
+  scrollTop: "Remonter en haut de la page"
+  rss: "Flux RSS"

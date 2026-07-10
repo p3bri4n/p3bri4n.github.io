@@ -1,16 +1,47 @@
 ---
 import { site } from '../config';
 import HeaderTools from './HeaderTools.astro';
+import TitleGuardian from '../games/title-guardian/TitleGuardian.astro';
 import { ROUTES, type Lang } from '../i18n/routes';
+
+// Registre des easter eggs jouables depuis le logo, sélectionné via
+// PUBLIC_EASTER_EGG_GAME (voir .env.example). Un nouveau jeu s'ajoute en
+// l'important ci-dessus et en l'ajoutant à cet objet — aucune autre partie
+// du header n'a besoin de changer.
+const games = {
+  'title-guardian': TitleGuardian,
+} as const;
+
+type GameKey = keyof typeof games;
+
+function getGame(key: string) {
+  const game = games[key as GameKey];
+  if (!game) {
+    throw new Error(
+      `Jeu easter egg inconnu : "${key}". Valeurs possibles : ${Object.keys(games).join(', ')}.`
+    );
+  }
+  return game;
+}
+
+const ActiveGame = getGame(site.easterEggGame);
 
 interface Props {
   lang: Lang;
   ui: any;
   hrefFr: string;
   hrefEn: string;
+  wide?: boolean;
 }
 
-const { lang, ui, hrefFr, hrefEn } = Astro.props;
+const { lang, ui, hrefFr, hrefEn, wide = false } = Astro.props;
+
+// Le "/" final du logo est animé séparément (spin) lors du glitch périodique
+// et se transforme en raquette pour l'easter egg — on l'isole donc du reste
+// du nom du site.
+const hasTrailingSlash = site.name.endsWith('/');
+const logoBase = hasTrailingSlash ? site.name.slice(0, -1) : site.name;
+const logoSlash = hasTrailingSlash ? '/' : '';
 
 const links = [
   { href: ROUTES.home[lang], label: ui.nav.home },
@@ -23,25 +54,61 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => currentPath === href;
 ---
 
-<header class="border-b border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md">
-  <nav class="max-w-3xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-y-2">
-    <a href={ROUTES.home[lang]} class="logo-terminal text-base font-semibold tracking-tight">{site.name}</a>
-    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-      {links.map((link) => (
-        <a
-          href={link.href}
-          aria-current={isActive(link.href) ? 'page' : undefined}
-          class={
-            isActive(link.href)
-              ? 'uppercase font-medium text-sky-600 dark:text-sky-400'
-              : 'uppercase font-medium hover:text-sky-600 dark:hover:text-sky-400 transition-colors'
-          }
-        >
-          {link.label}
-        </a>
-      ))}
-      <HeaderTools lang={lang} ui={ui} hrefFr={hrefFr} hrefEn={hrefEn} />
+<header
+  id="site-header"
+  class="sticky top-0 z-50 border-b border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 sm:bg-white/70 dark:sm:bg-slate-900/70 sm:backdrop-blur-md transition-transform duration-300"
+>
+  <nav class:list={['relative mx-auto px-4 py-4 flex items-center justify-between', wide ? 'max-w-5xl' : 'max-w-3xl']}>
+    <div class="relative">
+      <a id="site-logo" href={ROUTES.home[lang]} class="logo-terminal relative text-base font-semibold tracking-tight">
+        <span id="logo-base">{logoBase}</span><span id="logo-slash" class="inline-block">{logoSlash}</span>
+        <span id="fuse-bar" class="hidden absolute left-0 top-full mt-1 h-[3px] w-full overflow-hidden rounded-full bg-slate-700/60">
+          <span id="fuse-flame" class="block h-full w-full origin-center rounded-full"></span>
+        </span>
+      </a>
     </div>
+
+    <button
+      id="menu-toggle"
+      type="button"
+      class="md:hidden p-1 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+      aria-label={ui.aria.menuToggle}
+      aria-expanded="false"
+      aria-controls="nav-links"
+    >
+      <svg class="w-6 h-6 block" id="menu-icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"></path>
+      </svg>
+      <svg class="w-6 h-6 hidden" id="menu-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <div
+      id="nav-links"
+      class="hidden md:flex md:items-center md:gap-x-5 text-sm absolute md:static top-full left-0 w-full md:w-auto px-4 md:px-0 py-2 md:py-0 border-b md:border-0 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 md:bg-transparent md:dark:bg-transparent"
+    >
+      <div id="nav-page-links" class="flex flex-col divide-y divide-slate-200 dark:divide-slate-800 md:flex-row md:divide-y-0 md:gap-x-5">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+            class={
+              isActive(link.href)
+                ? 'block md:inline w-full md:w-auto py-3 md:py-0 uppercase font-medium text-sky-600 dark:text-sky-400'
+                : 'block md:inline w-full md:w-auto py-3 md:py-0 uppercase font-medium hover:text-sky-600 dark:hover:text-sky-400 transition-colors'
+            }
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+      <div class="flex items-center gap-5 py-3 md:py-0 border-t md:border-0 border-slate-200 dark:border-slate-800 md:ml-5">
+        <HeaderTools lang={lang} ui={ui} hrefFr={hrefFr} hrefEn={hrefEn} />
+      </div>
+    </div>
+
+    <ActiveGame />
   </nav>
 </header>
 
@@ -49,4 +116,89 @@ const isActive = (href: string) => currentPath === href;
   .logo-terminal {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
   }
+
+  /* Barre de progression générique sous le logo : positionnement dépendant
+     de l'imbrication dans #site-logo (top-full/w-full relatifs à son
+     anchor), donc gardée ici plutôt que dans le composant de jeu. Son
+     apparence (couleur, dégradé) reste un détail du jeu "title-guardian" —
+     un futur jeu qui ne l'utilise pas la laisse simplement masquée. */
+  #fuse-flame {
+    background: linear-gradient(90deg, #f97316, #fbbf24, #f97316);
+    box-shadow:
+      0 0 6px rgba(251, 146, 60, 0.9),
+      0 0 12px rgba(239, 68, 68, 0.6);
+    transform: scaleX(1);
+    transition: transform 0.4s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #fuse-flame {
+      transition: none;
+    }
+  }
 </style>
+
+<script>
+  let headerScrollHandler: (() => void) | null = null;
+  let lastScrollY = 0;
+
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+    const header = document.getElementById('site-header');
+    const logo = document.getElementById('site-logo') as HTMLAnchorElement | null;
+
+    toggle?.addEventListener('click', () => {
+      const isOpen = navLinks?.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      iconOpen?.classList.toggle('hidden', isOpen);
+      iconClose?.classList.toggle('hidden', !isOpen);
+    });
+
+    // Un clic sur le lien de la page où l'on se trouve déjà (menu ou logo) ne
+    // doit déclencher ni navigation ni transition — sans ça, Astro rejoue
+    // quand même tout le cycle de View Transitions pour rien.
+    const normalize = (pathname: string) => pathname.replace(/\/$/, '') || '/';
+    const isSamePage = (link: HTMLAnchorElement) => normalize(link.pathname) === normalize(window.location.pathname);
+
+    if (logo) {
+      logo.addEventListener('click', (event) => {
+        if (isSamePage(logo)) event.preventDefault();
+      });
+    }
+
+    navLinks?.querySelectorAll<HTMLAnchorElement>('a').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        if (isSamePage(link)) event.preventDefault();
+        navLinks.classList.add('hidden');
+        toggle?.setAttribute('aria-expanded', 'false');
+        iconOpen?.classList.remove('hidden');
+        iconClose?.classList.add('hidden');
+      });
+    });
+
+    // Rétracte le header quand on scrolle vers le bas (favorise la lecture),
+    // le fait réapparaître dès qu'on remonte. Désactivé tant que le menu
+    // mobile est ouvert, pour ne pas le faire disparaître sous les yeux.
+    if (headerScrollHandler) window.removeEventListener('scroll', headerScrollHandler);
+    lastScrollY = window.scrollY;
+
+    headerScrollHandler = () => {
+      const menuOpen = toggle?.getAttribute('aria-expanded') === 'true';
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY;
+
+      if (!menuOpen) {
+        if (currentY > 80 && delta > 4) {
+          header?.classList.add('-translate-y-full');
+        } else if (delta < -4 || currentY < 80) {
+          header?.classList.remove('-translate-y-full');
+        }
+      }
+      lastScrollY = currentY;
+    };
+    window.addEventListener('scroll', headerScrollHandler, { passive: true });
+  });
+</script>

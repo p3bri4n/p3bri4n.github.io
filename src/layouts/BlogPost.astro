@@ -1,6 +1,7 @@
 ---
 import Layout from './Layout.astro';
-import type { Lang } from '../i18n/routes';
+import { ROUTES, type Lang } from '../i18n/routes';
+import { getUi } from '../i18n/content';
 
 interface Props {
   lang: Lang;
@@ -14,17 +15,32 @@ interface Props {
 }
 
 const { lang, title, description, date, readingTime, minReadLabel, altHrefFr, altHrefEn } = Astro.props;
+const ui = getUi(lang);
 const formattedDate = date.toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
+const formattedTime = date.toLocaleTimeString(lang === 'fr' ? 'fr-FR' : 'en-US', {
+  hour: '2-digit',
+  minute: '2-digit',
+});
 ---
 
-<Layout lang={lang} pageKey="posts" title={title} description={description} altHrefFr={altHrefFr} altHrefEn={altHrefEn}>
-  <article class="prose prose-slate dark:prose-invert max-w-none">
+<Layout lang={lang} pageKey="posts" title={title} description={description} altHrefFr={altHrefFr} altHrefEn={altHrefEn} wide>
+  <a
+    href={ROUTES.posts[lang]}
+    aria-label={ui.aria.backToPosts}
+    class="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+  >
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M19 12H5M12 19l-7-7 7-7"></path>
+    </svg>
+    {ui.nav.posts}
+  </a>
+  <article class="glass-panel prose prose-slate dark:prose-invert max-w-none rounded-lg p-6 sm:p-8">
     <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">
-      {formattedDate} · {readingTime} {minReadLabel}
+      {formattedDate} · {formattedTime} · <span class="font-semibold text-sky-600 dark:text-sky-400">{readingTime} {minReadLabel}</span>
     </p>
     <h1>{title}</h1>
     <slot />

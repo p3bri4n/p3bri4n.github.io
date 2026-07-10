@@ -1,0 +1,79 @@
+---
+interface Props {
+  ariaLabel: string;
+}
+
+const { ariaLabel } = Astro.props;
+---
+
+<button
+  id="scroll-top"
+  type="button"
+  transition:persist
+  transition:name="scroll-top"
+  aria-label={ariaLabel}
+  class="fixed bottom-20 right-4 z-40 opacity-0 pointer-events-none glass-panel flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-[opacity,color] duration-200 shadow-lg"
+>
+  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"></path>
+  </svg>
+</button>
+
+<script>
+  let scrollHandler: (() => void) | null = null;
+  let resizeHandler: (() => void) | null = null;
+
+  document.addEventListener('astro:page-load', () => {
+    const button = document.getElementById('scroll-top');
+    if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
+    if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+
+    const GAP = 16;
+
+    // Positionne le bouton juste à droite de la colonne de contenu de la page
+    // ([data-content-column], porté par <main> — largeur variable selon
+    // wide={true/false} passé à Layout), avec repli en coin si la fenêtre est
+    // trop étroite pour laisser de la place à droite de la colonne.
+    const reposition = () => {
+      if (!button) return;
+      const columns = document.querySelectorAll<HTMLElement>('[data-content-column]');
+      const column = columns[columns.length - 1];
+      if (!column) return;
+      const rect = column.getBoundingClientRect();
+      const buttonWidth = button.offsetWidth || 44;
+      const idealLeft = rect.right + GAP;
+      if (idealLeft + buttonWidth + GAP > window.innerWidth) {
+        button.style.left = '';
+        button.style.right = '1rem';
+      } else {
+        button.style.right = '';
+        button.style.left = `${idealLeft}px`;
+      }
+    };
+
+    scrollHandler = () => {
+      const visible = window.scrollY > window.innerHeight * 0.6;
+      button?.classList.toggle('opacity-0', !visible);
+      button?.classList.toggle('pointer-events-none', !visible);
+    };
+    resizeHandler = reposition;
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    window.addEventListener('resize', resizeHandler);
+    scrollHandler();
+    reposition();
+
+    button?.addEventListener('click', () => {
+      const start = window.scrollY;
+      const duration = 350;
+      const startTime = performance.now();
+      function step(now: number) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        window.scrollTo(0, start * (1 - eased));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  });
+</script>

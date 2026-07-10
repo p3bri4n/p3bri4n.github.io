@@ -62,24 +62,25 @@
 }
 
 .glass-tag {
-  background: var(--glass-bg-solid);
-  border: 1px solid var(--glass-border);
-  color: rgb(51 65 85);
-  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+  background: transparent;
+  border: 1px solid rgb(2 132 199);
+  color: rgb(2 132 199);
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
 .dark .glass-tag {
-  color: rgb(226 232 240);
+  border-color: rgb(56 189 248);
+  color: rgb(56 189 248);
 }
 
 a.glass-tag:hover {
-  color: rgb(2 132 199);
-  border-color: var(--glass-accent-border);
-  background: var(--glass-accent-bg);
+  background: rgb(2 132 199);
+  color: white;
 }
 
 .dark a.glass-tag:hover {
-  color: rgb(56 189 248);
+  background: rgb(56 189 248);
+  color: rgb(15 23 42);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {

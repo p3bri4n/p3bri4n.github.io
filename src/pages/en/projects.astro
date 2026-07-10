@@ -20,17 +20,17 @@ interface Project {
   lien: string;
 }
 
-const list = (projects as Project[]).map((project) => ({
-  ...project,
-  nom: parseFeaturedName(project.nom).value,
-}));
+const list = (projects as Project[]).map((project) => {
+  const { value, featured } = parseFeaturedName(project.nom);
+  return { ...project, nom: value, featured };
+});
 ---
 
-<Layout lang={lang} pageKey="projets" title={ui.nav.projets} description={ui.meta.projetsDescription}>
+<Layout lang={lang} pageKey="projets" title={ui.nav.projets} description={ui.meta.projetsDescription} wide>
   <p class="text-slate-600 dark:text-slate-300 whitespace-pre-line mb-10">{intro.texte}</p>
 
-  <div class="grid gap-6 sm:grid-cols-2 mb-16">
-    {list.map((project) => (
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
+    {list.filter((project) => project.featured).map((project) => (
       <ProjectCard
         href={`#${project.slug}`}
         nom={project.nom}
