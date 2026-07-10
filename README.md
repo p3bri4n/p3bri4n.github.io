@@ -104,7 +104,7 @@ Pour le déploiement, les mêmes variables doivent être définies dans **Settin
 ---
 title: "Titre de l'article"
 description: "Résumé court"
-date: 2026-07-08
+date: 2026-07-08T08:30:00  # inclure une heure (arbitraire si besoin) pour un tri correct entre articles du même jour
 tags: ["astro", "exemple"]
 translationKey: "mon-slug"  # optionnel : identique des deux côtés pour lier les traductions
 complexity: "medium"         # low / medium / high — ajuste le temps de lecture estimé
