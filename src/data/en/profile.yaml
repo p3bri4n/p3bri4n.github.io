@@ -56,7 +56,7 @@ parcours:
     titre: "AI Engineer (Freelance)"
     lieu: "KPAM"
     description: >
-      Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics. Pipeline handling up to 60k verbatims per study, serving 11 business users. Industrialized and optimized inference in production: ×200 on BERT classification (multilingual batching, GPU activation), ×55 on LLM inference (async processing). Deployment, monitoring and operational maintenance for 11 business users.
+      Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics. Pipeline handling up to 60k verbatims per study. Industrialized and optimized inference in production: ×200 on BERT classification (multilingual batching, GPU activation), ×55 on LLM inference (async processing). Deployment, monitoring and operational maintenance for 11 business users.
     competences: ["Languages:Python!", "Domains:NLP!", "Domains:Big data", "Tools:LLM!", "Tools:BERT", "Tools:OpenAI API", "Tools:GitHub", "Methodologies:Fine-tuning!", "Methodologies:NER", "Methodologies:Reverse engineering", "Methodologies:Coding agents!", "Methodologies:Testing", "Methodologies:Freelancing", "Methodologies:Technology watch"]
   - periode: "Jul. 2024 — Jan. 2025 (6 months)"
     titre: "Business Analyst (Temporary)"
@@ -79,6 +79,7 @@ parcours:
   - periode: "Jun. 2022 — Jul. 2022 (1 month)"
     titre: "DevOps Engineer (Freelance)"
     lieu: "Digitcuto"
+    cv: false
     description: >
       Short mission: built continuous integration tooling for a client in medical robotics.
     competences: ["Languages:Python!", "Methodologies:CI/CD", "Tools:Jama", "Tools:Gitlab", "Domains:Robotics", "Domains:Medical", "Methodologies:Freelancing"]

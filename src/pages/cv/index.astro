@@ -27,7 +27,9 @@ const formation = profile.formation.map((f: { titre: string; lieu: string; perio
   meta: `${f.lieu} · ${f.periode}`,
   description: f.description ? collapse(f.description) : '',
 }));
-const experiences = profile.parcours.map(
+const experiences = profile.parcours
+  .filter((entry: { cv?: boolean }) => entry.cv !== false)
+  .map(
   (entry: { titre: string; periode: string; lieu: string; description: string; competences?: string[] }) => ({
     role: entry.titre,
     dates: entry.periode,

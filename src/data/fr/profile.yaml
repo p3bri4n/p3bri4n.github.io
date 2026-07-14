@@ -54,7 +54,7 @@ parcours:
     titre: "Ingénieur IA (Freelance)"
     lieu: "KPAM"
     description: >
-      Conception & développement de la suite logicielle Athena pour remplacer 15 outils Excel/VBA legacy dans l'analyse de l'expérience client. Pipeline traitant jusqu'à 60k verbatims par étude, pour 11 utilisateurs métier. Industrialisation et optimisation de l'inférence en production : ×200 sur la classification BERT (batching multilangue, activation GPU), ×55 sur l'inférence LLM (asynchronisme). Déploiement, supervision et maintien en conditions opérationnelles pour 11 utilisateurs métier.
+      Conception & développement de la suite logicielle Athena pour remplacer 15 outils Excel/VBA legacy dans l'analyse de l'expérience client. Pipeline traitant jusqu'à 60k verbatims par étude. Industrialisation et optimisation de l'inférence en production : ×200 sur la classification BERT (batching multilangue, activation GPU), ×55 sur l'inférence LLM (asynchronisme). Déploiement, supervision et maintien en conditions opérationnelles pour 11 utilisateurs métier.
     competences: ["Langages:Python!", "Domaines:NLP!", "Domaines:Big data", "Outils:LLM!", "Outils:BERT", "Outils:OpenAI API", "Outils:GitHub", "Méthodologies:Fine-tuning!", "Méthodologies:NER", "Méthodologies:Rétro-ingénierie", "Méthodologies:Coding agents!", "Méthodologies:Tests", "Méthodologies:Freelancing", "Méthodologies:Veille technologique"]
   - periode: "Juil. 2024 — Janv. 2025 (6 mois)"
     titre: "Business Analyst (Intérim)"
@@ -77,6 +77,7 @@ parcours:
   - periode: "Juin 2022 — Juil. 2022 (1 mois)"
     titre: "Ingénieur DevOps (Freelance)"
     lieu: "Digitcuto"
+    cv: false
     description: >
       Mission courte : développement d'outils d'intégration continue pour un client dans le domaine de la robotique médicale.
     competences: ["Langages:Python!", "Méthodologies:CI/CD", "Outils:Jama", "Outils:Gitlab", "Domaines:Robotique", "Domaines:Médical", "Méthodologies:Freelancing"]
