@@ -18,6 +18,8 @@ about:
   showAllSkills: "Voir toutes les compétences"
   showFeaturedSkills: "Voir les compétences phares"
   downloadCv: "Télécharger mon CV"
+  experienceTitle: "Parcours professionnel"
+  formationTitle: "Formation"
 
 cv:
   skillsTitle: "Compétences"

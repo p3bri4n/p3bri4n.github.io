@@ -14,8 +14,11 @@ const projects = getProjects(lang);
 const ui = getUi(lang);
 const cvUrl = ROUTES.cv[lang];
 
-const timelineEntries = [...profile.formation, ...profile.parcours];
-const skills = computeSkills(timelineEntries, projects as { tags: string[] }[], ui.skillCategories);
+const skills = computeSkills(
+  [...profile.formation, ...profile.parcours],
+  projects as { tags: string[] }[],
+  ui.skillCategories
+);
 const stats = computeStats(profile, 'years');
 ---
 
@@ -72,7 +75,13 @@ const stats = computeStats(profile, 'years');
     <SkillGroup groups={skills} showAllLabel={ui.about.showAllSkills} showFeaturedLabel={ui.about.showFeaturedSkills} />
   </section>
 
+  <section class="mb-14">
+    <h2 class="text-xl font-semibold mb-6">{ui.about.experienceTitle}</h2>
+    <Timeline entries={profile.parcours} />
+  </section>
+
   <section>
-    <Timeline entries={timelineEntries} />
+    <h2 class="text-xl font-semibold mb-6">{ui.about.formationTitle}</h2>
+    <Timeline entries={profile.formation} />
   </section>
 </Layout>

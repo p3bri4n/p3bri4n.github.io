@@ -18,6 +18,8 @@ about:
   showAllSkills: "Show all skills"
   showFeaturedSkills: "Show featured skills"
   downloadCv: "Download my résumé"
+  experienceTitle: "Professional experience"
+  formationTitle: "Education"
 
 cv:
   skillsTitle: "Skills"
