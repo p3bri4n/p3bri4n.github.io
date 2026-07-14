@@ -17,6 +17,19 @@ about:
   skillsTitle: "Compétences"
   showAllSkills: "Voir toutes les compétences"
   showFeaturedSkills: "Voir les compétences phares"
+  downloadCv: "Télécharger mon CV"
+
+cv:
+  skillsTitle: "Compétences"
+  formationTitle: "Formation"
+  languagesTitle: "Langues"
+  interestsTitle: "Centres d'intérêt"
+  profileTitle: "Profil"
+  experienceTitle: "Expériences professionnelles"
+  projectsTitle: "Projets & contributions"
+  stackLabel: "Stack"
+  printButton: "Imprimer / Exporter en PDF"
+  backButton: "← Retour au site"
 
 projects:
   viewProject: "Voir le projet →"

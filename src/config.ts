@@ -15,6 +15,7 @@ export const site = {
   url: required('PUBLIC_SITE_URL'),
   name: required('PUBLIC_SITE_NAME'),
   contactEmail,
+  contactPhone: import.meta.env.PUBLIC_CONTACT_PHONE ?? '',
   mailUser,
   mailDomain,
   easterEggGame: required('PUBLIC_EASTER_EGG_GAME'),

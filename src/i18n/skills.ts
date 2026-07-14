@@ -68,9 +68,22 @@ export function computeSkills(
     .map(([categorie, values]) => ({
       categorie,
       items: [...values.entries()]
-        .sort((a, b) => a[0].localeCompare(b[0]))
+        .sort((a, b) => Number(b[1]) - Number(a[1]) || a[0].localeCompare(b[0]))
         .map(([value, featured]) => ({ value, featured })),
     }));
+}
+
+// Retire certaines valeurs de la grille de compétences pour un contexte donné (ex: le CV,
+// plus sélectif que la grille complète du site) sans toucher aux données sources ni au
+// site. Les groupes qui deviennent vides sont retirés.
+export function excludeSkills(groups: SkillGroupData[], excludedValues: string[]): SkillGroupData[] {
+  const excluded = new Set(excludedValues);
+  return groups
+    .map((group) => ({
+      categorie: group.categorie,
+      items: group.items.filter((item) => !excluded.has(item.value)),
+    }))
+    .filter((group) => group.items.length > 0);
 }
 
 // Même convention "!" pour marquer un projet comme mis en avant, ex: nom: "Chocolatine!".
@@ -86,6 +99,37 @@ export function countEntriesWithSkill(parcours: HasCompetences[], skillValue: st
   return parcours.filter((entry) =>
     (entry.competences ?? []).some((tag) => parseTag(tag).value.toLowerCase() === target)
   ).length;
+}
+
+export interface StatDef {
+  kind?: string;
+  valeur?: string;
+  label: string;
+}
+
+interface HasStatsProfile {
+  parcours: HasCompetences[];
+  stats: StatDef[];
+  experienceDepuis: number;
+}
+
+// Calcule les stats KPI (années d'expérience, missions freelance) à partir du
+// parcours ; les stats sans "kind" gardent leur valeur statique telle quelle.
+export function computeStats(
+  profile: HasStatsProfile,
+  yearsSuffix: string
+): { valeur: string; label: string }[] {
+  const currentYear = new Date().getFullYear();
+  const freelanceMissions = countEntriesWithSkill(profile.parcours, 'Freelancing');
+  return profile.stats.map((stat) => {
+    if (stat.kind === 'experience') {
+      return { valeur: `${currentYear - profile.experienceDepuis} ${yearsSuffix}`, label: stat.label };
+    }
+    if (stat.kind === 'freelance') {
+      return { valeur: String(freelanceMissions), label: stat.label };
+    }
+    return { valeur: stat.valeur!, label: stat.label };
+  });
 }
 
 // Liste plate et dédupliquée des valeurs de tags marquées "!" (parcours + projets),

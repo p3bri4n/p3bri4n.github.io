@@ -3,13 +3,17 @@
 # - lien: repo or demo URL. Leave empty to auto-build from PUBLIC_GITHUB_URL/<slug>.
 # - nom: add a trailing "!" (e.g. "Chocolatine!") to feature the project on the homepage.
 #   The "!" is stripped from the display.
+# - cv: true to show the project in the "Projects & contributions" section of the
+#   generated résumé (/cv, /en/cv). Independent from the "!" on nom — the résumé
+#   selection doesn't necessarily match the homepage one.
 # - tags: "Category:Value" format (e.g. "Languages:Python"). A trailing "!" on the value
-#   (e.g. "Languages:Python!") features that skill on the homepage. These tags also feed
-#   the Skills section, computed automatically from these plus the experience entries
-#   (src/data/en/profile.yaml). Categories used: Languages, Tools, Methodologies, Domains.
+#   (e.g. "Languages:Python!") features that skill on the homepage and résumé. These tags
+#   also feed the Skills section, computed automatically from these plus the experience
+#   entries (src/data/en/profile.yaml). Categories used: Languages, Tools, Methodologies, Domains.
 
 - slug: "chocolatine"
   nom: "Chocolatine!"
+  cv: true
   description_courte: "A type-safe SQL query builder for Python, no string concatenation."
   description: >
     A Python library for building complex SQL queries programmatically, with
@@ -17,24 +21,26 @@
     subqueries, CTEs (including recursive ones), window functions,
     aggregations and set operations (UNION/INTERSECT/EXCEPT), without ever
     resorting to string concatenation. Published on PyPI, 99% test coverage.
-  tags: ["Languages:Python", "Languages:SQL", "Domains:Query Builder", "Tools:PyPI", "Methodologies:Testing"]
+  tags: ["Languages:Python", "Languages:SQL!", "Domains:Query Builder", "Tools:PyPI", "Methodologies:Testing"]
   image: "/images/logo-chocolatine.jpg"
   lien: ""
 
 - slug: "pitchoune"
   nom: "Pitchoune!"
+  cv: true
   description_courte: "A Python library on top of Polars to load/save data and chat with LLMs."
   description: >
     A wrapper around Polars for loading and saving data (xlsx, csv, tsv,
     jsonl) in normal or streaming mode, with column-by-column injection into
     decorated functions and recovery on failure. Also includes an LLM chat
     integration, locally via Ollama or through the OpenAI API.
-  tags: ["Languages:Python", "Tools:Polars", "Domains:Data", "Tools:LLM", "Tools:Ollama"]
+  tags: ["Languages:Python", "Tools:Polars", "Domains:Data", "Tools:LLM", "Tools:Ollama!"]
   image: "/images/logo-pitchoune.jpeg"
   lien: ""
 
 - slug: "legitifier"
   nom: "Legitifier!"
+  cv: true
   description_courte: "A CLI tool to assess the credibility of GitHub repositories (fake stars, misleading claims)."
   description: >
     A command-line tool that evaluates the credibility of a GitHub
@@ -50,6 +56,7 @@
 
 - slug: "agentic-ai-playground"
   nom: "Agentic AI Playground!"
+  cv: true
   description_courte: "A Docker Compose stack for a fully local AI agent (LangGraph, MCP, vLLM)."
   description: >
     A Docker Compose stack to run an AI agent entirely locally: Open WebUI
@@ -58,7 +65,7 @@
     servers on demand (filesystem, git, playwright, a custom terminal
     server), all served by vLLM. Each service has its own isolated test
     suite, with no dependency on real third-party services.
-  tags: ["Tools:Docker!", "Tools:LangGraph", "Domains:AI Agents", "Tools:MCP", "Tools:vLLM", "Methodologies:RAG"]
+  tags: ["Tools:Docker", "Tools:Docker Compose", "Tools:LangGraph!", "Domains:AI Agents!", "Tools:MCP!", "Tools:vLLM!", "Methodologies:RAG!"]
   image: "/images/logo-agentic-ai-playground.jpg"
   lien: ""
 
@@ -125,6 +132,7 @@
 
 - slug: "athena"
   nom: "Athena!"
+  cv: true
   description_courte: "Proprietary software suite (KPAM) to manage the dataflow of customer review processing."
   description: "A complete proprietary software suite (KPAM) to manage the dataflow of customer review processing. Uses AI to classify, adjust tone and correct verbatims."
   tags: ["Languages:Python", "Tools:Docker", "Tools:Flet", "Tools:BERT!", "Tools:LLM!"]
@@ -133,9 +141,10 @@
 
 - slug: "smartcry"
   nom: "SmartCry!"
+  cv: true
   description_courte: "Proprietary RPA assistant (CVG Medical) for filling out tender response forms for French public hospitals."
   description: "An RPA assistant for filling out tender response forms for French public hospitals. Substantially reduces the time needed to process a case file."
-  tags: ["Domains:Healthcare", "Domains:Automation", "Languages:Python", "Tools:Playwright", "Tools:RPA"]
+  tags: ["Domains:Healthcare", "Methodologies:Automation", "Languages:Python", "Tools:Playwright", "Tools:RPA"]
   image: "/images/logo-smartcry.jpeg"
   lien: ""
 

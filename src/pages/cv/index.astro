@@ -1,0 +1,227 @@
+---
+import '../../styles/cv.css';
+import { getProfile, getProjects, getUi } from '../../i18n/content';
+import { computeSkills, computeStats, excludeSkills, parseFeaturedName, tagValue } from '../../i18n/skills';
+import { site } from '../../config';
+import { ROUTES } from '../../i18n/routes';
+
+// Compétences volontairement absentes du CV (revue humaine du 2026-07-14) : statut/procédure
+// administrative plutôt que compétence (Freelancing, VAE), ou hors-sujet/trop niche pour un
+// poste Ingénieur IA (projets pédagogiques/annexes, stack legacy), ou trop vague pour être
+// informatif.
+const CV_SKILL_EXCLUSIONS = [
+  'Freelancing',
+  'VAE',
+  'RISC-V',
+  'Éducatif',
+  'Robotique',
+  'Query Builder',
+  'API Client',
+  'CLI',
+  'Flet',
+  'Simulation',
+  'Traduction',
+  'Développement',
+  'Conseil',
+  'Java',
+  'JEE',
+  "Systèmes d'information",
+  'Agents IA',
+  'PyPI',
+  'Spring Batch',
+  'Data',
+];
+
+const lang = 'fr' as const;
+const profile = getProfile(lang);
+const projects = getProjects(lang);
+const ui = getUi(lang);
+
+const collapse = (text: string) => text.replace(/\s+/g, ' ').trim();
+const stripProtocol = (url: string) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+const nameParts = profile.nom.trim().split(/\s+/);
+const lastname = nameParts.pop()!;
+const firstname = nameParts.join(' ');
+
+const skills = excludeSkills(
+  computeSkills([...profile.formation, ...profile.parcours], projects as { tags: string[] }[], ui.skillCategories),
+  CV_SKILL_EXCLUSIONS
+);
+const stats = computeStats(profile, 'ans');
+const formation = profile.formation.map((f: { titre: string; lieu: string; periode: string }) => ({
+  titre: f.titre,
+  meta: `${f.lieu} · ${f.periode}`,
+}));
+const experiences = profile.parcours.map(
+  (entry: { titre: string; periode: string; lieu: string; description: string; competences?: string[] }) => ({
+    role: entry.titre,
+    dates: entry.periode,
+    org: entry.lieu,
+    bullet: collapse(entry.description),
+    stack: (entry.competences ?? []).map(tagValue).join(', '),
+  })
+);
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>CV — {profile.nom}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="toolbar no-print">
+      <a href={ROUTES.about[lang]}>{ui.cv.backButton}</a>
+      <button onclick="window.print()">{ui.cv.printButton}</button>
+    </div>
+
+    <div class="page">
+      <div class="masthead">
+        <div class="id">
+          <h1 class="name">{firstname} <span class="lastname">{lastname}</span></h1>
+          <div class="role">{profile.titre}</div>
+          <div class="tagline">{collapse(profile.accroche)}</div>
+        </div>
+        <div class="location">
+          <span class="loc-line">{profile.localisation}</span>
+          {profile.mobilite.split(', ').map((part: string) => (
+            <span class="loc-line">{part}</span>
+          ))}
+        </div>
+        <div class="contact">
+          <span class="c-line"><canvas class="contact-canvas" data-b64={Buffer.from(site.contactEmail).toString('base64')}></canvas></span>
+          {site.contactPhone && (
+            <span class="c-line"><canvas class="contact-canvas" data-b64={Buffer.from(site.contactPhone).toString('base64')}></canvas></span>
+          )}
+          {site.social.linkedin && <span class="c-line">{stripProtocol(site.social.linkedin)}</span>}
+          {site.social.github && <span class="c-line">{stripProtocol(site.social.github)}</span>}
+          <span class="c-line">{stripProtocol(site.url)}</span>
+        </div>
+      </div>
+
+      <div class="metrics">
+        {stats.map((m) => (
+          <div class="metric">
+            <div class="val">{m.valeur}</div>
+            <div class="lab">{m.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div class="body">
+        <aside class="rail">
+          <div class="sec">{ui.cv.skillsTitle}</div>
+          {skills.map((group) => (
+            <div class="skill-group">
+              <div class="skill-label">{group.categorie}</div>
+              <div class="chips">
+                {group.items.map((item) => (
+                  <span class:list={['chip', { key: item.featured }]}>{item.value}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div class="sec">{ui.cv.formationTitle}</div>
+          {formation.map((f: { titre: string; meta: string }) => (
+            <div class="edu-item">
+              <div class="edu-title">{f.titre}</div>
+              <div class="edu-meta">{f.meta}</div>
+            </div>
+          ))}
+
+          <div class="sec">{ui.cv.languagesTitle}</div>
+          {profile.langues.map((l: { nom: string; niveau: string }) => (
+            <div class="lang-row">
+              <span class="lang-name">{l.nom}</span>
+              <span class="lang-lvl">{l.niveau}</span>
+            </div>
+          ))}
+
+          <div class="sec">{ui.cv.interestsTitle}</div>
+          <div class="interests">{profile.interets}</div>
+        </aside>
+
+        <main class="main">
+          <div class="sec">{ui.cv.profileTitle}</div>
+          <p class="profile">{collapse(profile.bio)}</p>
+
+          <div class="sec" style="margin-top:13px;">{ui.cv.experienceTitle}</div>
+          {experiences.map((xp: { role: string; dates: string; org: string; bullet: string; stack: string }) => (
+            <div class="xp">
+              <div class="xp-head">
+                <div class="xp-role">{xp.role}</div>
+                <div class="xp-dates">{xp.dates}</div>
+              </div>
+              <div class="xp-org">{xp.org}</div>
+              <ul class="bullets">
+                <li>{xp.bullet}</li>
+              </ul>
+              {xp.stack && (
+                <div class="stack">
+                  <span class="k">{ui.cv.stackLabel} ·</span> {xp.stack}
+                </div>
+              )}
+            </div>
+          ))}
+
+          <div class="sec" style="margin-top:13px;">{ui.cv.projectsTitle}</div>
+          <div class="os-line">
+            {(projects as { nom: string; description_courte: string; cv?: boolean }[])
+              .filter((p) => p.cv)
+              .map((p, index) => (
+                <>
+                  {index > 0 && <span class="sep">·</span>}
+                  <strong>{parseFeaturedName(p.nom).value}</strong> — {p.description_courte}
+                </>
+              ))}
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      // E-mail / téléphone dessinés en pixels dans un <canvas> plutôt qu'en texte HTML,
+      // pour ne pas être récupérables par un scraper qui ne lit que le DOM/HTML. Rendu à
+      // une résolution interne fixe (bien supérieure au devicePixelRatio) pour rester net
+      // même à l'impression/export PDF, avec la même police/taille/couleur que le reste
+      // du bloc contact (cv.css → .contact) pour une intégration visuelle homogène.
+      function renderContactCanvases() {
+        const fontSize = 7.4;
+        const fontWeight = 500;
+        const scale = 4;
+        const font = `${fontWeight} ${fontSize}px 'JetBrains Mono', monospace`;
+        const textColor = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() || '#667179';
+        document.querySelectorAll<HTMLCanvasElement>('canvas.contact-canvas').forEach((canvas) => {
+          const encoded = canvas.dataset.b64;
+          if (!encoded) return;
+          const text = atob(encoded);
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+          ctx.font = font;
+          const width = Math.ceil(ctx.measureText(text).width) + 2;
+          const height = Math.ceil(fontSize * 1.4);
+          canvas.width = width * scale;
+          canvas.height = height * scale;
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
+          ctx.scale(scale, scale);
+          ctx.font = font;
+          ctx.fillStyle = textColor;
+          ctx.textBaseline = 'top';
+          ctx.fillText(text, 0, 0);
+        });
+      }
+      document.fonts ? document.fonts.ready.then(renderContactCanvases) : renderContactCanvases();
+    </script>
+  </body>
+</html>

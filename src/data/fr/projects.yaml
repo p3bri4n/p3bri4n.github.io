@@ -3,14 +3,18 @@
 # - lien : URL du dépôt ou de la démo. Laisser vide pour utiliser automatiquement PUBLIC_GITHUB_URL/<slug>.
 # - nom : ajouter un "!" à la fin (ex: "Chocolatine!") pour mettre le projet en avant sur
 #   l'accueil. Le "!" est retiré à l'affichage.
+# - cv : true pour faire apparaître le projet dans la section "Projets & contributions"
+#   du CV généré (/cv, /en/cv). Indépendant du "!" sur nom : la sélection pour le CV
+#   ne coïncide pas forcément avec celle de l'accueil.
 # - tags : format "Catégorie:Valeur" (ex: "Langages:Python"). Un "!" en fin de valeur
-#   (ex: "Langages:Python!") met la compétence en avant sur l'accueil. Ces tags
+#   (ex: "Langages:Python!") met la compétence en avant sur l'accueil et le CV. Ces tags
 #   alimentent aussi la section Compétences, calculée automatiquement à partir de
 #   ceux-ci et de ceux du parcours (src/data/fr/profile.yaml). Catégories utilisées :
 #   Langages, Outils, Méthodologies, Domaines.
 
 - slug: "chocolatine"
   nom: "Chocolatine!"
+  cv: true
   description_courte: "Query builder SQL en Python, plus fort que du pain au chocolat !"
   description: >
     Bibliothèque Python permettant de construire des requêtes SQL complexes de
@@ -19,24 +23,26 @@
     (y compris récursives), fonctions fenêtrées, agrégations et opérations
     ensemblistes (UNION/INTERSECT/EXCEPT), sans jamais passer par de la
     concaténation de chaînes. Publiée sur PyPI, couverte à 99% par les tests.
-  tags: ["Langages:Python", "Langages:SQL", "Domaines:Query Builder", "Outils:PyPI", "Méthodologies:Tests"]
+  tags: ["Langages:Python", "Langages:SQL!", "Domaines:Query Builder", "Outils:PyPI", "Méthodologies:Tests"]
   image: "/images/logo-chocolatine.jpg"
   lien: ""
 
 - slug: "pitchoune"
   nom: "Pitchoune!"
+  cv: true
   description_courte: "Bibliothèque Python (Polars) pour charger/sauvegarder des données et dialoguer avec des LLM."
   description: >
     Surcouche à Polars pour charger et sauvegarder des données (xlsx, csv, tsv,
     jsonl) en mode normal ou streaming, avec injection colonne par colonne dans
     des fonctions décorées et reprise sur erreur. Inclut aussi une intégration
     de chat avec un LLM, en local via Ollama ou via l'API OpenAI.
-  tags: ["Langages:Python", "Outils:Polars", "Domaines:Data", "Outils:LLM", "Outils:Ollama"]
+  tags: ["Langages:Python", "Outils:Polars", "Domaines:Data", "Outils:LLM", "Outils:Ollama!"]
   image: "/images/logo-pitchoune.jpeg"
   lien: ""
 
 - slug: "legitifier"
   nom: "Legitifier!"
+  cv: true
   description_courte: "Outil CLI pour évaluer la crédibilité de dépôts GitHub (fake stars, claims trompeurs)."
   description: >
     Outil en ligne de commande qui évalue la crédibilité d'un dépôt GitHub,
@@ -52,6 +58,7 @@
 
 - slug: "agentic-ai-playground"
   nom: "Agentic AI Playground!"
+  cv: true
   description_courte: "Stack Docker Compose pour un agent IA local (LangGraph, MCP, vLLM)."
   description: >
     Stack Docker Compose pour faire tourner un agent IA entièrement en local :
@@ -60,7 +67,7 @@
     qui démarre à la demande des serveurs MCP (filesystem, git, playwright,
     terminal maison), le tout servi par vLLM. Chaque service a sa propre suite
     de tests isolée, sans dépendance à de vrais services tiers.
-  tags: ["Outils:Docker!", "Outils:LangGraph", "Domaines:Agents IA", "Outils:MCP", "Outils:vLLM", "Méthodologies:RAG"]
+  tags: ["Outils:Docker", "Outils:Docker Compose", "Outils:LangGraph!", "Domaines:Agents IA!", "Outils:MCP!", "Outils:vLLM!", "Méthodologies:RAG!"]
   image: "/images/logo-agentic-ai-playground.jpg"
   lien: ""
 
@@ -128,6 +135,7 @@
 
 - slug: "athena"
   nom: "Athena!"
+  cv: true
   description_courte: "Suite logicielle propriétaire (KPAM) pour gérer le dataflow du traitement d'un avis client."
   description: "Suite logicielle propriétaire (KPAM) complète pour gérer le dataflow du traitement d'un avis client. Utilisation de l'IA pour classifier, tonaliser, corriger les verbatims."
   tags: ["Langages:Python", "Outils:Docker", "Outils:Flet", "Outils:BERT!", "Outils:LLM!"]
@@ -136,9 +144,10 @@
 
 - slug: "smartcry"
   nom: "SmartCry!"
+  cv: true
   description_courte: "RPA d'assistance propriétaire (CVG Medical) pour le remplissage de formulaires de réponse aux appels d'offres de l'hôpital public Français."
   description: "RPA d'assistance au remplissage de formulaires de réponse aux appels d'offres de l'hôpital public Français. Réduction substancielle du temps de traitement d'un dossier."
-  tags: ["Domaines:Santé", "Domaines:Automatisation", "Langages:Python", "Outils:Playwright", "Outils:RPA"]
+  tags: ["Domaines:Santé", "Méthodologies:Automatisation", "Langages:Python", "Outils:Playwright", "Outils:RPA"]
   image: "/images/logo-smartcry.jpeg"
   lien: ""
 

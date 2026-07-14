@@ -1,0 +1,411 @@
+/* Design "print" autonome du CV généré (/cv, /en/cv), indépendant du thème
+   glassmorphism du reste du site : optimisé pour la lecture à l'écran et
+   l'export PDF via l'impression navigateur. */
+
+:root {
+  --ink: #111a20;
+  --ink-soft: #33424c;
+  --muted: #667179;
+  --accent: #0d7a63;
+  --accent-deep: #095745;
+  --sidebar: #eef3f2;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+html {
+  background: #6b7280;
+}
+
+.page {
+  box-sizing: border-box;
+  width: 210mm;
+  min-height: 297mm;
+  margin: 18px auto;
+  padding: 11mm 11mm 9mm 11mm;
+  background: #ffffff;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.28);
+}
+
+@media print {
+  html {
+    background: #ffffff;
+  }
+  .page {
+    width: auto;
+    min-height: 0;
+    /* Filet de sécurité : le navigateur ne fournit aucun moyen de pré-remplir le
+       champ "pages" du dialogue d'impression natif (limitation volontaire, pour
+       éviter qu'une page web n'en manipule les réglages). On force donc une
+       hauteur A4 stricte avec overflow masqué, pour qu'un léger débordement de
+       contenu soit invisible plutôt que de créer une 2e page (quasi) blanche.
+       Un débordement important tronquerait du contenu sans avertissement visuel
+       à l'écran — à surveiller si de nouvelles sections sont ajoutées. */
+    height: 297mm;
+    overflow: hidden;
+    margin: 0;
+    box-shadow: none;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  font-size: 9.1px;
+  line-height: 1.48;
+}
+
+.toolbar {
+  width: 100%;
+  max-width: 210mm;
+  box-sizing: border-box;
+  margin: 18px auto 0 auto;
+  padding: 0 12px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+}
+
+.toolbar button,
+.toolbar a {
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid #d8e0dd;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* ---------- HEADER ---------- */
+.masthead {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 7px;
+}
+.masthead .id {
+  flex: none;
+  max-width: 46%;
+}
+.name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.6px;
+  color: var(--ink);
+  margin: 0;
+}
+.name .lastname {
+  color: var(--accent);
+}
+.role {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 5px;
+}
+.tagline {
+  font-size: 9.2px;
+  color: var(--muted);
+  margin-top: 4px;
+  max-width: 96%;
+}
+/* Colonne centrale : localisation/mobilité, sur plusieurs lignes plutôt que de
+   pousser sur la colonne contact (à droite). */
+.location {
+  flex: 1 1 auto;
+  min-width: 0;
+  align-self: flex-end;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.4px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.location .loc-line {
+  display: block;
+}
+.contact {
+  flex: none;
+  align-self: flex-end;
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.4px;
+  line-height: 1.8;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.contact .c-line {
+  display: block;
+}
+.contact .dot {
+  color: var(--accent);
+}
+.contact canvas {
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+/* ---------- METRICS ---------- */
+.metrics {
+  display: flex;
+  margin: 12px 0 4px 0;
+}
+.metric {
+  flex: 1;
+  border-left: 2px solid var(--accent);
+  padding-left: 9px;
+  margin-right: 14px;
+}
+.metric:last-child {
+  margin-right: 0;
+}
+.metric .val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--ink);
+  letter-spacing: -0.4px;
+  line-height: 1;
+}
+.metric .lab {
+  font-size: 8px;
+  color: var(--muted);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+/* ---------- BODY GRID ---------- */
+.body {
+  display: table;
+  width: 100%;
+  margin-top: 13px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.rail {
+  display: table-cell;
+  width: 33%;
+  vertical-align: top;
+  background: var(--sidebar);
+  border-radius: 5px;
+  padding: 15px 15px 16px 15px;
+}
+.main {
+  display: table-cell;
+  vertical-align: top;
+  padding-left: 20px;
+}
+
+/* ---------- SECTION HEADINGS ---------- */
+.sec {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 8.4px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 7px 0;
+}
+.sec::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  display: inline-block;
+  flex: none;
+}
+.rail .sec {
+  margin-top: 12px;
+}
+.rail .sec:first-of-type {
+  margin-top: 0;
+}
+
+/* ---------- SIDEBAR ---------- */
+.skill-group {
+  margin-bottom: 9px;
+}
+.skill-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.6px;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+.chip {
+  background: transparent;
+  color: #34474d;
+  border: 1px solid #aebdb7;
+  font-size: 8px;
+  font-weight: 500;
+  padding: 2px 6px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.chip.key {
+  border-color: var(--accent);
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+
+.edu-item {
+  margin-bottom: 7px;
+}
+.edu-item:last-child {
+  margin-bottom: 0;
+}
+.edu-title {
+  font-weight: 600;
+  font-size: 8.6px;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.edu-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.lang-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3px;
+}
+.lang-name {
+  font-weight: 600;
+  font-size: 8.6px;
+}
+.lang-lvl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px;
+  color: var(--muted);
+}
+
+.interests {
+  font-size: 8.5px;
+  color: var(--ink-soft);
+}
+
+/* ---------- PROFILE ---------- */
+.profile {
+  font-size: 9.1px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ---------- EXPERIENCE ---------- */
+.xp {
+  margin-bottom: 11px;
+}
+.xp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.xp-role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--ink);
+  line-height: 1.15;
+}
+.xp-dates {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.8px;
+  color: var(--accent-deep);
+  white-space: nowrap;
+  flex: none;
+  padding-top: 1px;
+}
+.xp-org {
+  font-size: 8.8px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin-top: 1px;
+}
+ul.bullets {
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+}
+ul.bullets li {
+  position: relative;
+  padding-left: 11px;
+  margin-bottom: 3px;
+  font-size: 8.8px;
+  color: var(--ink-soft);
+  line-height: 1.42;
+}
+ul.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 3.5px;
+  height: 3.5px;
+  background: var(--accent);
+}
+.stack {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.6px;
+  color: var(--muted);
+  margin-top: 3px;
+  padding-left: 10px;
+}
+.stack .k {
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+
+/* ---------- PROJECTS (inline) ---------- */
+.os-line {
+  font-size: 8.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.os-line strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 8.3px;
+  color: var(--accent-deep);
+}
+.os-line .sep {
+  color: #d8e0dd;
+  margin: 0 3px;
+}

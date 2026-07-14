@@ -32,7 +32,8 @@ src/
     ├── posts/                     # liste + article de blog FR
     ├── projets.astro              # page complète des projets FR
     ├── a-propos/index.astro       # page À propos FR (bio + stats + compétences + parcours, façon CV)
-    └── en/                        # pendant EN de toutes les pages ci-dessus
+    ├── cv/index.astro             # CV FR généré dynamiquement (design print, voir section dédiée)
+    └── en/                        # pendant EN de toutes les pages ci-dessus (dont en/cv/index.astro)
 ```
 
 ## Internationalisation (FR/EN)
@@ -59,7 +60,7 @@ competences: ["Langages:Python!", "Outils:Docker", "Méthodologies:TDD"]
 
 Sur À propos, seul "Python" est affiché par défaut dans la grille ; "Docker" et "TDD" n'apparaissent qu'après avoir cliqué sur "Voir toutes les compétences". Sur l'**accueil**, seuls les tags marqués `!` apparaissent (liste plate, sans catégorie, sans bouton déplier — un simple aperçu). Catégories utilisées (définies dans `src/data/ui/fr.yaml` et `en.yaml` → `skillCategories`) : **Langages, Outils, Méthodologies, Domaines**.
 
-Un même tag (ex: `"Langages:Python"`) peut apparaître dans plusieurs entrées du parcours et projets : il n'apparaîtra qu'une seule fois ; il suffit qu'**une seule** occurrence porte le `!` pour que la compétence soit mise en avant partout.
+Un même tag (ex: `"Langages:Python"`) peut apparaître dans plusieurs entrées du parcours et projets : il n'apparaîtra qu'une seule fois ; il suffit qu'**une seule** occurrence porte le `!` pour que la compétence soit mise en avant partout. Dans la grille de compétences (`/a-propos`, CV), les compétences mises en avant sont toujours triées en premier, avant les autres (ordre alphabétique dans chaque groupe).
 
 Pour ajouter une compétence, il suffit d'ajouter le tag correspondant à une entrée du parcours ou d'un projet — pas besoin d'éditer une liste séparée.
 
@@ -72,6 +73,8 @@ nom: "Chocolatine!"
 ```
 
 Le `!` est retiré à l'affichage. La page `/projets` affiche toujours tous les projets ; l'accueil ne montre que les tags mis en avant (pas de grille de projets).
+
+**Projets affichés sur le CV** : sélection indépendante, via `cv: true` sur l'entrée du projet dans `projects.yaml`. Ne coïncide pas forcément avec les projets mis en avant `!` sur l'accueil — le choix pour le CV peut privilégier des projets plus pertinents pour un poste donné.
 
 ## Transitions de page
 
@@ -94,6 +97,19 @@ cp .env.example .env
 ```
 
 Pour le déploiement, les mêmes variables doivent être définies dans **Settings → Secrets and variables → Actions → Variables** du dépôt GitHub (onglet "Variables", pas "Secrets", car ce ne sont pas des données sensibles).
+
+### CV généré (`/cv`, `/en/cv`)
+
+Le bouton "Télécharger mon CV" de la page À propos pointe vers une page CV générée dynamiquement au build (`src/pages/cv/index.astro` et `src/pages/en/cv/index.astro`), à partir des **mêmes données YAML** que le reste du site (`profile.yaml`, `projects.yaml`) — aucun fichier séparé à maintenir. Design print autonome (A4, indépendant du thème glassmorphism du site), avec un bouton "Imprimer / Exporter en PDF" pour l'export.
+
+- **Expérience professionnelle** : `profile.yaml → parcours`
+- **Formation** : `profile.yaml → formation` (même forme que `parcours` : `periode`, `titre`, `lieu`, `description`, `competences`)
+- **Compétences** : calculées comme sur `/a-propos` (voir section dédiée plus haut), à partir de `parcours` + `formation` + `projects.yaml`
+- **Langues, centres d'intérêt, localisation, mobilité** : `profile.yaml → langues`, `interets`, `localisation`, `mobilite`
+- **Contact** : `PUBLIC_CONTACT_EMAIL`, `PUBLIC_LINKEDIN_URL`, `PUBLIC_GITHUB_URL`, `PUBLIC_SITE_URL` (voir `.env.example`)
+- **Projets & contributions** : projets de `projects.yaml` marqués `cv: true` (voir section Compétences plus haut)
+
+Les libellés de section (Compétences, Formation, etc.) sont dans `src/data/ui/{fr,en}.yaml → cv`.
 
 ## Publier un article
 

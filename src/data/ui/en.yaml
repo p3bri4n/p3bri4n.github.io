@@ -17,6 +17,19 @@ about:
   skillsTitle: "Skills"
   showAllSkills: "Show all skills"
   showFeaturedSkills: "Show featured skills"
+  downloadCv: "Download my résumé"
+
+cv:
+  skillsTitle: "Skills"
+  formationTitle: "Education"
+  languagesTitle: "Languages"
+  interestsTitle: "Interests"
+  profileTitle: "Profile"
+  experienceTitle: "Professional experience"
+  projectsTitle: "Projects & contributions"
+  stackLabel: "Stack"
+  printButton: "Print / Export to PDF"
+  backButton: "← Back to the site"
 
 projects:
   viewProject: "View project →"
