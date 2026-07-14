@@ -1,10 +1,10 @@
 nom: "Pierre-Emmanuel Brian"
-titre: "AI Engineer"
+titre: "AI Engineer — NLP/LLM in Production"
 avatar: ""
 experienceDepuis: 2016
 localisation: "Toulouse (France)"
 mobilite: "Full or partial remote work, On-site portion: Toulouse and surrounding area (own vehicle)"
-disponibilite: "Availability: immediate — permanent position"
+disponibilite: "Available — seeking a permanent position"
 langues:
   - nom: "French"
     niveau: "Native"
@@ -27,16 +27,16 @@ accroche: >
 
 bio: |
   AI Engineer, 10 years of experience including 4 on NLP/LLM systems in production.
+  After several years on assignment (Airbus, Safran, CVG Medical, KPAM) designing and industrializing end-to-end AI pipelines, I'm now looking to settle into a long-term role within a large organization, carrying AI projects from design through to production.
   BERT/LLM fine-tuning, RAG architectures, LangGraph/MCP agents.
-  Open source contributor (3 Python libraries + a local agent stack).
-  Clients: Airbus, Safran, Spherea, SCLE/SFE, TBS, CVG Medical, KPAM.
+  Open source contributor (3 Python libraries).
 
 formation:
   - periode: "Jun. 2026"
     titre: "Engineering degree in Computer Science and Information Systems (ISI)"
     lieu: "Université de Technologie de Troyes (UTT)"
     description: >
-      Accreditation of Prior Experience (VAE)
+      Obtained through VAE while working full-time — an academic validation of 10 years of practice.
     competences: ["Methodologies:VAE", "Domains:Information Systems"]
   - periode: "Jan. 2018"
     titre: "Professional certification as software designer / developer"
@@ -56,17 +56,17 @@ parcours:
     titre: "AI Engineer (Freelance)"
     lieu: "KPAM"
     description: >
-      Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics. Pipeline handling up to 60k verbatims per study, serving 11 business users. Inference optimization: ×200 on BERT classification (multilingual batching + GPU activation) and ×55 on LLM inference (async processing).
+      Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics. Pipeline handling up to 60k verbatims per study, serving 11 business users. Industrialized and optimized inference in production: ×200 on BERT classification (multilingual batching, GPU activation), ×55 on LLM inference (async processing). Deployment, monitoring and operational maintenance for 11 business users.
     competences: ["Languages:Python!", "Domains:NLP!", "Domains:Big data", "Tools:LLM!", "Tools:BERT", "Tools:OpenAI API", "Tools:GitHub", "Methodologies:Fine-tuning!", "Methodologies:NER", "Methodologies:Reverse engineering", "Methodologies:Coding agents!", "Methodologies:Testing", "Methodologies:Freelancing", "Methodologies:Technology watch"]
   - periode: "Jul. 2024 — Jan. 2025 (6 months)"
     titre: "Business Analyst (Temporary)"
     lieu: "Airbus"
     description: >
-      Test-based validation of offshore development for the FlowMetrics project & built a supply chain POC.
+      Quality interface between the offshore team and the client: test-based validation of the FlowMetrics project, built a supply chain POC.
     competences: ["Methodologies:Testing", "Methodologies:Business Analysis", "Domains:Big data", "Domains:Supply Chain", "Tools:AWS"]
   - periode: "Jan. 2024 — Mar. 2025 (1 year 2 months)"
     titre: "Software Engineer (Freelance)"
-    lieu: "CVG médical"
+    lieu: "CVG médical (part-time mission, concurrent)"
     description: >
       Designed & built SmartCry (RPA) to automate responses to public hospital tenders in France. Online form filling time per case cut from 15h to 30min.
     competences: ["Languages:Python", "Tools:Playwright", "Tools:RPA", "Methodologies:Automation", "Methodologies:Monitoring", "Methodologies:Freelancing"]

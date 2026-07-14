@@ -68,7 +68,7 @@
     qui démarre à la demande des serveurs MCP (filesystem, git, playwright,
     terminal maison), le tout servi par vLLM. Chaque service a sa propre suite
     de tests isolée, sans dépendance à de vrais services tiers.
-  tags: ["Outils:Docker", "Outils:Docker Compose", "Outils:LangGraph!", "Domaines:Agents IA!", "Outils:MCP!", "Outils:vLLM!", "Méthodologies:RAG!", "Outils:LlamaIndex", "Outils:Mem0", "Outils:LLMLingua", "Méthodologies:Reranking", "Méthodologies:Open Source"]
+  tags: ["Outils:Déploiement Docker", "Outils:Docker Compose", "Outils:LangGraph!", "Domaines:Agents IA!", "Outils:MCP!", "Outils:vLLM!", "Méthodologies:RAG!", "Outils:LlamaIndex", "Outils:Mem0", "Outils:LLMLingua", "Méthodologies:Reranking", "Méthodologies:Open Source"]
   image: "/images/logo-agentic-ai-playground.jpg"
   lien: ""
 
@@ -130,7 +130,7 @@
     une architecture propre sans framework superflu (Flask uniquement) et un
     minimum de dépendances externes — dont Chocolatine pour la génération des
     requêtes SQL. Base MySQL, mots de passe chiffrés avec Bcrypt.
-  tags: ["Langages:Python", "Outils:Flask", "Outils:MySQL", "Méthodologies:Architecture", "Outils:Docker"]
+  tags: ["Langages:Python", "Outils:Flask", "Outils:MySQL", "Méthodologies:Architecture", "Outils:Déploiement Docker"]
   image: ""
   lien: "https://github.com/p3bri4n/registration-API-edu"
 
@@ -139,7 +139,7 @@
   cv: true
   description_courte: "Suite logicielle propriétaire (KPAM) pour gérer le dataflow du traitement d'un avis client."
   description: "Suite logicielle propriétaire (KPAM) complète pour gérer le dataflow du traitement d'un avis client. Utilisation de l'IA pour classifier, tonaliser, corriger les verbatims."
-  tags: ["Langages:Python", "Outils:Docker", "Outils:Flet", "Outils:BERT!", "Outils:LLM!"]
+  tags: ["Langages:Python", "Outils:Déploiement Docker", "Outils:Flet", "Outils:BERT!", "Outils:LLM!"]
   image: "/images/logo-athena.jpeg"
   lien: ""
 

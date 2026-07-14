@@ -14,7 +14,7 @@ skillTiers:
   - nom: "Core AI"
     valeurs: ["LLM", "RAG", "Fine-tuning", "BERT", "NER", "LangGraph", "MCP", "vLLM", "Ollama", "Coding agents"]
   - nom: "Engineering"
-    valeurs: ["Python", "SQL", "Docker", "FastAPI", "CI/CD", "PySpark", "Polars", "Playwright", "AWS", "Scaleway"]
+    valeurs: ["Python", "SQL", "Docker Deployment", "FastAPI", "CI/CD", "PySpark", "Polars", "Playwright", "AWS", "Scaleway"]
 
 home:
   greeting: "Hello, I'm"

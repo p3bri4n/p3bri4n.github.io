@@ -1,10 +1,10 @@
 nom: "Pierre-Emmanuel Brian"
-titre: "IA engineer"
+titre: "Ingénieur IA — NLP/LLM en production"
 avatar: ""
 experienceDepuis: 2016
 localisation: "Toulouse (France)"
 mobilite: "Télétravail partiel ou total, Partie présentielle : Toulouse et périphérie (véhiculé)"
-disponibilite: "Disponibilité : immédiate — CDI"
+disponibilite: "Disponible — recherche CDI"
 langues:
   - nom: "Français"
     niveau: "Langue maternelle"
@@ -25,16 +25,16 @@ accroche: >
 
 bio: |
   Ingénieur IA, 10 ans d'expérience dont 4 sur des systèmes NLP/LLM en production.
+  Après plusieurs années en mission (Airbus, Safran, CVG Medical, KPAM) à concevoir et industrialiser des pipelines IA de bout en bout, je cherche à m'inscrire dans la durée au sein d'un grand groupe pour porter des projets IA de leur conception à leur exploitation.
   Fine-tuning BERT/LLM, architectures RAG, agents LangGraph/MCP.
-  Contributeur open source (3 bibliothèques Python + une stack d'agent local).
-  Clients : Airbus, Safran, Spherea, SCLE/SFE, TBS, CVG Medical, KPAM.
+  Contributeur open source (3 bibliothèques Python).
 
 formation:
   - periode: "Juin 2026"
     titre: "Diplôme d'ingénieur en Informatique et Systèmes d'information (ISI)"
     lieu: "Université de Technologie de Troyes (UTT)"
     description: >
-      Validation des Acquis de l'Expérience (VAE)
+      Obtenu par VAE en parallèle d'une activité à temps plein — validation académique de 10 ans de pratique.
     competences: ["Méthodologies:VAE", "Domaines:Systèmes d'information"]
   - periode: "Janv. 2018"
     titre: "Titre professionnel de concepteur / développeur informatique"
@@ -54,17 +54,17 @@ parcours:
     titre: "Ingénieur IA (Freelance)"
     lieu: "KPAM"
     description: >
-      Conception & développement de la suite logicielle Athena pour remplacer 15 outils Excel/VBA legacy dans l'analyse de l'expérience client. Pipeline traitant jusqu'à 60k verbatims par étude, pour 11 utilisateurs métier. Optimisation de l'inférence : ×200 sur la classification BERT (batching multilangue + activation GPU) et ×55 sur l'inférence LLM (utilisation de l'asynchronisme).
+      Conception & développement de la suite logicielle Athena pour remplacer 15 outils Excel/VBA legacy dans l'analyse de l'expérience client. Pipeline traitant jusqu'à 60k verbatims par étude, pour 11 utilisateurs métier. Industrialisation et optimisation de l'inférence en production : ×200 sur la classification BERT (batching multilangue, activation GPU), ×55 sur l'inférence LLM (asynchronisme). Déploiement, supervision et maintien en conditions opérationnelles pour 11 utilisateurs métier.
     competences: ["Langages:Python!", "Domaines:NLP!", "Domaines:Big data", "Outils:LLM!", "Outils:BERT", "Outils:OpenAI API", "Outils:GitHub", "Méthodologies:Fine-tuning!", "Méthodologies:NER", "Méthodologies:Rétro-ingénierie", "Méthodologies:Coding agents!", "Méthodologies:Tests", "Méthodologies:Freelancing", "Méthodologies:Veille technologique"]
   - periode: "Juil. 2024 — Janv. 2025 (6 mois)"
     titre: "Business Analyst (Intérim)"
     lieu: "Airbus"
     description: >
-      Validation par les tests du développement offshore pour le projet FlowMetrics & développement d'un POC dans le domaine de la supply chain
+      Interface qualité entre l'équipe offshore et le client : validation par les tests du développement du projet FlowMetrics, développement d'un POC supply chain.
     competences: ["Méthodologies:Tests", "Méthodologies:Business Analysis", "Domaines:Big data", "Domaines:Supply Chain", "Outils:AWS"]
   - periode: "Janv. 2024 — Mars 2025 (1 an 2 mois)"
     titre: "Ingénieur logiciel (Freelance)"
-    lieu: "CVG médical"
+    lieu: "CVG médical (mission à temps partiel, en parallèle)"
     description: >
       Conception & développement de SmartCry (RPA) pour automatiser la réponse aux appels d'offres de l'hôpital public français. Temps de remplissage des formulaires en ligne ramené de 15h à 30min par dossier.
     competences: ["Langages:Python", "Outils:Playwright", "Outils:RPA", "Méthodologies:Automatisation", "Méthodologies:Supervision", "Méthodologies:Freelancing"]

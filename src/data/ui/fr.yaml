@@ -14,7 +14,7 @@ skillTiers:
   - nom: "Cœur IA"
     valeurs: ["LLM", "RAG", "Fine-tuning", "BERT", "NER", "LangGraph", "MCP", "vLLM", "Ollama", "Coding agents"]
   - nom: "Engineering"
-    valeurs: ["Python", "SQL", "Docker", "FastAPI", "CI/CD", "PySpark", "Polars", "Playwright", "AWS", "Scaleway"]
+    valeurs: ["Python", "SQL", "Déploiement Docker", "FastAPI", "CI/CD", "PySpark", "Polars", "Playwright", "AWS", "Scaleway"]
 
 home:
   greeting: "Bonjour, je suis"
