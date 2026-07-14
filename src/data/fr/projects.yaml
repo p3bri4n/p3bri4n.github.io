@@ -15,7 +15,7 @@
 - slug: "chocolatine"
   nom: "Chocolatine!"
   cv: true
-  description_courte: "Query builder SQL en Python, plus fort que du pain au chocolat !"
+  description_courte: "Query builder MySQL en Python"
   description: >
     Bibliothèque Python permettant de construire des requêtes SQL complexes de
     façon programmatique, avec autocomplétion IDE complète et vérification de

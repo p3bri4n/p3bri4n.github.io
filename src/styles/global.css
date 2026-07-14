@@ -3,9 +3,9 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --aurora-1: hsl(280, 100%, 70%);
+  --aurora-1: hsl(220, 15%, 60%);
   --aurora-2: hsl(200, 100%, 60%);
-  --aurora-3: hsl(340, 100%, 65%);
+  --aurora-3: hsl(220, 10%, 50%);
   --aurora-4: hsl(150, 70%, 60%);
 
   --glass-bg: rgba(255, 255, 255, 0.5);
@@ -18,6 +18,9 @@
 }
 
 .dark {
+  --aurora-1: hsl(280, 100%, 70%);
+  --aurora-3: hsl(340, 100%, 65%);
+
   --glass-bg: rgba(255, 255, 255, 0.06);
   --glass-bg-solid: rgba(15, 23, 42, 0.75);
   --glass-border: rgba(255, 255, 255, 0.1);

@@ -14,7 +14,7 @@
 - slug: "chocolatine"
   nom: "Chocolatine!"
   cv: true
-  description_courte: "A type-safe SQL query builder for Python, no string concatenation."
+  description_courte: "MySQL query builder in Python"
   description: >
     A Python library for building complex SQL queries programmatically, with
     full IDE autocompletion and runtime type checking. Supports joins,

@@ -1,9 +1,10 @@
 nom: "Pierre-Emmanuel Brian"
-titre: "IA engineer"
+titre: "IA engineer / ML Ops"
 avatar: ""
 experienceDepuis: 2016
 localisation: "Toulouse (France)"
-mobilite: "Télétravail partiel ou total, présentiel possible à Toulouse et périphérie, Véhiculé"
+mobilite: "Télétravail partiel ou total, Partie présentielle : Toulouse et périphérie (véhiculé)"
+disponibilite: "Disponibilité : immédiate — CDI"
 langues:
   - nom: "Français"
     niveau: "Langue maternelle"
@@ -13,15 +14,20 @@ interets: "Tir à l'arc, jeux de société"
 stats:
   - kind: "experience"
     label: "d'expérience"
-  - kind: "freelance"
-    label: "missions freelance"
-  - valeur: "IA / NLP"
-    label: "spécialité"
+  - valeur: "×55"
+    label: "Augmentation vitesse d'inférence LLM (KPAM)"
+  - valeur: "×200"
+    label: "Augmentation vitesse classification BERT (KPAM)"
+  - valeur: "+94%"
+    label: "Productivité, automatisation CVG Medical (remplissage formulaire en ligne)"
 accroche: >
   Passionné d'IA et de nouvelles technologies, j'allie rigueur et sens stratégique pour concevoir des solutions innovantes adaptées à vos enjeux.
 
-bio: >
-  Passionné d'IA et de nouvelles technologies, j'allie rigueur et sens stratégique pour concevoir des solutions innovantes adaptées à vos enjeux.
+bio: |
+  Ingénieur IA, 10 ans d'expérience dont 4 sur des systèmes NLP/LLM en production.
+  Fine-tuning BERT/LLM, architectures RAG, agents LangGraph/MCP.
+  Contributeur open source (4 bibliothèques Python).
+  Clients : Airbus, Safran, Spherea, SCLE/SFE, TBS, CVG Medical, KPAM.
 
 formation:
   - periode: "Juin 2026"
@@ -30,7 +36,7 @@ formation:
     description: >
       Obtention via la validation des acquis de l'expérience (VAE) - Vaut master II (Bac+5)
     competences: ["Méthodologies:VAE", "Domaines:Systèmes d'information"]
-  - periode: "Janvier 2018"
+  - periode: "Janv. 2018"
     titre: "Titre professionnel de concepteur / développeur informatique"
     lieu: "AFPA (Balma)"
     description: >
@@ -49,55 +55,55 @@ parcours:
     lieu: "KPAM"
     description: >
       Conception & développement de la suite logicielle Athena pour remplacer 15 outils Excel/VBA legacy dans le domaine de l'analyse de l'expérience client.
-    competences: ["Langages:Python!", "Domaines:NLP!", "Domaines:Big data", "Outils:LLM!", "Outils:BERT", "Outils:GitHub", "Méthodologies:Fine-tuning!", "Méthodologies:Rétro-ingénierie", "Méthodologies:Coding agents!", "Méthodologies:Tests", "Méthodologies:Freelancing", "Méthodologies:Veille technologique"]
-  - periode: "Juillet 2024 — Janvier 2025 (6 mois)"
+    competences: ["Langages:Python!", "Domaines:NLP!", "Domaines:Big data", "Outils:LLM!", "Outils:BERT", "Outils:GitHub", "Méthodologies:Fine-tuning!", "Méthodologies:NER", "Méthodologies:Rétro-ingénierie", "Méthodologies:Coding agents!", "Méthodologies:Tests", "Méthodologies:Freelancing", "Méthodologies:Veille technologique"]
+  - periode: "Juil. 2024 — Janv. 2025 (6 mois)"
     titre: "Business Analyst (Intérim)"
     lieu: "Airbus"
     description: >
       Validation par les tests du développement offshore pour le projet FlowMetrics & développement d'un POC dans le domaine de la supply chain
-    competences: ["Méthodologies:Tests", "Méthodologies:Business Analysis", "Domaines:Big data", "Domaines:Supply Chain"]
-  - periode: "Janvier 2024 — Mars 2025 (1 an 2 mois)"
+    competences: ["Méthodologies:Tests", "Méthodologies:Business Analysis", "Domaines:Big data", "Domaines:Supply Chain", "Outils:AWS", "Outils:AWS Athena"]
+  - periode: "Janv. 2024 — Mars 2025 (1 an 2 mois)"
     titre: "Ingénieur logiciel (Freelance)"
     lieu: "CVG médical"
     description: >
       Conception & développement du logiciel SmartCry (RPA) pour automatiser la réponse à des appels d'offre de l'hôpital public français
     competences: ["Langages:Python", "Outils:Playwright", "Outils:RPA", "Méthodologies:Automatisation", "Méthodologies:Supervision", "Méthodologies:Freelancing"]
-  - periode: "Juillet 2022 — Novembre 2023 (1 an 4 mois)"
-    titre: "Product Management Business Partner - PMBP (Freelance)"
+  - periode: "Juil. 2022 — Nov. 2023 (1 an 4 mois)"
+    titre: "Product Management Business Partner (Freelance)"
     lieu: "Airbus"
     description: >
       Management de projets digitaux et développement data dans la production industrielle aéronautique (programmes A350/A330).
-    competences: ["Langages:Python", "Outils:PySpark", "Méthodologies:Product Management", "Domaines:Big data", "Domaines:Aéronautique", "Méthodologies:Freelancing"]
-  - periode: "Juin 2022 — Juillet 2022 (1 mois)"
+    competences: ["Langages:Python", "Outils:PySpark", "Méthodologies:Product Management", "Domaines:Big data", "Domaines:Aéronautique", "Méthodologies:Freelancing", "Méthodologies:Reporting", "Méthodologies:Prévisionnel budgétaire", "Méthodologies:Séries temporelles", "Méthodologies:Lead time"]
+  - periode: "Juin 2022 — Juil. 2022 (1 mois)"
     titre: "Ingénieur DevOps (Freelance)"
     lieu: "Digitcuto"
     description: >
       Développement d'outils d'intégration continue pour un client dans le domaine de la robotique médicale.
     competences: ["Langages:Python!", "Méthodologies:CI/CD", "Outils:Jama", "Outils:Gitlab", "Domaines:Robotique", "Domaines:Médical", "Méthodologies:Freelancing"]
-  - periode: "Octobre 2021 — Juillet 2022 (9 mois)"
+  - periode: "Oct. 2021 — Juil. 2022 (9 mois)"
     titre: "Mentor (Freelance)"
     lieu: "OpenClassrooms"
     description: >
       Mentorat de plus de 40 étudiants sur le parcours "Développeur d'applications Python" & évaluations lors des soutenances
-    competences: ["Langages:Python", "Méthodologies:Mentorat", "Méthodologies:Pédagogie", "Méthodologies:Freelancing"]
-  - periode: "Février 2018 — Mars 2021 (4 ans)"
+    competences: ["Langages:Python", "Outils:Django", "Outils:Django Rest Framework", "Langages:SQL", "Outils:Docker", "Langages:HTML", "Langages:CSS", "Langages:JavaScript", "Méthodologies:TDD", "Méthodologies:Mentorat", "Méthodologies:Pédagogie", "Méthodologies:Évaluation", "Méthodologies:Freelancing"]
+  - periode: "Févr. 2018 — Mars 2021 (4 ans)"
     titre: "Ingénieur informatique consultant (CDI)"
     lieu: "Inetum, Néo-Soft"
     description: >
       Développeur polyvalent sur des missions multi-clients dans l'aéronautique et l'industrie, avec une évolution vers un rôle de lead technique.
-    competences: ["Méthodologies:Développement", "Méthodologies:Lead technique", "Méthodologies:Conseil"]
-  - periode: "Octobre 2017 — Janvier 2018 (4 mois)"
+    competences: ["Langages:Python", "Outils:Django", "Outils:Django Rest Framework", "Langages:C#", "Outils:.NET", "Outils:Microsoft Dynamics", "Langages:Lua", "Langages:JavaScript", "Langages:VBA", "Méthodologies:Mocking", "Méthodologies:Microservices", "Méthodologies:TDD", "Méthodologies:Agilité", "Méthodologies:Lead technique"]
+  - periode: "Oct. 2017 — Janv. 2018 (4 mois)"
     titre: "Développeur (Stage)"
     lieu: "DECASOFT"
     description: >
       Développement sur la plateforme Ecoscope (Java / Spring Batch).
-    competences: ["Langages:Java", "Outils:Spring Batch"]
+    competences: ["Langages:Java", "Outils:JEE", "Outils:Spring Boot", "Outils:Spring Batch", "Outils:Elasticsearch", "Outils:PostgreSQL"]
   - periode: "Juin 2016 — Mars 2017 (10 mois)"
     titre: "Développeur (Freelance)"
     lieu: "Sématique SARL, Labège"
     description: >
-      Développement de l'application MCDF (Python).
-    competences: ["Langages:Python", "Méthodologies:Freelancing"]
+      Développement de l'application MCDF.
+    competences: ["Langages:TypeScript", "Outils:MongoDB", "Outils:AngularJS", "Outils:Node.js", "Outils:Google Maps API", "Méthodologies:Freelancing"]
 
 objectifs:
   - "Continuer à réaliser une veille technologique soutenue pour être au fait des dernières innovations & mettre en avant les plus prometteuses à travers mon blog."

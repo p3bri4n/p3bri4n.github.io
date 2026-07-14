@@ -119,18 +119,12 @@ body {
 }
 .role {
   font-family: 'JetBrains Mono', monospace;
-  font-weight: 500;
-  font-size: 9.5px;
-  letter-spacing: 1.5px;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   color: var(--ink-soft);
   margin-top: 5px;
-}
-.tagline {
-  font-size: 9.2px;
-  color: var(--muted);
-  margin-top: 4px;
-  max-width: 96%;
 }
 /* Colonne centrale : localisation/mobilité, sur plusieurs lignes plutôt que de
    pousser sur la colonne contact (à droite). */
@@ -217,6 +211,12 @@ body {
   display: table-cell;
   vertical-align: top;
   padding-left: 20px;
+  /* .rail a un padding-top de 15px (voir .rail ci-dessus) que .main n'a pas ; sans ce
+     padding-top, "Profil" démarrerait plus haut que "Compétences" alors que les deux
+     colonnes sont display:table-cell/vertical-align:top et devraient être alignées.
+     (margin-top ne fonctionnerait pas ici : les marges sont ignorées sur les boîtes
+     display:table-cell.) */
+  padding-top: 15px;
 }
 
 /* ---------- SECTION HEADINGS ---------- */
@@ -322,10 +322,12 @@ body {
 
 /* ---------- PROFILE ---------- */
 .profile {
-  font-size: 9.1px;
-  color: var(--ink-soft);
+  font-size: 10.4px;
+  font-weight: 500;
+  color: var(--ink);
   line-height: 1.55;
   margin: 0;
+  white-space: pre-line;
 }
 
 /* ---------- EXPERIENCE ---------- */
@@ -393,19 +395,23 @@ ul.bullets li::before {
   font-weight: 600;
 }
 
-/* ---------- PROJECTS (inline) ---------- */
-.os-line {
-  font-size: 8.5px;
-  color: var(--ink-soft);
-  line-height: 1.55;
+/* ---------- PROJECTS (sidebar) ---------- */
+.proj-item {
+  margin-bottom: 7px;
 }
-.os-line strong {
+.proj-item:last-child {
+  margin-bottom: 0;
+}
+.proj-name {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
-  font-size: 8.3px;
+  font-size: 8px;
   color: var(--accent-deep);
+  line-height: 1.3;
 }
-.os-line .sep {
-  color: #d8e0dd;
-  margin: 0 3px;
+.proj-desc {
+  font-size: 7.6px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin-top: 1px;
 }

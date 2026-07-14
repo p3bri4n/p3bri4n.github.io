@@ -6,6 +6,18 @@ nav:
 
 skillCategories: ["Languages", "Tools", "Methodologies", "Domains"]
 
+# Deliberately narrow skill hierarchy shown on /about and the résumé (replaces the category
+# grid above for display). Only the values listed here are shown; any skill missing from
+# these 3 tiers is left out. "valeurs" must match the tag's "Category:Value" value exactly
+# (without the "!").
+skillTiers:
+  - nom: "Core AI"
+    valeurs: ["LLM", "RAG", "Fine-tuning", "BERT", "NER", "LangGraph", "MCP", "vLLM", "Ollama", "Coding agents"]
+  - nom: "Engineering"
+    valeurs: ["Python", "SQL", "Docker", "FastAPI", "CI/CD", "PySpark", "Polars", "Playwright", "AWS", "AWS Athena", "Scaleway"]
+  - nom: "Methodologies"
+    valeurs: ["Architecture", "Automation", "Business Analysis", "Documentation", "Technical Lead", "Mentoring", "Open Source", "Teaching", "Product Management", "Reverse engineering", "Scraping", "Monitoring", "Testing", "Technology watch", "Reporting", "Budget forecasting", "Time series", "Lead time"]
+
 home:
   greeting: "Hello, I'm"
   viewProjects: "View projects"
@@ -15,8 +27,6 @@ home:
 about:
   objectifsTitle: "Goals"
   skillsTitle: "Skills"
-  showAllSkills: "Show all skills"
-  showFeaturedSkills: "Show featured skills"
   downloadCv: "Download my résumé"
   experienceTitle: "Professional experience"
   formationTitle: "Education"

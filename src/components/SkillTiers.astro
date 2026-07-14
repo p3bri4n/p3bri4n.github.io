@@ -1,0 +1,23 @@
+---
+import type { SkillTierData } from '../i18n/skills';
+
+interface Props {
+  tiers: SkillTierData[];
+}
+
+const { tiers } = Astro.props;
+const nonEmptyTiers = tiers.filter((tier) => tier.items.length > 0);
+---
+
+<div class="space-y-4">
+  {nonEmptyTiers.map((tier) => (
+    <div class="glass-panel rounded-lg p-4">
+      <h3 class="font-semibold mb-2">{tier.nom}</h3>
+      <div class="flex flex-wrap gap-2">
+        {tier.items.map((item) => (
+          <span class="glass-tag px-2.5 py-1 text-xs rounded-full">{item.value}</span>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>

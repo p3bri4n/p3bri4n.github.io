@@ -2,10 +2,10 @@
 import Layout from '../../../layouts/Layout.astro';
 import Avatar from '../../../components/Avatar.astro';
 import KpiStats from '../../../components/KpiStats.astro';
-import SkillGroup from '../../../components/SkillGroup.astro';
+import SkillTiers from '../../../components/SkillTiers.astro';
 import Timeline from '../../../components/Timeline.astro';
 import { getProfile, getProjects, getUi } from '../../../i18n/content';
-import { computeSkills, computeStats } from '../../../i18n/skills';
+import { computeSkills, computeStats, groupSkillsByTier } from '../../../i18n/skills';
 import { ROUTES } from '../../../i18n/routes';
 
 const lang = 'en' as const;
@@ -14,10 +14,9 @@ const projects = getProjects(lang);
 const ui = getUi(lang);
 const cvUrl = ROUTES.cv[lang];
 
-const skills = computeSkills(
-  [...profile.formation, ...profile.parcours],
-  projects as { tags: string[] }[],
-  ui.skillCategories
+const skills = groupSkillsByTier(
+  computeSkills([...profile.formation, ...profile.parcours], projects as { tags: string[] }[], ui.skillCategories),
+  ui.skillTiers
 );
 const stats = computeStats(profile, 'years');
 ---
@@ -72,7 +71,7 @@ const stats = computeStats(profile, 'years');
 
   <section class="mb-14">
     <h2 class="text-xl font-semibold mb-6">{ui.about.skillsTitle}</h2>
-    <SkillGroup groups={skills} showAllLabel={ui.about.showAllSkills} showFeaturedLabel={ui.about.showFeaturedSkills} />
+    <SkillTiers tiers={skills} />
   </section>
 
   <section class="mb-14">

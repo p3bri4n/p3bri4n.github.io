@@ -73,17 +73,35 @@ export function computeSkills(
     }));
 }
 
-// Retire certaines valeurs de la grille de compétences pour un contexte donné (ex: le CV,
-// plus sélectif que la grille complète du site) sans toucher aux données sources ni au
-// site. Les groupes qui deviennent vides sont retirés.
-export function excludeSkills(groups: SkillGroupData[], excludedValues: string[]): SkillGroupData[] {
-  const excluded = new Set(excludedValues);
-  return groups
-    .map((group) => ({
-      categorie: group.categorie,
-      items: group.items.filter((item) => !excluded.has(item.value)),
-    }))
-    .filter((group) => group.items.length > 0);
+export interface SkillTierDef {
+  nom: string;
+  valeurs: string[];
+}
+
+export interface SkillTierData {
+  nom: string;
+  items: SkillItem[];
+}
+
+// Regroupe les compétences calculées (computeSkills) selon une hiérarchie resserrée définie
+// dans ui.yaml (skillTiers) plutôt que par catégorie de tag. Toute valeur absente de
+// skillTiers n'apparaît dans aucun niveau — c'est le mécanisme de sélection volontaire des
+// compétences affichées sur /a-propos et le CV.
+export function groupSkillsByTier(groups: SkillGroupData[], tiers: SkillTierDef[]): SkillTierData[] {
+  const byValue = new Map<string, SkillItem>();
+  for (const group of groups) {
+    for (const item of group.items) {
+      const existing = byValue.get(item.value);
+      byValue.set(item.value, { value: item.value, featured: (existing?.featured ?? false) || item.featured });
+    }
+  }
+
+  return tiers.map((tier) => ({
+    nom: tier.nom,
+    items: tier.valeurs
+      .map((value) => byValue.get(value))
+      .filter((item): item is SkillItem => item !== undefined),
+  }));
 }
 
 // Même convention "!" pour marquer un projet comme mis en avant, ex: nom: "Chocolatine!".

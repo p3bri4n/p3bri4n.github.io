@@ -1,36 +1,9 @@
 ---
 import '../../../styles/cv.css';
 import { getProfile, getProjects, getUi } from '../../../i18n/content';
-import { computeSkills, computeStats, excludeSkills, parseFeaturedName, tagValue } from '../../../i18n/skills';
+import { computeSkills, computeStats, groupSkillsByTier, parseFeaturedName, tagValue } from '../../../i18n/skills';
 import { site } from '../../../config';
 import { ROUTES } from '../../../i18n/routes';
-
-// Skills intentionally left off the résumé (human review 2026-07-14): administrative
-// status/process rather than a skill (Freelancing, VAE), off-topic/too niche for an AI
-// Engineer role (educational/side-project domains, legacy stack), or too vague to be
-// informative.
-const CV_SKILL_EXCLUSIONS = [
-  'Freelancing',
-  'VAE',
-  'RISC-V',
-  'Education',
-  'Robotics',
-  'Query Builder',
-  'API Client',
-  'CLI',
-  'Flet',
-  'Simulation',
-  'Translation',
-  'Development',
-  'Consulting',
-  'Java',
-  'JEE',
-  'Information Systems',
-  'AI Agents',
-  'PyPI',
-  'Spring Batch',
-  'Data',
-];
 
 const lang = 'en' as const;
 const profile = getProfile(lang);
@@ -44,9 +17,9 @@ const nameParts = profile.nom.trim().split(/\s+/);
 const lastname = nameParts.pop()!;
 const firstname = nameParts.join(' ');
 
-const skills = excludeSkills(
+const skills = groupSkillsByTier(
   computeSkills([...profile.formation, ...profile.parcours], projects as { tags: string[] }[], ui.skillCategories),
-  CV_SKILL_EXCLUSIONS
+  ui.skillTiers
 );
 const stats = computeStats(profile, 'years');
 const formation = profile.formation.map((f: { titre: string; lieu: string; periode: string }) => ({
@@ -59,7 +32,10 @@ const experiences = profile.parcours.map(
     dates: entry.periode,
     org: entry.lieu,
     bullet: collapse(entry.description),
-    stack: (entry.competences ?? []).map(tagValue).join(', '),
+    stack: (entry.competences ?? [])
+      .map(tagValue)
+      .filter((value) => value !== 'Freelancing')
+      .join(', '),
   })
 );
 ---
@@ -89,13 +65,13 @@ const experiences = profile.parcours.map(
         <div class="id">
           <h1 class="name">{firstname} <span class="lastname">{lastname}</span></h1>
           <div class="role">{profile.titre}</div>
-          <div class="tagline">{collapse(profile.accroche)}</div>
         </div>
         <div class="location">
           <span class="loc-line">{profile.localisation}</span>
           {profile.mobilite.split(', ').map((part: string) => (
             <span class="loc-line">{part}</span>
           ))}
+          <span class="loc-line">{profile.disponibilite}</span>
         </div>
         <div class="contact">
           <span class="c-line"><canvas class="contact-canvas" data-b64={Buffer.from(site.contactEmail).toString('base64')}></canvas></span>
@@ -120,12 +96,12 @@ const experiences = profile.parcours.map(
       <div class="body">
         <aside class="rail">
           <div class="sec">{ui.cv.skillsTitle}</div>
-          {skills.map((group) => (
+          {skills.filter((tier) => tier.items.length > 0).map((tier, index) => (
             <div class="skill-group">
-              <div class="skill-label">{group.categorie}</div>
+              <div class="skill-label">{tier.nom}</div>
               <div class="chips">
-                {group.items.map((item) => (
-                  <span class:list={['chip', { key: item.featured }]}>{item.value}</span>
+                {tier.items.map((item) => (
+                  <span class:list={['chip', { key: index === 0 }]}>{item.value}</span>
                 ))}
               </div>
             </div>
@@ -149,11 +125,21 @@ const experiences = profile.parcours.map(
 
           <div class="sec">{ui.cv.interestsTitle}</div>
           <div class="interests">{profile.interets}</div>
+
+          <div class="sec">{ui.cv.projectsTitle}</div>
+          {(projects as { nom: string; description_courte: string; cv?: boolean }[])
+            .filter((p) => p.cv)
+            .map((p) => (
+              <div class="proj-item">
+                <div class="proj-name">{parseFeaturedName(p.nom).value}</div>
+                <div class="proj-desc">{p.description_courte}</div>
+              </div>
+            ))}
         </aside>
 
         <main class="main">
           <div class="sec">{ui.cv.profileTitle}</div>
-          <p class="profile">{collapse(profile.bio)}</p>
+          <p class="profile">{profile.bio.trim()}</p>
 
           <div class="sec" style="margin-top:13px;">{ui.cv.experienceTitle}</div>
           {experiences.map((xp: { role: string; dates: string; org: string; bullet: string; stack: string }) => (
@@ -173,18 +159,6 @@ const experiences = profile.parcours.map(
               )}
             </div>
           ))}
-
-          <div class="sec" style="margin-top:13px;">{ui.cv.projectsTitle}</div>
-          <div class="os-line">
-            {(projects as { nom: string; description_courte: string; cv?: boolean }[])
-              .filter((p) => p.cv)
-              .map((p, index) => (
-                <>
-                  {index > 0 && <span class="sep">·</span>}
-                  <strong>{parseFeaturedName(p.nom).value}</strong> — {p.description_courte}
-                </>
-              ))}
-          </div>
         </main>
       </div>
     </div>
