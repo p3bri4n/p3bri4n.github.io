@@ -298,6 +298,12 @@ body {
   color: var(--muted);
   margin-top: 1px;
 }
+.edu-desc {
+  font-size: 7.6px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin-top: 1px;
+}
 
 .lang-row {
   display: flex;
@@ -414,4 +420,11 @@ ul.bullets li::before {
   color: var(--ink-soft);
   line-height: 1.4;
   margin-top: 1px;
+}
+.proj-stack {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-top: 2px;
 }

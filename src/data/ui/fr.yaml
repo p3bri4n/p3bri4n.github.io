@@ -8,15 +8,13 @@ skillCategories: ["Langages", "Outils", "Méthodologies", "Domaines"]
 
 # Hiérarchie volontairement resserrée des compétences affichées sur /a-propos et le CV
 # (remplace la grille par catégorie ci-dessus pour l'affichage). Seules les valeurs listées
-# ici apparaissent ; toute compétence absente de ces 3 niveaux n'est pas affichée. "valeurs"
+# ici apparaissent ; toute compétence absente de ces niveaux n'est pas affichée. "valeurs"
 # doit correspondre exactement à la valeur du tag "Catégorie:Valeur" (sans le "!").
 skillTiers:
   - nom: "Cœur IA"
     valeurs: ["LLM", "RAG", "Fine-tuning", "BERT", "NER", "LangGraph", "MCP", "vLLM", "Ollama", "Coding agents"]
   - nom: "Engineering"
-    valeurs: ["Python", "SQL", "Docker", "FastAPI", "CI/CD", "PySpark", "Polars", "Playwright", "AWS", "AWS Athena", "Scaleway"]
-  - nom: "Méthodologies"
-    valeurs: ["Architecture", "Automatisation", "Business Analysis", "Documentation", "Lead technique", "Mentorat", "Open Source", "Pédagogie", "Product Management", "Rétro-ingénierie", "Scraping", "Supervision", "Tests", "Veille technologique", "Reporting", "Prévisionnel budgétaire", "Séries temporelles", "Lead time"]
+    valeurs: ["Python", "SQL", "Docker", "FastAPI", "CI/CD", "PySpark", "Polars", "Playwright", "AWS", "Scaleway"]
 
 home:
   greeting: "Bonjour, je suis"

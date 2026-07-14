@@ -22,9 +22,10 @@ const skills = groupSkillsByTier(
   ui.skillTiers
 );
 const stats = computeStats(profile, 'ans');
-const formation = profile.formation.map((f: { titre: string; lieu: string; periode: string }) => ({
+const formation = profile.formation.map((f: { titre: string; lieu: string; periode: string; description?: string }) => ({
   titre: f.titre,
   meta: `${f.lieu} · ${f.periode}`,
+  description: f.description ? collapse(f.description) : '',
 }));
 const experiences = profile.parcours.map(
   (entry: { titre: string; periode: string; lieu: string; description: string; competences?: string[] }) => ({
@@ -107,11 +108,25 @@ const experiences = profile.parcours.map(
             </div>
           ))}
 
+          <div class="sec">{ui.cv.projectsTitle}</div>
+          {(projects as { nom: string; description_courte: string; cv?: boolean; tags?: string[] }[])
+            .filter((p) => p.cv)
+            .map((p) => (
+              <div class="proj-item">
+                <div class="proj-name">{parseFeaturedName(p.nom).value}</div>
+                <div class="proj-desc">{p.description_courte}</div>
+                {(p.tags ?? []).length > 0 && (
+                  <div class="proj-stack">{(p.tags ?? []).map(tagValue).join(', ')}</div>
+                )}
+              </div>
+            ))}
+
           <div class="sec">{ui.cv.formationTitle}</div>
-          {formation.map((f: { titre: string; meta: string }) => (
+          {formation.map((f: { titre: string; meta: string; description: string }) => (
             <div class="edu-item">
               <div class="edu-title">{f.titre}</div>
               <div class="edu-meta">{f.meta}</div>
+              {f.description && <div class="edu-desc">{f.description}</div>}
             </div>
           ))}
 
@@ -125,16 +140,6 @@ const experiences = profile.parcours.map(
 
           <div class="sec">{ui.cv.interestsTitle}</div>
           <div class="interests">{profile.interets}</div>
-
-          <div class="sec">{ui.cv.projectsTitle}</div>
-          {(projects as { nom: string; description_courte: string; cv?: boolean }[])
-            .filter((p) => p.cv)
-            .map((p) => (
-              <div class="proj-item">
-                <div class="proj-name">{parseFeaturedName(p.nom).value}</div>
-                <div class="proj-desc">{p.description_courte}</div>
-              </div>
-            ))}
         </aside>
 
         <main class="main">

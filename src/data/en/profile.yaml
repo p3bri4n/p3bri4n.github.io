@@ -1,5 +1,5 @@
 nom: "Pierre-Emmanuel Brian"
-titre: "AI Engineer / ML Ops"
+titre: "AI Engineer"
 avatar: ""
 experienceDepuis: 2016
 localisation: "Toulouse (France)"
@@ -14,12 +14,12 @@ interets: "Archery, board games"
 stats:
   - kind: "experience"
     label: "of experience"
-  - valeur: "×55"
-    label: "LLM inference speed increase (KPAM)"
-  - valeur: "×200"
-    label: "BERT classification speed increase (KPAM)"
-  - valeur: "+94%"
-    label: "Productivity, CVG Medical automation (online form filling)"
+  - valeur: "60k"
+    label: "Peak verbatims analyzed per study (KPAM)"
+  - valeur: "3 → 600 reviews/s"
+    label: "Classification throughput after optimization (KPAM)"
+  - valeur: "15h → 30min"
+    label: "Online form filling time, per case (CVG Medical)"
 accroche: >
   Passionate about AI and emerging technologies, I combine rigor and
   strategic thinking to design innovative solutions tailored to your
@@ -28,7 +28,7 @@ accroche: >
 bio: |
   AI Engineer, 10 years of experience including 4 on NLP/LLM systems in production.
   BERT/LLM fine-tuning, RAG architectures, LangGraph/MCP agents.
-  Open source contributor (4 Python libraries).
+  Open source contributor (3 Python libraries + a local agent stack).
   Clients: Airbus, Safran, Spherea, SCLE/SFE, TBS, CVG Medical, KPAM.
 
 formation:
@@ -36,7 +36,7 @@ formation:
     titre: "Engineering degree in Computer Science and Information Systems (ISI)"
     lieu: "Université de Technologie de Troyes (UTT)"
     description: >
-      Obtained through accreditation of prior experience (VAE) - Equivalent to a Master's degree (Bac+5)
+      Accreditation of Prior Experience (VAE)
     competences: ["Methodologies:VAE", "Domains:Information Systems"]
   - periode: "Jan. 2018"
     titre: "Professional certification as software designer / developer"
@@ -56,19 +56,19 @@ parcours:
     titre: "AI Engineer (Freelance)"
     lieu: "KPAM"
     description: >
-      Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics.
-    competences: ["Languages:Python!", "Domains:NLP!", "Domains:Big data", "Tools:LLM!", "Tools:BERT", "Tools:GitHub", "Methodologies:Fine-tuning!", "Methodologies:NER", "Methodologies:Reverse engineering", "Methodologies:Coding agents!", "Methodologies:Testing", "Methodologies:Freelancing", "Methodologies:Technology watch"]
+      Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics. Pipeline handling up to 60k verbatims per study, serving 11 business users. Inference optimization: ×200 on BERT classification (multilingual batching + GPU activation) and ×55 on LLM inference (async processing).
+    competences: ["Languages:Python!", "Domains:NLP!", "Domains:Big data", "Tools:LLM!", "Tools:BERT", "Tools:OpenAI API", "Tools:GitHub", "Methodologies:Fine-tuning!", "Methodologies:NER", "Methodologies:Reverse engineering", "Methodologies:Coding agents!", "Methodologies:Testing", "Methodologies:Freelancing", "Methodologies:Technology watch"]
   - periode: "Jul. 2024 — Jan. 2025 (6 months)"
     titre: "Business Analyst (Temporary)"
     lieu: "Airbus"
     description: >
       Test-based validation of offshore development for the FlowMetrics project & built a supply chain POC.
-    competences: ["Methodologies:Testing", "Methodologies:Business Analysis", "Domains:Big data", "Domains:Supply Chain", "Tools:AWS", "Tools:AWS Athena"]
+    competences: ["Methodologies:Testing", "Methodologies:Business Analysis", "Domains:Big data", "Domains:Supply Chain", "Tools:AWS"]
   - periode: "Jan. 2024 — Mar. 2025 (1 year 2 months)"
     titre: "Software Engineer (Freelance)"
     lieu: "CVG médical"
     description: >
-      Designed & built SmartCry (RPA) to automate responses to public hospital tenders in France.
+      Designed & built SmartCry (RPA) to automate responses to public hospital tenders in France. Online form filling time per case cut from 15h to 30min.
     competences: ["Languages:Python", "Tools:Playwright", "Tools:RPA", "Methodologies:Automation", "Methodologies:Monitoring", "Methodologies:Freelancing"]
   - periode: "Jul. 2022 — Nov. 2023 (1 year 4 months)"
     titre: "Product Management Business Partner (Freelance)"
@@ -80,32 +80,32 @@ parcours:
     titre: "DevOps Engineer (Freelance)"
     lieu: "Digitcuto"
     description: >
-      Built continuous integration tooling for a client in medical robotics.
+      Short mission: built continuous integration tooling for a client in medical robotics.
     competences: ["Languages:Python!", "Methodologies:CI/CD", "Tools:Jama", "Tools:Gitlab", "Domains:Robotics", "Domains:Medical", "Methodologies:Freelancing"]
   - periode: "Oct. 2021 — Jul. 2022 (9 months)"
     titre: "Mentor (Freelance)"
     lieu: "OpenClassrooms"
     description: >
       Mentored more than 40 students on the "Python Application Developer" track & assessed final project defenses.
-    competences: ["Languages:Python", "Tools:Django", "Tools:Django Rest Framework", "Languages:SQL", "Tools:Docker", "Languages:HTML", "Languages:CSS", "Languages:JavaScript", "Methodologies:TDD", "Methodologies:Mentoring", "Methodologies:Teaching", "Methodologies:Assessment", "Methodologies:Freelancing"]
+    competences: ["Languages:Python", "Methodologies:Mentoring", "Methodologies:Teaching", "Methodologies:Assessment"]
   - periode: "Feb. 2018 — Mar. 2021 (4 years)"
     titre: "Consulting Software Engineer (Permanent)"
     lieu: "Inetum, Néo-Soft"
     description: >
-      Versatile developer on multi-client missions in aerospace and industry, growing into a technical lead role.
-    competences: ["Languages:Python", "Tools:Django", "Tools:Django Rest Framework", "Languages:C#", "Tools:.NET", "Tools:Microsoft Dynamics", "Languages:Lua", "Languages:JavaScript", "Languages:VBA", "Methodologies:Mocking", "Methodologies:Microservices", "Methodologies:TDD", "Methodologies:Agile", "Methodologies:Technical Lead"]
+      Versatile developer on multi-client missions in aerospace and industry — Safran, Spherea, SCLE/SFE, TBS — growing into a technical lead role (overseeing 2 developers).
+    competences: ["Languages:Python", "Tools:Django", "Tools:Django Rest Framework", "Methodologies:Agile", "Methodologies:Technical Lead"]
   - periode: "Oct. 2017 — Jan. 2018 (4 months)"
     titre: "Developer (Internship)"
     lieu: "DECASOFT"
     description: >
-      Built features for the Ecoscope platform (Java / Spring Batch).
-    competences: ["Languages:Java", "Tools:JEE", "Tools:Spring Boot", "Tools:Spring Batch", "Tools:Elasticsearch", "Tools:PostgreSQL"]
+      Designed & built a database migration solution for the Paris Chamber of Commerce (CCI) & maintenance (TMA) on the Ecoscope search platform.
+    competences: ["Tools:PostgreSQL", "Tools:Elasticsearch"]
   - periode: "Jun. 2016 — Mar. 2017 (10 months)"
     titre: "Developer (Freelance)"
     lieu: "Sématique SARL, Labège"
     description: >
-      Built the MCDF application.
-    competences: ["Languages:TypeScript", "Tools:MongoDB", "Tools:AngularJS", "Tools:Node.js", "Tools:Google Maps API", "Methodologies:Freelancing"]
+      Built an application to search for alternative medicine practitioners in France.
+    competences: ["Languages:Python", "Tools:MongoDB"]
 
 objectifs:
   - "Keep up a sustained technology watch to stay current with the latest innovations, and highlight the most promising ones through my blog."

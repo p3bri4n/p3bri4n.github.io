@@ -23,7 +23,7 @@
     (y compris récursives), fonctions fenêtrées, agrégations et opérations
     ensemblistes (UNION/INTERSECT/EXCEPT), sans jamais passer par de la
     concaténation de chaînes. Publiée sur PyPI, couverte à 99% par les tests.
-  tags: ["Langages:Python", "Langages:SQL!", "Domaines:Query Builder", "Outils:PyPI", "Méthodologies:Tests"]
+  tags: ["Langages:Python", "Langages:SQL!", "Domaines:Query Builder", "Outils:PyPI", "Méthodologies:Tests", "Méthodologies:Open Source"]
   image: "/images/logo-chocolatine.jpg"
   lien: ""
 
@@ -36,7 +36,7 @@
     jsonl) en mode normal ou streaming, avec injection colonne par colonne dans
     des fonctions décorées et reprise sur erreur. Inclut aussi une intégration
     de chat avec un LLM, en local via Ollama ou via l'API OpenAI.
-  tags: ["Langages:Python", "Outils:Polars", "Domaines:Data", "Outils:LLM", "Outils:Ollama!"]
+  tags: ["Langages:Python", "Outils:Polars", "Domaines:Data", "Outils:LLM", "Outils:Ollama!", "Outils:OpenAI API", "Méthodologies:Open Source"]
   image: "/images/logo-pitchoune.jpeg"
   lien: ""
 
@@ -62,12 +62,13 @@
   description_courte: "Stack Docker Compose pour un agent IA local (LangGraph, MCP, vLLM)."
   description: >
     Stack Docker Compose pour faire tourner un agent IA entièrement en local :
-    Open WebUI comme interface, un agent LangGraph pour l'orchestration, des
-    services de gestion de skills et de contexte (RAG via Qdrant), un client MCP
+    Open WebUI comme interface, un agent LangGraph pour l'orchestration, un
+    service de gestion de skills et un Context Manager (RAG via LlamaIndex,
+    mémoire via Mem0, compression via LLMLingua, reranking), un client MCP
     qui démarre à la demande des serveurs MCP (filesystem, git, playwright,
     terminal maison), le tout servi par vLLM. Chaque service a sa propre suite
     de tests isolée, sans dépendance à de vrais services tiers.
-  tags: ["Outils:Docker", "Outils:Docker Compose", "Outils:LangGraph!", "Domaines:Agents IA!", "Outils:MCP!", "Outils:vLLM!", "Méthodologies:RAG!"]
+  tags: ["Outils:Docker", "Outils:Docker Compose", "Outils:LangGraph!", "Domaines:Agents IA!", "Outils:MCP!", "Outils:vLLM!", "Méthodologies:RAG!", "Outils:LlamaIndex", "Outils:Mem0", "Outils:LLMLingua", "Méthodologies:Reranking", "Méthodologies:Open Source"]
   image: "/images/logo-agentic-ai-playground.jpg"
   lien: ""
 

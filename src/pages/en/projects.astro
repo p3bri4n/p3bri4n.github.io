@@ -50,7 +50,7 @@ const list = (projects as Project[]).map((project) => {
           <p class="text-slate-600 dark:text-slate-300 whitespace-pre-line mb-4">{project.description}</p>
           <div class="flex flex-wrap gap-2 mb-4">
             {project.tags.map((tag) => (
-              <span class="glass-tag px-2.5 py-1 text-xs rounded-full">
+              <span class="glass-tag px-2.5 py-1 text-sm rounded-full">
                 {tagValue(tag)}
               </span>
             ))}

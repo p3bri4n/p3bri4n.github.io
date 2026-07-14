@@ -21,7 +21,7 @@
     subqueries, CTEs (including recursive ones), window functions,
     aggregations and set operations (UNION/INTERSECT/EXCEPT), without ever
     resorting to string concatenation. Published on PyPI, 99% test coverage.
-  tags: ["Languages:Python", "Languages:SQL!", "Domains:Query Builder", "Tools:PyPI", "Methodologies:Testing"]
+  tags: ["Languages:Python", "Languages:SQL!", "Domains:Query Builder", "Tools:PyPI", "Methodologies:Testing", "Methodologies:Open Source"]
   image: "/images/logo-chocolatine.jpg"
   lien: ""
 
@@ -34,7 +34,7 @@
     jsonl) in normal or streaming mode, with column-by-column injection into
     decorated functions and recovery on failure. Also includes an LLM chat
     integration, locally via Ollama or through the OpenAI API.
-  tags: ["Languages:Python", "Tools:Polars", "Domains:Data", "Tools:LLM", "Tools:Ollama!"]
+  tags: ["Languages:Python", "Tools:Polars", "Domains:Data", "Tools:LLM", "Tools:Ollama!", "Tools:OpenAI API", "Methodologies:Open Source"]
   image: "/images/logo-pitchoune.jpeg"
   lien: ""
 
@@ -60,12 +60,13 @@
   description_courte: "A Docker Compose stack for a fully local AI agent (LangGraph, MCP, vLLM)."
   description: >
     A Docker Compose stack to run an AI agent entirely locally: Open WebUI
-    as the interface, a LangGraph agent for orchestration, skill and context
-    management services (RAG via Qdrant), an MCP client that spawns MCP
-    servers on demand (filesystem, git, playwright, a custom terminal
-    server), all served by vLLM. Each service has its own isolated test
-    suite, with no dependency on real third-party services.
-  tags: ["Tools:Docker", "Tools:Docker Compose", "Tools:LangGraph!", "Domains:AI Agents!", "Tools:MCP!", "Tools:vLLM!", "Methodologies:RAG!"]
+    as the interface, a LangGraph agent for orchestration, a skill
+    management service and a Context Manager (RAG via LlamaIndex, memory
+    via Mem0, compression via LLMLingua, reranking), an MCP client that
+    spawns MCP servers on demand (filesystem, git, playwright, a custom
+    terminal server), all served by vLLM. Each service has its own isolated
+    test suite, with no dependency on real third-party services.
+  tags: ["Tools:Docker", "Tools:Docker Compose", "Tools:LangGraph!", "Domains:AI Agents!", "Tools:MCP!", "Tools:vLLM!", "Methodologies:RAG!", "Tools:LlamaIndex", "Tools:Mem0", "Tools:LLMLingua", "Methodologies:Reranking", "Methodologies:Open Source"]
   image: "/images/logo-agentic-ai-playground.jpg"
   lien: ""
 
