@@ -60,7 +60,51 @@ const isActive = (href: string) => currentPath === href;
 >
   <nav class:list={['relative mx-auto px-4 py-4 flex items-center justify-between', wide ? 'max-w-5xl' : 'max-w-3xl']}>
     <div class="relative">
-      <a id="site-logo" href={ROUTES.home[lang]} class="logo-terminal relative text-base font-semibold tracking-tight">
+      <a id="site-logo" href={ROUTES.home[lang]} class="logo-terminal relative inline-flex items-center text-xl font-semibold tracking-tight">
+        <svg
+          class="mr-1.5 shrink-0"
+          style="height:2.3em;width:auto"
+          viewBox="-8 -5 118 113"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <defs>
+            <linearGradient id="pebrianLogoIcon" gradientUnits="userSpaceOnUse" x1="-3" y1="0" x2="102" y2="0">
+              <stop offset="0" stop-color="#5ACFE6"/>
+              <stop offset="0.28" stop-color="#7CADE0"/>
+              <stop offset="0.55" stop-color="#A98DD1"/>
+              <stop offset="0.78" stop-color="#D97F9E"/>
+              <stop offset="1" stop-color="#F2626F"/>
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#pebrianLogoIcon)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22.8 7.4 L2.6 42.8 L22.9 69.4"/>
+            <path d="M22.9 7.4 L22.9 96.8"/>
+            <path d="M22.9 7.4 L63.4 7.4"/>
+            <path d="M63.4 7.4 C80 8.5 94 20 96.6 43 C95.5 55 83 72 69.7 75"/>
+            <path d="M22.9 7.4 L44.4 27 L44.4 47 L23.5 69.4"/>
+            <path d="M44.4 27 L63.2 27.8"/>
+            <path d="M63.2 27.8 L75 43"/>
+            <path d="M75 43 L96 42.8"/>
+            <path d="M37 55.9 L63.5 55.9"/>
+            <path d="M75 43 L45 74.4"/>
+            <path d="M44.4 74.4 L69.7 75"/>
+            <path d="M44.4 74.4 L44.4 96.8 L22.9 96.8"/>
+          </g>
+          <g fill="url(#pebrianLogoIcon)">
+            <circle cx="22.8" cy="7.4" r="6.2"/>
+            <circle cx="2.6" cy="42.8" r="6.2"/>
+            <circle cx="22.9" cy="43.0" r="6.2"/>
+            <circle cx="22.9" cy="69.4" r="6.2"/>
+            <circle cx="22.9" cy="97.0" r="6.2"/>
+            <circle cx="63.4" cy="7.4" r="6.2"/>
+            <circle cx="63.2" cy="27.8" r="6.2"/>
+            <circle cx="75.0" cy="43.0" r="6.2"/>
+            <circle cx="96.0" cy="42.8" r="6.2"/>
+            <circle cx="69.7" cy="75.0" r="6.2"/>
+          </g>
+        </svg>
         <span id="logo-base">{logoBase}</span><span id="logo-slash" class="inline-block">{logoSlash}</span>
         <span id="fuse-bar" class="hidden absolute left-0 top-full mt-1 h-[3px] w-full overflow-hidden rounded-full bg-slate-700/60">
           <span id="fuse-flame" class="block h-full w-full origin-center rounded-full"></span>
@@ -115,6 +159,22 @@ const isActive = (href: string) => currentPath === href;
 <style>
   .logo-terminal {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  /* Ciblé aussi sur les span enfants : pendant la partie de Title Guardian,
+     #logo-base est vidé et rempli de <span> par lettre (voir startGame() dans
+     TitleGuardian.astro) — sans cette règle sur les span, les lettres
+     hériteraient de color:transparent sans dégradé propre à chacune et
+     deviendraient invisibles. Chaque lettre récupère donc son propre
+     mini-dégradé (léger effet multicolore par lettre), plutôt qu'un dégradé
+     parfaitement continu comme à l'état normal. */
+  #logo-base,
+  #logo-base span {
+    background-image: linear-gradient(90deg, #5acfe6 0%, #7cade0 28%, #a98dd1 55%, #d97f9e 78%, #f2626f 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
 
   /* Barre de progression générique sous le logo : positionnement dépendant
