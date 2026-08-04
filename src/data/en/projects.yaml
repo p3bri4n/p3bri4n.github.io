@@ -54,20 +54,42 @@
   image: "/images/logo-legitifier.jpeg"
   lien: ""
 
-- slug: "agentic-ai-playground"
-  nom: "Agentic AI Playground!"
+- slug: "mjolnir-agent"
+  nom: "Mjolnir Agent!"
   cv: true
-  description_courte: "A Docker Compose stack for a fully local AI agent (LangGraph, MCP, vLLM)."
+  description_courte: "A fully local, autonomous web agent on consumer GPUs, with human approval tiers and a performance benchmark."
   description: >
-    A Docker Compose stack to run an AI agent entirely locally: Open WebUI
-    as the interface, a LangGraph agent for orchestration, a skill
-    management service and a Context Manager (RAG via LlamaIndex, memory
-    via Mem0, compression via LLMLingua, reranking), an MCP client that
-    spawns MCP servers on demand (filesystem, git, playwright, a custom
-    terminal server), all served by vLLM. Each service has its own isolated
-    test suite, with no dependency on real third-party services.
-  tags: ["Tools:Docker Deployment", "Tools:Docker Compose", "Tools:LangGraph!", "Domains:AI Agents!", "Tools:MCP!", "Tools:vLLM!", "Methodologies:RAG!", "Tools:LlamaIndex", "Tools:Mem0", "Tools:LLMLingua", "Methodologies:Reranking", "Methodologies:Open Source"]
-  image: "/images/logo-agentic-ai-playground.jpg"
+    An autonomous web agent running entirely locally on consumer GPUs
+    (RTX), with no API keys and no data leaving the machine. Explicit task
+    decomposition with success criteria, post-action verification, and
+    retry budgets that force a strategy change on failure. Human
+    supervision scales by action type (reads auto-approved, reversible
+    writes granted per session, engaging actions requiring individual
+    approval), with mechanical guardrails against URL fabrication. Hybrid
+    perception: DOM-first via Playwright, falling back to vision (virtual
+    desktop + OCR). Orchestration via LangGraph, inference via
+    TabbyAPI/ExLlamaV3, memory/RAG via Qdrant. Measured on an 11-task
+    benchmark with programmatic assertions and full audit trails: 29/33
+    tasks passed on the latest campaign (88%).
+  tags: ["Tools:Docker Deployment", "Tools:Docker Compose", "Tools:LangGraph!", "Domains:AI Agents!", "Tools:MCP!", "Tools:Playwright", "Tools:Qdrant", "Methodologies:RAG", "Methodologies:Open Source"]
+  image: "/images/logo-mjolnir-agent.jpeg"
+  lien: ""
+
+- slug: "claudeus"
+  nom: "Claudeus!"
+  description_courte: "An isolated Docker sandbox to run Claude Code with --dangerously-skip-permissions without exposing the host machine."
+  description: >
+    An isolated Docker environment for running Claude Code with
+    --dangerously-skip-permissions without exposing the host machine. Built
+    on Anthropic's reference devcontainer, tailored for Python/ML work.
+    Only the project directory is mounted (no access to ~/.ssh, cloud
+    credentials, or the rest of the host filesystem). Default-DROP egress
+    firewall with a whitelist (Anthropic API, GitHub, PyPI, Hugging Face,
+    npm), non-root user required by Claude Code's permission-skip mode,
+    authentication persisted in a named Docker volume, and optional
+    Docker-in-Docker via sysbox-runc without --privileged.
+  tags: ["Tools:Docker Deployment", "Domains:Security", "Tools:CLI", "Methodologies:Open Source"]
+  image: "/images/logo-claudeus.jpeg"
   lien: ""
 
 - slug: "solar-system-edu"
@@ -148,6 +170,22 @@
   tags: ["Domains:Healthcare", "Methodologies:Automation", "Languages:Python", "Tools:Playwright", "Tools:RPA"]
   image: "/images/logo-smartcry.jpeg"
   lien: ""
+
+- slug: "pebrian-fr"
+  nom: "pebrian.fr!"
+  description_courte: "Professional website with my portfolio, my résumé & my blog."
+  description: >
+    Personal site (blog, bio/résumé, project portfolio) built with Astro
+    and Tailwind CSS v4, bilingual FR/EN with browser language detection
+    and persisted choice. Glassmorphism aesthetic (animated background,
+    frosted-glass cards) and native page transitions (View Transitions)
+    with direction computed from the page's position in the menu. Skills
+    grid and featured tags are computed automatically from career and
+    project data, never hand-maintained. Persistent light/dark theme,
+    résumé generated straight from the same data.
+  tags: ["Languages:TypeScript", "Tools:Astro!", "Tools:Tailwind CSS", "Methodologies:i18n", "Domains:Web"]
+  image: "/images/logo-pebrian.jpeg"
+  lien: "https://github.com/p3bri4n/p3bri4n.github.io"
 
 - slug: "scw"
   nom: "Scaleway Python Client"

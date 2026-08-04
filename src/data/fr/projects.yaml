@@ -56,20 +56,44 @@
   image: "/images/logo-legitifier.jpeg"
   lien: ""
 
-- slug: "agentic-ai-playground"
-  nom: "Agentic AI Playground!"
+- slug: "mjolnir-agent"
+  nom: "Mjolnir Agent!"
   cv: true
-  description_courte: "Stack Docker Compose pour un agent IA local (LangGraph, MCP, vLLM)."
+  description_courte: "Agent web autonome 100% local sur GPU grand public, avec paliers d'approbation humaine et benchmark de performance."
   description: >
-    Stack Docker Compose pour faire tourner un agent IA entièrement en local :
-    Open WebUI comme interface, un agent LangGraph pour l'orchestration, un
-    service de gestion de skills et un Context Manager (RAG via LlamaIndex,
-    mémoire via Mem0, compression via LLMLingua, reranking), un client MCP
-    qui démarre à la demande des serveurs MCP (filesystem, git, playwright,
-    terminal maison), le tout servi par vLLM. Chaque service a sa propre suite
-    de tests isolée, sans dépendance à de vrais services tiers.
-  tags: ["Outils:Déploiement Docker", "Outils:Docker Compose", "Outils:LangGraph!", "Domaines:Agents IA!", "Outils:MCP!", "Outils:vLLM!", "Méthodologies:RAG!", "Outils:LlamaIndex", "Outils:Mem0", "Outils:LLMLingua", "Méthodologies:Reranking", "Méthodologies:Open Source"]
-  image: "/images/logo-agentic-ai-playground.jpg"
+    Agent web autonome tournant entièrement en local sur GPU grand public
+    (RTX), sans clé API ni donnée quittant la machine. Décomposition
+    explicite des tâches avec critères de succès, vérification post-action
+    et budgets de retry imposant un changement de stratégie en cas d'échec.
+    Supervision humaine par paliers selon le type d'action (lecture
+    auto-approuvée, écritures réversibles accordées par session, actions
+    engageantes soumises à validation individuelle), avec garde-fous
+    mécaniques contre la fabrication d'URL. Perception hybride : DOM en
+    priorité via Playwright, repli sur la vision (bureau virtuel + OCR).
+    Orchestration LangGraph, inférence via TabbyAPI/ExLlamaV3, mémoire/RAG
+    via Qdrant. Mesuré sur un benchmark de 11 tâches avec assertions
+    programmatiques et traçabilité complète : 29/33 tâches réussies sur la
+    dernière campagne (88%).
+  tags: ["Outils:Déploiement Docker", "Outils:Docker Compose", "Outils:LangGraph!", "Domaines:Agents IA!", "Outils:MCP!", "Outils:Playwright", "Outils:Qdrant", "Méthodologies:RAG", "Méthodologies:Open Source"]
+  image: "/images/logo-mjolnir-agent.jpeg"
+  lien: ""
+
+- slug: "claudeus"
+  nom: "Claudeus!"
+  description_courte: "Sandbox Docker isolée pour faire tourner Claude Code en mode --dangerously-skip-permissions sans exposer la machine hôte."
+  description: >
+    Environnement Docker isolé permettant d'exécuter Claude Code avec
+    --dangerously-skip-permissions sans exposer la machine hôte. Construit
+    à partir du devcontainer de référence d'Anthropic, adapté aux besoins
+    Python/ML. Seul le répertoire du projet est monté (pas d'accès à
+    ~/.ssh, aux identifiants cloud ou au reste du système de fichiers hôte).
+    Pare-feu de sortie en politique default-DROP avec liste blanche (API
+    Anthropic, GitHub, PyPI, Hugging Face, npm), utilisateur non-root requis
+    par le mode sans permissions de Claude Code, authentification persistée
+    dans un volume Docker nommé, et option Docker-in-Docker via sysbox-runc
+    sans --privileged.
+  tags: ["Outils:Déploiement Docker", "Domaines:Sécurité", "Outils:CLI", "Méthodologies:Open Source"]
+  image: "/images/logo-claudeus.jpeg"
   lien: ""
 
 - slug: "solar-system-edu"
@@ -151,6 +175,23 @@
   tags: ["Domaines:Santé", "Méthodologies:Automatisation", "Langages:Python", "Outils:Playwright", "Outils:RPA"]
   image: "/images/logo-smartcry.jpeg"
   lien: ""
+
+- slug: "pebrian-fr"
+  nom: "pebrian.fr!"
+  description_courte: "Site professionnel avec mon portfolio, mon CV et mon blog."
+  description: >
+    Site personnel (blog, bio/CV, portfolio de projets) en Astro et
+    Tailwind CSS v4, bilingue FR/EN avec détection de langue au navigateur
+    et persistance du choix. Esthétique glassmorphism (fond animé,
+    cartes en verre dépoli) et transitions de page natives (View
+    Transitions) avec direction calculée selon la position dans le menu.
+    Grille de compétences et tags mis en avant calculés automatiquement à
+    partir des données de parcours et de projets, jamais maintenus à la
+    main. Thème clair/sombre persistant, CV généré directement depuis les
+    mêmes données.
+  tags: ["Langages:TypeScript", "Outils:Astro!", "Outils:Tailwind CSS", "Méthodologies:i18n", "Domaines:Web"]
+  image: "/images/logo-pebrian.jpeg"
+  lien: "https://github.com/p3bri4n/p3bri4n.github.io"
 
 - slug: "scw"
   nom: "Scaleway Python Client"
