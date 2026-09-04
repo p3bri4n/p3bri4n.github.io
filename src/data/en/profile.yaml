@@ -28,8 +28,7 @@ accroche: >
 bio: |
   AI Engineer, 10 years of experience including 4 on NLP/LLM systems in production.
   After several years on assignment (Airbus, Safran, CVG Medical, KPAM) designing and industrializing end-to-end AI pipelines, I'm now looking to settle into a long-term role within a large organization, carrying AI projects from design through to production.
-  BERT/LLM fine-tuning, RAG architectures, LangGraph/MCP agents.
-  Open source contributor (3 Python libraries).
+  BERT/LLM fine-tuning in Deep Learning, RAG architectures, LangGraph/MCP agents; since April 2026, specializing in agentic architectures and local LLM deployment, an edge computing approach mindful of AI ethics.
 
 formation:
   - periode: "Jun. 2026"
@@ -52,6 +51,12 @@ formation:
     competences: []
 
 parcours:
+  - periode: "Apr. 2026 — Present (5 months)"
+    titre: "AI Portfolio"
+    lieu: "Personal projects"
+    description: >
+      A 4-month dedicated period focused on deepening my Generative AI engineering skills through hands-on projects. Developed Legitifier, a tool to analyze GitHub repositories and detect potential AI-generated scam projects. Built pebrian.fr, my professional website featuring a technical blog, portfolio, and résumé. Developed Claudeus, a Dockerized Claude Code environment with controlled permissions and an egress firewall for secure AI-assisted development workflows. Developed Mjolnir Agent, an autonomous AI agent platform running 100% locally on a consumer-grade GPU, concrete proof of hardware-constrained optimization skills close to edge computing concerns, with human approval tiers and a performance benchmark.
+    competences: ["Languages:Python!", "Tools:LangGraph!", "Tools:PyTorch", "Tools:CUDA", "Methodologies:RAG", "Tools:LLM", "Domains:AI Agents!"]
   - periode: "Mar. 2025 — Mar. 2026 (1 year)"
     titre: "AI Engineer (Freelance)"
     lieu: "KPAM"

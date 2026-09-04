@@ -43,7 +43,7 @@
 - slug: "legitifier"
   nom: "Legitifier!"
   cv: true
-  description_courte: "Outil CLI pour évaluer la crédibilité de dépôts GitHub (fake stars, claims trompeurs)."
+  description_courte: "Détection de projets IA potentiellement frauduleux ou aux revendications trompeuses, pour plus de confiance et de sécurité dans l'écosystème open source."
   description: >
     Outil en ligne de commande qui évalue la crédibilité d'un dépôt GitHub,
     en particulier dans le domaine IA/ML où les affirmations exagérées sont

@@ -26,8 +26,7 @@ accroche: >
 bio: |
   Ingénieur IA, 10 ans d'expérience dont 4 sur des systèmes NLP/LLM en production.
   Après plusieurs années en mission (Airbus, Safran, CVG Medical, KPAM) à concevoir et industrialiser des pipelines IA de bout en bout, je cherche à m'inscrire dans la durée au sein d'un grand groupe pour porter des projets IA de leur conception à leur exploitation.
-  Fine-tuning BERT/LLM, architectures RAG, agents LangGraph/MCP.
-  Contributeur open source (3 bibliothèques Python).
+  Fine-tuning BERT/LLM en Deep Learning, architectures RAG, agents LangGraph/MCP ; depuis avril 2026, spécialisation en architectures agentiques et déploiement local de LLM, dans une logique d'edge computing attentive à l'éthique de l'IA.
 
 formation:
   - periode: "Juin 2026"
@@ -50,6 +49,12 @@ formation:
     competences: []
 
 parcours:
+  - periode: "Avril 2026 — Aujourd'hui (5 mois)"
+    titre: "Portfolio IA"
+    lieu: "Projets personnels"
+    description: >
+      Période de 4 mois consacrée à l'approfondissement de mes compétences d'ingénieur en IA générative à travers des projets concrets. Développement de Legitifier, outil d'analyse de dépôts GitHub pour détecter les projets IA potentiellement frauduleux. Développement de pebrian.fr, mon site professionnel (blog technique, portfolio, CV). Développement de Claudeus, environnement Docker isolé pour Claude Code avec permissions maîtrisées et pare-feu de sortie, pour un développement assisté par IA sécurisé. Développement de Mjolnir Agent, plateforme d'agents IA autonomes tournant à 100% en local sur GPU grand public, preuve concrète d'optimisation sous contrainte matérielle proche des enjeux d'edge computing, avec paliers d'approbation humaine et benchmark de performance.
+    competences: ["Langages:Python!", "Outils:LangGraph!", "Outils:PyTorch", "Outils:CUDA", "Méthodologies:RAG", "Outils:LLM", "Domaines:Agents IA!"]
   - periode: "Mars 2025 — Mars 2026 (1 an)"
     titre: "Ingénieur IA (Freelance)"
     lieu: "KPAM"

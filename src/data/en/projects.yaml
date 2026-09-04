@@ -41,7 +41,7 @@
 - slug: "legitifier"
   nom: "Legitifier!"
   cv: true
-  description_courte: "A CLI tool to assess the credibility of GitHub repositories (fake stars, misleading claims)."
+  description_courte: "Detects potentially fraudulent AI projects and misleading claims, to foster trust and data security across the open source ecosystem."
   description: >
     A command-line tool that evaluates the credibility of a GitHub
     repository, particularly in the AI/ML space where inflated claims are
