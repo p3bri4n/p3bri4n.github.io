@@ -66,6 +66,8 @@ body {
   color: var(--ink);
   font-size: 9.1px;
   line-height: 1.48;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .toolbar {
@@ -195,7 +197,7 @@ body {
 .body {
   display: table;
   width: 100%;
-  margin-top: 13px;
+  margin-top: 7px;
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -205,25 +207,25 @@ body {
   vertical-align: top;
   background: var(--sidebar);
   border-radius: 5px;
-  padding: 15px 15px 16px 15px;
+  padding: 10px 15px 16px 15px;
 }
 .main {
   display: table-cell;
   vertical-align: top;
   padding-left: 20px;
-  /* .rail a un padding-top de 15px (voir .rail ci-dessus) que .main n'a pas ; sans ce
+  /* .rail a un padding-top de 10px (voir .rail ci-dessus) que .main n'a pas ; sans ce
      padding-top, "Profil" démarrerait plus haut que "Compétences" alors que les deux
      colonnes sont display:table-cell/vertical-align:top et devraient être alignées.
      (margin-top ne fonctionnerait pas ici : les marges sont ignorées sur les boîtes
      display:table-cell.) */
-  padding-top: 15px;
+  padding-top: 10px;
 }
 
 /* ---------- SECTION HEADINGS ---------- */
 .sec {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
-  font-size: 8.4px;
+  font-size: 7.8px;
   letter-spacing: 1.3px;
   text-transform: uppercase;
   color: var(--accent-deep);
@@ -242,6 +244,7 @@ body {
 }
 .rail .sec {
   margin-top: 12px;
+  font-size: 8.6px;
 }
 .rail .sec:first-of-type {
   margin-top: 0;
@@ -253,7 +256,7 @@ body {
 }
 .skill-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.6px;
+  font-size: 7.8px;
   letter-spacing: 0.7px;
   text-transform: uppercase;
   color: var(--muted);
@@ -268,7 +271,7 @@ body {
   background: transparent;
   color: #34474d;
   border: 1px solid #aebdb7;
-  font-size: 8px;
+  font-size: 8.2px;
   font-weight: 500;
   padding: 2px 6px;
   line-height: 1.3;
@@ -288,18 +291,18 @@ body {
 }
 .edu-title {
   font-weight: 600;
-  font-size: 8.6px;
+  font-size: 8.7px;
   color: var(--ink);
   line-height: 1.3;
 }
 .edu-meta {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.5px;
+  font-size: 7.7px;
   color: var(--muted);
   margin-top: 1px;
 }
 .edu-desc {
-  font-size: 7.6px;
+  font-size: 7.7px;
   color: var(--ink-soft);
   line-height: 1.4;
   margin-top: 1px;
@@ -313,22 +316,22 @@ body {
 }
 .lang-name {
   font-weight: 600;
-  font-size: 8.6px;
+  font-size: 8.7px;
 }
 .lang-lvl {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.5px;
+  font-size: 7.7px;
   color: var(--muted);
 }
 
 .interests {
-  font-size: 8.5px;
+  font-size: 8.6px;
   color: var(--ink-soft);
 }
 
 /* ---------- PROFILE ---------- */
 .profile {
-  font-size: 10.4px;
+  font-size: 9.6px;
   font-weight: 500;
   color: var(--ink);
   line-height: 1.55;
@@ -349,20 +352,20 @@ body {
 .xp-role {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--ink);
   line-height: 1.15;
 }
 .xp-dates {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.8px;
+  font-size: 7.2px;
   color: var(--accent-deep);
   white-space: nowrap;
   flex: none;
   padding-top: 1px;
 }
 .xp-org {
-  font-size: 8.8px;
+  font-size: 8px;
   color: var(--ink-soft);
   font-weight: 500;
   margin-top: 1px;
@@ -376,7 +379,7 @@ ul.bullets li {
   position: relative;
   padding-left: 11px;
   margin-bottom: 3px;
-  font-size: 8.8px;
+  font-size: 8px;
   color: var(--ink-soft);
   line-height: 1.42;
 }
@@ -391,7 +394,7 @@ ul.bullets li::before {
 }
 .stack {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.6px;
+  font-size: 7px;
   color: var(--muted);
   margin-top: 3px;
   padding-left: 10px;
@@ -411,19 +414,19 @@ ul.bullets li::before {
 .proj-name {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
-  font-size: 8px;
+  font-size: 8.2px;
   color: var(--accent-deep);
   line-height: 1.3;
 }
 .proj-desc {
-  font-size: 7.6px;
+  font-size: 7.7px;
   color: var(--ink-soft);
   line-height: 1.4;
   margin-top: 1px;
 }
 .proj-stack {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7px;
+  font-size: 7.2px;
   color: var(--muted);
   line-height: 1.4;
   margin-top: 2px;

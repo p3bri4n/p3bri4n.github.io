@@ -57,7 +57,7 @@
 - slug: "mjolnir-agent"
   nom: "Mjolnir Agent!"
   cv: true
-  description_courte: "A fully local, autonomous web agent on consumer GPUs, with human approval tiers and a performance benchmark."
+  description_courte: "An autonomous web agent running 100% locally on a consumer-grade GPU — a demonstration of hardware-constrained optimization (edge computing) — with human approval tiers and a performance benchmark."
   description: >
     An autonomous web agent running entirely locally on consumer GPUs
     (RTX), with no API keys and no data leaving the machine. Explicit task

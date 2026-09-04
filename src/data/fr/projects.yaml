@@ -59,7 +59,7 @@
 - slug: "mjolnir-agent"
   nom: "Mjolnir Agent!"
   cv: true
-  description_courte: "Agent web autonome 100% local sur GPU grand public, avec paliers d'approbation humaine et benchmark de performance."
+  description_courte: "Agent web autonome tournant à 100% en local sur GPU grand public — démonstration d'optimisation sous contrainte matérielle (edge computing) — avec paliers d'approbation humaine et benchmark de performance."
   description: >
     Agent web autonome tournant entièrement en local sur GPU grand public
     (RTX), sans clé API ni donnée quittant la machine. Décomposition
