@@ -193,6 +193,29 @@
   image: "/images/logo-pebrian.jpeg"
   lien: "https://github.com/p3bri4n/p3bri4n.github.io"
 
+- slug: "simslink"
+  nom: "SimsLink!"
+  description_courte: "Gestionnaire de mods natif Linux pour Les Sims 4, avec diagnostic automatisé des crashs."
+  description: >
+    Gestionnaire de mods pour Les Sims 4 pensé pour Linux, là où le client
+    officiel CurseForge est réservé à Windows. Bibliothèque de mods locale
+    liée au dossier du jeu par symlinks (activation/désactivation
+    instantanée, sans jamais toucher aux fichiers), gestion correcte des
+    `.ts4script` (règle non documentée du jeu sur leur profondeur de
+    dossier), navigation du catalogue CurseForge filtrée par version du
+    jeu, installation/mise à jour en un clic et détection de dépendances
+    (mods de traduction). Fonctionnalité phare : le diagnostic de crash,
+    qui analyse `lastException.txt`, identifie les mods suspects depuis la
+    traceback et propose une bissection guidée par lots quand aucun
+    suspect n'est évident — en pure assistance à la décision, sans jamais
+    supprimer automatiquement quoi que ce soit. Fonctionne aussi sans clé
+    API CurseForge (mode assisté via navigateur). Backend Python/FastAPI/
+    SQLite, frontend HTML/CSS/JS, surveillance du système de fichiers via
+    watchdog.
+  tags: ["Langages:Python", "Outils:FastAPI", "Outils:SQLite", "Domaines:Jeux vidéo", "Méthodologies:Open Source"]
+  image: "/images/logo-simslink.jpeg"
+  lien: "https://github.com/p3bri4n/SimsLink"
+
 - slug: "scw"
   nom: "Scaleway Python Client"
   description_courte: "Client Python non-officiel pour l'API Scaleway (RDB, Registry, Functions)."
