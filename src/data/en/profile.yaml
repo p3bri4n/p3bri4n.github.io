@@ -10,7 +10,7 @@ langues:
     niveau: "Native"
   - nom: "English"
     niveau: "B2 (TOEIC)"
-interets: "Archery, board games"
+interets: "Archery, board games, fatbike, Tenshin Shōden Katori Shintō-ryū (Japanese martial art)"
 stats:
   - kind: "experience"
     label: "of experience"
@@ -79,23 +79,33 @@ parcours:
       - "Mjolnir Agent: 100% local web agent (consumer-grade GPU), benchmark 29/33 tasks passed (88%)."
       - "Claudeus: secured Docker sandbox (egress firewall, no host exposure) for Claude Code."
       - "Legitifier: detects fraudulent AI projects on GitHub (heuristics + LLM analysis)."
+    # cv_links: projects.yaml slugs, one per cv_bullets entry (same order), whose GitHub link is
+    # shown right after the matching bullet (discreet style, see .proj-link).
+    cv_links: ["mjolnir-agent", "claudeus", "legitifier"]
     competences: ["Languages:Python!", "Tools:LangGraph!", "Tools:PyTorch", "Tools:CUDA", "Methodologies:RAG", "Tools:LLM", "Domains:AI Agents!"]
   - periode: "Mar. 2025 — Mar. 2026 (1 year)"
     titre: "AI Engineer (Freelance)"
     lieu: "KPAM"
     description: >
       Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics. Pipeline handling up to 60k verbatims per study. Industrialized and optimized inference in production: ×200 on BERT classification (multilingual batching, GPU activation), ×55 on LLM inference (async processing). Deployment, monitoring and operational maintenance for 11 business users.
+    # Rendu CV uniquement : description en 3 puces + stack réduit (repli sur description/competences si absents).
+    cv_bullets:
+      - "Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics — pipeline handling up to 60k verbatims per study."
+      - "Industrialized and optimized inference in production: ×200 on BERT classification (multilingual batching, GPU activation), ×55 on LLM inference (async processing)."
+      - "Deployment, monitoring and operational maintenance for 11 business users."
+    cv_stack: ["Python", "NLP", "Big data", "LLM", "BERT", "OpenAI API", "GitHub", "Fine-tuning", "NER"]
     competences: ["Languages:Python!", "Domains:NLP!", "Domains:Big data", "Tools:LLM!", "Tools:BERT", "Tools:OpenAI API", "Tools:GitHub", "Methodologies:Fine-tuning!", "Methodologies:NER", "Methodologies:Reverse engineering", "Methodologies:Coding agents!", "Methodologies:Testing", "Methodologies:Freelancing", "Methodologies:Technology watch"]
   - periode: "Jul. 2024 — Jan. 2025 (6 months)"
     titre: "Business Analyst (Temporary)"
     lieu: "Airbus"
     cv_detail: "oneline"
+    cv_complement: "FlowMetrics project, supply chain POC."
     description: >
       Quality interface between the offshore team and the client: test-based validation of the FlowMetrics project, built a supply chain POC.
     competences: ["Methodologies:Testing", "Methodologies:Business Analysis", "Domains:Big data", "Domains:Supply Chain", "Tools:AWS"]
   - periode: "Jan. 2024 — Mar. 2025 (1 year 2 months)"
     titre: "Software Engineer (Freelance)"
-    lieu: "CVG médical (part-time mission, concurrent)"
+    lieu: "CVG Medical (part-time mission, concurrent)"
     description: >
       Designed & built SmartCry (RPA) to automate responses to public hospital tenders in France. Online form filling time per case cut from 15h to 30min.
     competences: ["Languages:Python", "Tools:Playwright", "Tools:RPA", "Methodologies:Automation", "Methodologies:Monitoring", "Methodologies:Freelancing"]
@@ -103,6 +113,7 @@ parcours:
     titre: "Product Management Business Partner (Freelance)"
     lieu: "Airbus"
     cv_detail: "oneline"
+    cv_complement: "A350/A330 programs, reporting & budget forecasting."
     description: >
       Managed digital projects and data development in aeronautical industrial production (A350/A330 programs).
     competences: ["Languages:Python", "Tools:PySpark", "Methodologies:Product Management", "Domains:Big data", "Domains:Aerospace", "Methodologies:Freelancing", "Methodologies:Reporting", "Methodologies:Budget forecasting", "Methodologies:Time series", "Methodologies:Lead time"]
@@ -125,7 +136,10 @@ parcours:
     lieu: "Inetum, Néo-Soft"
     description: >
       Versatile developer on multi-client missions in aerospace and industry — Safran, Spherea, SCLE/SFE, TBS — growing into a technical lead role (overseeing 2 developers).
-    # Rendu CV uniquement : met en avant le rôle de lead technique en tête (repli sur description si absent).
+    # Rendu CV uniquement : "(Permanent)" déplacé à côté de l'entreprise pour éviter le mot orphelin
+    # dans le titre ; met en avant le rôle de lead technique en tête (repli sur description si absent).
+    cv_titre: "Consulting Software Engineer"
+    cv_complement: "Permanent"
     cv_description: >
       Technical lead (overseeing 2 developers) on multi-client missions in aerospace and industry — Safran, Spherea, SCLE/SFE, TBS.
     competences: ["Languages:Python", "Tools:Django", "Tools:Django Rest Framework", "Methodologies:Agile", "Methodologies:Technical Lead"]
@@ -148,3 +162,11 @@ objectifs:
   - "Keep up a sustained technology watch to stay current with the latest innovations, and highlight the most promising ones through my blog."
   - "Ensure the sustainability of the projects I work on, with a strong emphasis on frugality (financial and environmental), and on data security / privacy (hello GDPR)."
   - "Put humanity first by championing what sets us apart from machines — the capacity to feel, create, and make conscious, deliberate choices. AI is only a tool meant to enhance our humanity, and I hope, reconnect us to it."
+
+# Volunteer / community engagements, shown on the résumé ("Community &
+# mentoring" section) and on /about. No periode field: start dates not known yet.
+engagements:
+  - titre: "Entraide IA"
+    description: "Mentoring about ten former students transitioning into AI, through a Discord community I co-founded with them."
+  - titre: "AI Workshops — Mondonville Town Council"
+    description: "AI awareness workshops and talks for the general public, in partnership with the town council of Mondonville."

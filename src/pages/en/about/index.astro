@@ -70,6 +70,18 @@ const stats = computeStats(profile, 'years');
   </section>
 
   <section class="mb-14">
+    <h2 class="text-xl font-semibold mb-6">{ui.about.engagementsTitle}</h2>
+    <ul class="glass-panel rounded-lg p-6 space-y-4">
+      {(profile.engagements as { titre: string; description: string }[]).map((engagement) => (
+        <li>
+          <div class="font-medium text-slate-800 dark:text-slate-100">{engagement.titre}</div>
+          <div class="text-slate-600 dark:text-slate-300">{engagement.description}</div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mb-14">
     <h2 class="text-xl font-semibold mb-6">{ui.about.skillsTitle}</h2>
     <SkillTiers tiers={skills} />
   </section>

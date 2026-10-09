@@ -41,13 +41,23 @@ interface ParcoursEntry {
   cv_titre?: string;
   cv_description?: string;
   cv_bullets?: string[];
+  cv_stack?: string[];
+  cv_complement?: string;
+  cv_links?: string[];
 }
 
 const toRow = (entry: ParcoursEntry) => ({
   role: entry.cv_titre ?? entry.titre,
   dates: entry.periode,
   org: entry.lieu,
+  complement: entry.cv_complement ?? '',
 });
+
+const projectBySlug = new Map((projects as { slug: string; lien?: string }[]).map((p) => [p.slug, p]));
+const resolveProjectLink = (slug: string) => {
+  const p = projectBySlug.get(slug);
+  return p ? stripProtocol(p.lien || `${site.social.github}/${slug}`) : null;
+};
 
 const visibleParcours = (profile.parcours as ParcoursEntry[]).filter((entry) => entry.cv !== false);
 
@@ -60,17 +70,22 @@ const experiences = visibleParcours
       detail,
       bullets: entry.cv_bullets ?? null,
       bullet: collapse(entry.cv_description ?? entry.description),
+      links: (entry.cv_links ?? []).map(resolveProjectLink),
       stack:
         detail === 'full'
-          ? (entry.competences ?? [])
-              .map(tagValue)
-              .filter((value) => value !== 'Freelancing')
-              .join(', ')
+          ? (
+              entry.cv_stack ??
+              (entry.competences ?? []).map(tagValue).filter((value) => value !== 'Freelancing')
+            ).join(', ')
           : '',
     };
   });
 
 const earlierExperiences = visibleParcours.filter((entry) => entry.cv_detail === 'grouped').map(toRow);
+
+const mobiliteParts = profile.mobilite.split(', ').map((part: string) => part.replace(/^On-site portion\s*:\s*/, ''));
+const workMode = mobiliteParts[0];
+const onSiteLocation = mobiliteParts.length > 1 ? mobiliteParts[1] : null;
 ---
 
 <!doctype html>
@@ -100,10 +115,8 @@ const earlierExperiences = visibleParcours.filter((entry) => entry.cv_detail ===
           <div class="role">{profile.titre}</div>
         </div>
         <div class="location">
-          <span class="loc-line">{profile.localisation}</span>
-          {profile.mobilite.split(', ').map((part: string) => (
-            <span class="loc-line">{part}</span>
-          ))}
+          {onSiteLocation && <span class="loc-line">{onSiteLocation}</span>}
+          <span class="loc-line">{workMode}</span>
           <span class="loc-line">{profile.disponibilite}</span>
         </div>
         <div class="contact">
@@ -141,15 +154,23 @@ const earlierExperiences = visibleParcours.filter((entry) => entry.cv_detail ===
           ))}
 
           <div class="sec">{ui.cv.projectsTitle}</div>
-          {(projects as { slug: string; nom: string; description_courte: string; cv?: boolean; lien?: string }[])
+          {(projects as { slug: string; nom: string; description_courte: string; cv_description_courte?: string; cv?: boolean; lien?: string }[])
             .filter((p) => p.cv)
             .map((p) => (
               <div class="proj-item">
                 <div class="proj-name">{parseFeaturedName(p.nom).value}</div>
-                <div class="proj-desc">{p.description_courte}</div>
+                <div class="proj-desc">{p.cv_description_courte ?? p.description_courte}</div>
                 <div class="proj-link">{stripProtocol(p.lien || `${site.social.github}/${p.slug}`)}</div>
               </div>
             ))}
+
+          <div class="sec">{ui.cv.communityTitle}</div>
+          {(profile.engagements as { titre: string; description: string }[]).map((e) => (
+            <div class="proj-item">
+              <div class="proj-name">{e.titre}</div>
+              <div class="proj-desc">{e.description}</div>
+            </div>
+          ))}
 
           <div class="sec">{ui.cv.formationTitle}</div>
           {formation.map((f: { titre: string; meta: string; description: string }) => (
@@ -177,12 +198,14 @@ const earlierExperiences = visibleParcours.filter((entry) => entry.cv_detail ===
           <p class="profile">{(profile.cv_summary ?? profile.bio).trim()}</p>
 
           <div class="sec" style="margin-top:13px;">{ui.cv.experienceTitle}</div>
-          {experiences.map((xp: { role: string; dates: string; org: string; detail: string; bullets: string[] | null; bullet: string; stack: string }) => (
+          {experiences.map((xp: { role: string; dates: string; org: string; complement: string; detail: string; bullets: string[] | null; bullet: string; stack: string; links: (string | null)[] }) => (
             xp.detail === 'oneline' ? (
               <div class="xp-oneline">
-                <span class="xp-oneline-role">{xp.role}</span>
-                <span class="xp-oneline-org">{xp.org}</span>
-                <span class="xp-oneline-dates">{xp.dates}</span>
+                <div class="xp-oneline-head">
+                  <div class="xp-oneline-role">{xp.role}</div>
+                  <div class="xp-oneline-dates">{xp.dates}</div>
+                </div>
+                <div class="xp-oneline-org">{xp.org}{xp.complement && ` — ${xp.complement}`}</div>
               </div>
             ) : (
               <div class="xp">
@@ -190,9 +213,14 @@ const earlierExperiences = visibleParcours.filter((entry) => entry.cv_detail ===
                   <div class="xp-role">{xp.role}</div>
                   <div class="xp-dates">{xp.dates}</div>
                 </div>
-                <div class="xp-org">{xp.org}</div>
+                <div class="xp-org">{xp.org}{xp.complement && ` — ${xp.complement}`}</div>
                 <ul class="bullets">
-                  {xp.bullets ? xp.bullets.map((b) => <li>{b}</li>) : <li>{xp.bullet}</li>}
+                  {xp.bullets ? xp.bullets.map((b, i) => (
+                    <li>
+                      {b}
+                      {xp.links[i] && <div class="xp-links">{xp.links[i]}</div>}
+                    </li>
+                  )) : <li>{xp.bullet}</li>}
                 </ul>
                 {xp.stack && (
                   <div class="stack">
@@ -206,11 +234,11 @@ const earlierExperiences = visibleParcours.filter((entry) => entry.cv_detail ===
           {earlierExperiences.length > 0 && (
             <>
               <div class="sec" style="margin-top:13px;">{ui.cv.earlierExperienceTitle}</div>
-              {earlierExperiences.map((xp: { role: string; dates: string; org: string }) => (
-                <div class="xp-oneline">
-                  <span class="xp-oneline-role">{xp.role}</span>
-                  <span class="xp-oneline-org">{xp.org}</span>
-                  <span class="xp-oneline-dates">{xp.dates}</span>
+              {earlierExperiences.map((xp: { role: string; dates: string; org: string; complement: string }) => (
+                <div class="xp-compact">
+                  <span class="xp-compact-role">{xp.role}</span>
+                  <span class="xp-compact-org">— {xp.org}{xp.complement && ` · ${xp.complement}`}</span>
+                  <span class="xp-compact-dates">{xp.dates}</span>
                 </div>
               ))}
             </>

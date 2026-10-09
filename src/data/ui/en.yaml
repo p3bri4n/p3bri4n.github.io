@@ -24,6 +24,7 @@ home:
 
 about:
   objectifsTitle: "Goals"
+  engagementsTitle: "Community & mentoring"
   skillsTitle: "Skills"
   downloadCv: "Download my résumé"
   experienceTitle: "Professional experience"
@@ -38,6 +39,7 @@ cv:
   experienceTitle: "Professional experience"
   earlierExperienceTitle: "Earlier experience (2016–2022)"
   projectsTitle: "Projects & contributions"
+  communityTitle: "Community & mentoring"
   stackLabel: "Stack"
   printButton: "Print / Export to PDF"
   backButton: "← Back to the site"

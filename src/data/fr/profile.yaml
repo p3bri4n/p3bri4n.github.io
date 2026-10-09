@@ -10,7 +10,7 @@ langues:
     niveau: "Langue maternelle"
   - nom: "Anglais"
     niveau: "B2 (TOEIC)"
-interets: "Tir à l'arc, jeux de société"
+interets: "Tir à l'arc, jeux de société, fatbike, Tenshin Shōden Katori Shintō-ryū (art martial japonais)"
 stats:
   - kind: "experience"
     label: "d'expérience"
@@ -78,23 +78,34 @@ parcours:
       - "Mjolnir Agent : agent web 100% local (GPU grand public), benchmark 29/33 tâches réussies (88%)."
       - "Claudeus : sandbox Docker sécurisée (pare-feu de sortie, sans exposer l'hôte) pour Claude Code."
       - "Legitifier : détection de projets IA frauduleux sur GitHub (heuristiques + analyse LLM)."
+    # cv_links : slugs de projects.yaml, un par puce de cv_bullets (même ordre), dont le lien
+    # GitHub est affiché juste après la puce correspondante (style discret, voir .proj-link).
+    cv_links: ["mjolnir-agent", "claudeus", "legitifier"]
     competences: ["Langages:Python!", "Outils:LangGraph!", "Outils:PyTorch", "Outils:CUDA", "Méthodologies:RAG", "Outils:LLM", "Domaines:Agents IA!"]
   - periode: "Mars 2025 — Mars 2026 (1 an)"
     titre: "Ingénieur IA (Freelance)"
     lieu: "KPAM"
     description: >
       Conception & développement de la suite logicielle Athena pour remplacer 15 outils Excel/VBA legacy dans l'analyse de l'expérience client. Pipeline traitant jusqu'à 60k verbatims par étude. Industrialisation et optimisation de l'inférence en production : ×200 sur la classification BERT (batching multilangue, activation GPU), ×55 sur l'inférence LLM (asynchronisme). Déploiement, supervision et maintien en conditions opérationnelles pour 11 utilisateurs métier.
+    # Rendu CV uniquement : description en 3 puces + stack réduit (repli sur description/competences si absents).
+    cv_bullets:
+      - "Conception & développement de la suite logicielle Athena pour remplacer 15 outils Excel/VBA legacy dans l'analyse de l'expérience client — pipeline traitant jusqu'à 60k verbatims par étude."
+      - "Industrialisation et optimisation de l'inférence en production : ×200 sur la classification BERT (batching multilangue, activation GPU), ×55 sur l'inférence LLM (asynchronisme)."
+      - "Déploiement, supervision et maintien en conditions opérationnelles (MCO) pour 11 utilisateurs métier."
+    cv_stack: ["Python", "NLP", "Big data", "LLM", "BERT", "OpenAI API", "GitHub", "Fine-tuning", "NER"]
     competences: ["Langages:Python!", "Domaines:NLP!", "Domaines:Big data", "Outils:LLM!", "Outils:BERT", "Outils:OpenAI API", "Outils:GitHub", "Méthodologies:Fine-tuning!", "Méthodologies:NER", "Méthodologies:Rétro-ingénierie", "Méthodologies:Coding agents!", "Méthodologies:Tests", "Méthodologies:Freelancing", "Méthodologies:Veille technologique"]
   - periode: "Juil. 2024 — Janv. 2025 (6 mois)"
     titre: "Business Analyst (Intérim)"
     lieu: "Airbus"
     cv_detail: "oneline"
+    # Rendu CV uniquement : complément court après l'entreprise (repli sur rien si absent).
+    cv_complement: "FlowMetrics, POC supply chain."
     description: >
       Interface qualité entre l'équipe offshore et le client : validation par les tests du développement du projet FlowMetrics, développement d'un POC supply chain.
     competences: ["Méthodologies:Tests", "Méthodologies:Business Analysis", "Domaines:Big data", "Domaines:Supply Chain", "Outils:AWS"]
   - periode: "Janv. 2024 — Mars 2025 (1 an 2 mois)"
     titre: "Ingénieur logiciel (Freelance)"
-    lieu: "CVG médical (mission à temps partiel, en parallèle)"
+    lieu: "CVG Medical (mission à temps partiel, en parallèle)"
     description: >
       Conception & développement de SmartCry (RPA) pour automatiser la réponse aux appels d'offres de l'hôpital public français. Temps de remplissage des formulaires en ligne ramené de 15h à 30min par dossier.
     competences: ["Langages:Python", "Outils:Playwright", "Outils:RPA", "Méthodologies:Automatisation", "Méthodologies:Supervision", "Méthodologies:Freelancing"]
@@ -102,6 +113,7 @@ parcours:
     titre: "Product Management Business Partner (Freelance)"
     lieu: "Airbus"
     cv_detail: "oneline"
+    cv_complement: "Programmes A350/A330, reporting & prévisionnel budgétaire."
     description: >
       Management de projets digitaux et développement data dans la production industrielle aéronautique (programmes A350/A330).
     competences: ["Langages:Python", "Outils:PySpark", "Méthodologies:Product Management", "Domaines:Big data", "Domaines:Aéronautique", "Méthodologies:Freelancing", "Méthodologies:Reporting", "Méthodologies:Prévisionnel budgétaire", "Méthodologies:Séries temporelles", "Méthodologies:Lead time"]
@@ -124,7 +136,10 @@ parcours:
     lieu: "Inetum, Néo-Soft"
     description: >
       Développeur polyvalent sur des missions multi-clients dans l'aéronautique et l'industrie — Safran, Spherea, SCLE/SFE, TBS — avec évolution vers un rôle de lead technique (encadrement de 2 développeurs).
-    # Rendu CV uniquement : met en avant le rôle de lead technique en tête (repli sur description si absent).
+    # Rendu CV uniquement : "(CDI)" déplacé à côté de l'entreprise pour éviter le mot orphelin
+    # dans le titre ; met en avant le rôle de lead technique en tête (repli sur description si absent).
+    cv_titre: "Ingénieur informatique consultant"
+    cv_complement: "CDI"
     cv_description: >
       Lead technique (encadrement de 2 développeurs) sur des missions multi-clients dans l'aéronautique et l'industrie — Safran, Spherea, SCLE/SFE, TBS.
     competences: ["Langages:Python", "Outils:Django", "Outils:Django Rest Framework", "Méthodologies:Agilité", "Méthodologies:Lead technique"]
@@ -147,3 +162,11 @@ objectifs:
   - "Continuer à réaliser une veille technologique soutenue pour être au fait des dernières innovations & mettre en avant les plus prometteuses à travers mon blog."
   - "Garantir la soutenabilité des projets sur lesquels j'évolue, notamment à travers une emphase forte sur la frugalité (financière et à portée écologique), et la sécurité / confidentialité des données (hello RGPD)."
   - "Mettre l'humain en avant en promouvant ce qui nous distingue des machines, la capacité à ressentir, créer, faire des choix conscients assumés. L'IA n'est qu'un outil destiné à nous améliorer à travers notre humanité, et je l'espère nous reconnecter."
+
+# Engagements bénévoles / communautaires, affichés sur le CV (section "Communauté
+# & transmission") et sur /a-propos. Pas de champ periode : dates de début non connues à ce jour.
+engagements:
+  - titre: "Entraide IA"
+    description: "Mentorat d'une dizaine d'anciens étudiants en reconversion IA, via une communauté Discord cofondée avec eux."
+  - titre: "Ateliers IA — Mairie de Mondonville"
+    description: "Ateliers et présentations de sensibilisation à l'IA pour le grand public, en partenariat avec la mairie de Mondonville."

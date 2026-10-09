@@ -331,17 +331,18 @@ body {
 
 /* ---------- PROFILE ---------- */
 .profile {
-  font-size: 12px;
+  font-size: 10.5px;
   font-weight: 500;
   color: var(--ink);
-  line-height: 1.6;
+  line-height: 1.5;
   margin: 0;
   white-space: pre-line;
 }
 
 /* ---------- EXPERIENCE ---------- */
-.xp {
-  margin-bottom: 13px;
+.xp,
+.xp-oneline {
+  margin-bottom: 10px;
 }
 .xp-head {
   display: flex;
@@ -368,17 +369,17 @@ body {
   font-size: 10px;
   color: var(--ink-soft);
   font-weight: 500;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 ul.bullets {
   list-style: none;
-  margin: 5px 0 0 0;
+  margin: 4px 0 0 0;
   padding: 0;
 }
 ul.bullets li {
   position: relative;
   padding-left: 12px;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   font-size: 10px;
   color: var(--ink-soft);
   line-height: 1.5;
@@ -396,39 +397,74 @@ ul.bullets li::before {
   font-family: 'JetBrains Mono', monospace;
   font-size: 8.4px;
   color: var(--muted);
-  margin-top: 4px;
+  margin-top: 3px;
   padding-left: 10px;
 }
 .stack .k {
   color: var(--accent-deep);
   font-weight: 600;
 }
+/* Lien GitHub discret juste après la puce correspondante (ex: R&D GenAI), même
+   style que .proj-link dans la colonne latérale. */
+.xp-links {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.2px;
+  color: var(--muted);
+  margin-top: 2px;
+}
 
-/* Expériences condensées (Airbus, bloc "Expériences antérieures") : une seule
-   ligne rôle — organisation — dates, sans description ni stack. */
-.xp-oneline {
+/* Expériences condensées (Airbus, bloc "Expériences antérieures") : rôle + dates
+   sur une ligne (comme .xp-head), organisation + complément sur la ligne suivante
+   — jamais sur la même ligne, pour que l'entreprise ne se retrouve pas orpheline
+   quand le titre du poste est long. Sans description ni stack. */
+.xp-oneline-head {
   display: flex;
+  justify-content: space-between;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 5px;
 }
 .xp-oneline-role {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   font-size: 10.2px;
   color: var(--ink);
+  line-height: 1.25;
+}
+.xp-oneline-dates {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.2px;
+  color: var(--accent-deep);
+  white-space: nowrap;
+  flex: none;
+  padding-top: 1px;
 }
 .xp-oneline-org {
+  font-size: 9.2px;
+  color: var(--ink-soft);
+  margin-top: 1px;
+}
+
+/* Expériences antérieures regroupées : titres courts, pas de risque de mot
+   orphelin — tient sur une seule ligne (rôle — organisation · dates). */
+.xp-compact {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.xp-compact-role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 10.2px;
+  color: var(--ink);
+}
+.xp-compact-org {
   font-size: 9.2px;
   color: var(--ink-soft);
   flex: 1 1 auto;
   min-width: 0;
 }
-.xp-oneline-org::before {
-  content: '— ';
-  color: var(--muted);
-}
-.xp-oneline-dates {
+.xp-compact-dates {
   font-family: 'JetBrains Mono', monospace;
   font-size: 8.2px;
   color: var(--accent-deep);

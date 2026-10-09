@@ -13,7 +13,6 @@
 
 - slug: "chocolatine"
   nom: "Chocolatine!"
-  cv: true
   description_courte: "MySQL query builder in Python"
   description: >
     A Python library for building complex SQL queries programmatically, with
@@ -28,6 +27,8 @@
 - slug: "pitchoune"
   nom: "Pitchoune!"
   cv: true
+  # cv_description_courte: short CV variant (1-2 lines), falls back to description_courte.
+  cv_description_courte: "Data processing library (ETL), batch or streaming, with asynchronous chatbot / LLM integration."
   description_courte: "A Python library on top of Polars to load/save data and chat with LLMs."
   description: >
     A wrapper around Polars for loading and saving data (xlsx, csv, tsv,
@@ -40,7 +41,6 @@
 
 - slug: "legitifier"
   nom: "Legitifier!"
-  cv: true
   description_courte: "Detects potentially fraudulent AI projects and misleading claims, to foster trust and data security across the open source ecosystem."
   description: >
     A command-line tool that evaluates the credibility of a GitHub
@@ -56,7 +56,6 @@
 
 - slug: "mjolnir-agent"
   nom: "Mjolnir Agent!"
-  cv: true
   description_courte: "An autonomous web agent running 100% locally on a consumer-grade GPU — a demonstration of hardware-constrained optimization (edge computing) — with human approval tiers and a performance benchmark."
   description: >
     An autonomous web agent running entirely locally on consumer GPUs

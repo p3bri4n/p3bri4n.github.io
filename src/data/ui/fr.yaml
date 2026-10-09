@@ -24,6 +24,7 @@ home:
 
 about:
   objectifsTitle: "Objectifs"
+  engagementsTitle: "Communauté & transmission"
   skillsTitle: "Compétences"
   downloadCv: "Télécharger mon CV"
   experienceTitle: "Parcours professionnel"
@@ -38,6 +39,7 @@ cv:
   experienceTitle: "Expériences professionnelles"
   earlierExperienceTitle: "Expériences antérieures (2016–2022)"
   projectsTitle: "Projets & contributions"
+  communityTitle: "Communauté & transmission"
   stackLabel: "Stack"
   printButton: "Imprimer / Exporter en PDF"
   backButton: "← Retour au site"
