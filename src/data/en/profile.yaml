@@ -20,15 +20,31 @@ stats:
     label: "Classification throughput after optimization (KPAM)"
   - valeur: "15h → 30min"
     label: "Online form filling time, per case (CVG Medical)"
+# Résumé spécifique au CV (page /en/cv) : remplace stats[] ci-dessus seulement sur le CV.
+stats_cv:
+  - valeur: "×55"
+    label: "LLM inference acceleration (KPAM)"
+  - valeur: "15 → 1"
+    label: "Legacy tools replaced by Athena (KPAM)"
+  - valeur: "3 → 600 reviews/s"
+    label: "Classification throughput after optimization (KPAM)"
+  - valeur: "15h → 30min"
+    label: "Online form filling time, per case (CVG Medical)"
 accroche: >
   Passionate about AI and emerging technologies, I combine rigor and
   strategic thinking to design innovative solutions tailored to your
   challenges.
 
 bio: |
-  AI Engineer, 10 years of experience including 4 on NLP/LLM systems in production.
+  AI Engineer, 10 years of experience, specialized in generative AI since 2025.
   After several years on assignment (Airbus, Safran, CVG Medical, KPAM) designing and industrializing end-to-end AI pipelines, I'm now looking to settle into a long-term role within a large organization, carrying AI projects from design through to production.
-  BERT/LLM fine-tuning, RAG architectures, LangGraph/MCP agents — a Deep Learning foundation alongside classic ML methods; since April 2026, specializing in agentic architectures and local LLM deployment, an edge computing approach mindful of AI ethics.
+  BERT/LLM fine-tuning, RAG architectures, LangGraph/MCP agents — a Deep Learning foundation alongside classic ML methods, in an edge computing approach mindful of AI ethics.
+
+# Résumé spécifique au CV (page /en/cv), 3 lignes max. Repli sur bio ci-dessus si absent.
+cv_summary: |
+  Software engineer for 10 years, specialized in generative AI since 2025.
+  I industrialize NLP/LLM systems in production: at KPAM, the Athena suite replaced 15 legacy tools and multiplied classification throughput by 200.
+  I'm looking for a permanent position to carry AI projects from design through to production.
 
 formation:
   - periode: "Jun. 2026"
@@ -46,16 +62,23 @@ formation:
   - periode: "2006"
     titre: "Scientific Baccalaureate, Physics specialization"
     lieu: "Lycée Bagatelle (Toulouse)"
+    cv: false
     description: >
       Science-focused track.
     competences: []
 
 parcours:
-  - periode: "Apr. 2026 — Present (5 months)"
+  - periode: "Apr. 2026 — Present"
     titre: "AI Portfolio"
     lieu: "Personal projects"
     description: >
-      A 4-month dedicated period focused on deepening my Generative AI engineering skills through hands-on projects. Developed Legitifier, a tool to analyze GitHub repositories and detect potential AI-generated scam projects. Built pebrian.fr, my professional website featuring a technical blog, portfolio, and résumé. Developed Claudeus, a Dockerized Claude Code environment with controlled permissions and an egress firewall for secure AI-assisted development workflows. Developed Mjolnir Agent, an autonomous web agent running 100% locally on a consumer-grade GPU — a demonstration of hardware-constrained optimization (edge computing) — with human approval tiers and a performance benchmark.
+      A period focused on deepening my Generative AI engineering skills through hands-on projects. Developed Legitifier, a tool to analyze GitHub repositories and detect potential AI-generated scam projects. Built pebrian.fr, my professional website featuring a technical blog, portfolio, and résumé. Developed Claudeus, a Dockerized Claude Code environment with controlled permissions and an egress firewall for secure AI-assisted development workflows. Developed Mjolnir Agent, an autonomous web agent running 100% locally on a consumer-grade GPU — a demonstration of hardware-constrained optimization (edge computing) — with human approval tiers and a performance benchmark.
+    # Rendu CV uniquement : titre + puces orientées résultat (repli sur titre/description si absents).
+    cv_titre: "Independent GenAI R&D — open source projects"
+    cv_bullets:
+      - "Mjolnir Agent: 100% local web agent (consumer-grade GPU), benchmark 29/33 tasks passed (88%)."
+      - "Claudeus: secured Docker sandbox (egress firewall, no host exposure) for Claude Code."
+      - "Legitifier: detects fraudulent AI projects on GitHub (heuristics + LLM analysis)."
     competences: ["Languages:Python!", "Tools:LangGraph!", "Tools:PyTorch", "Tools:CUDA", "Methodologies:RAG", "Tools:LLM", "Domains:AI Agents!"]
   - periode: "Mar. 2025 — Mar. 2026 (1 year)"
     titre: "AI Engineer (Freelance)"
@@ -66,6 +89,7 @@ parcours:
   - periode: "Jul. 2024 — Jan. 2025 (6 months)"
     titre: "Business Analyst (Temporary)"
     lieu: "Airbus"
+    cv_detail: "oneline"
     description: >
       Quality interface between the offshore team and the client: test-based validation of the FlowMetrics project, built a supply chain POC.
     competences: ["Methodologies:Testing", "Methodologies:Business Analysis", "Domains:Big data", "Domains:Supply Chain", "Tools:AWS"]
@@ -78,6 +102,7 @@ parcours:
   - periode: "Jul. 2022 — Nov. 2023 (1 year 4 months)"
     titre: "Product Management Business Partner (Freelance)"
     lieu: "Airbus"
+    cv_detail: "oneline"
     description: >
       Managed digital projects and data development in aeronautical industrial production (A350/A330 programs).
     competences: ["Languages:Python", "Tools:PySpark", "Methodologies:Product Management", "Domains:Big data", "Domains:Aerospace", "Methodologies:Freelancing", "Methodologies:Reporting", "Methodologies:Budget forecasting", "Methodologies:Time series", "Methodologies:Lead time"]
@@ -91,24 +116,30 @@ parcours:
   - periode: "Oct. 2021 — Jul. 2022 (9 months)"
     titre: "Mentor (Freelance)"
     lieu: "OpenClassrooms"
+    cv_detail: "grouped"
     description: >
       Mentored more than 40 students on the "Python App Developer" track & assessed final project defenses.
     competences: ["Languages:Python", "Methodologies:Mentoring", "Methodologies:Teaching", "Methodologies:Assessment"]
-  - periode: "Feb. 2018 — Mar. 2021 (4 years)"
+  - periode: "Feb. 2018 — Mar. 2021 (3 years 1 month)"
     titre: "Consulting Software Engineer (Permanent)"
     lieu: "Inetum, Néo-Soft"
     description: >
       Versatile developer on multi-client missions in aerospace and industry — Safran, Spherea, SCLE/SFE, TBS — growing into a technical lead role (overseeing 2 developers).
+    # Rendu CV uniquement : met en avant le rôle de lead technique en tête (repli sur description si absent).
+    cv_description: >
+      Technical lead (overseeing 2 developers) on multi-client missions in aerospace and industry — Safran, Spherea, SCLE/SFE, TBS.
     competences: ["Languages:Python", "Tools:Django", "Tools:Django Rest Framework", "Methodologies:Agile", "Methodologies:Technical Lead"]
   - periode: "Oct. 2017 — Jan. 2018 (4 months)"
     titre: "Developer (Internship)"
     lieu: "DECASOFT"
+    cv_detail: "grouped"
     description: >
       Designed & built a database migration solution for the Paris Chamber of Commerce (CCI) & maintenance (TMA) on the Ecoscope search platform.
     competences: ["Tools:PostgreSQL", "Tools:Elasticsearch"]
   - periode: "Jun. 2016 — Mar. 2017 (10 months)"
     titre: "Developer (Freelance)"
     lieu: "Sématique SARL, Labège"
+    cv_detail: "grouped"
     description: >
       Built an application to search for alternative medicine practitioners in France.
     competences: ["Languages:Python", "Tools:MongoDB"]

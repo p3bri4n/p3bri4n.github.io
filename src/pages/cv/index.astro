@@ -21,26 +21,56 @@ const skills = groupSkillsByTier(
   computeSkills([...profile.formation, ...profile.parcours], projects as { tags: string[] }[], ui.skillCategories),
   ui.skillTiers
 );
-const stats = computeStats(profile, 'ans');
-const formation = profile.formation.map((f: { titre: string; lieu: string; periode: string; description?: string }) => ({
-  titre: f.titre,
-  meta: `${f.lieu} · ${f.periode}`,
-  description: f.description ? collapse(f.description) : '',
-}));
-const experiences = profile.parcours
-  .filter((entry: { cv?: boolean }) => entry.cv !== false)
-  .map(
-  (entry: { titre: string; periode: string; lieu: string; description: string; competences?: string[] }) => ({
-    role: entry.titre,
-    dates: entry.periode,
-    org: entry.lieu,
-    bullet: collapse(entry.description),
-    stack: (entry.competences ?? [])
-      .map(tagValue)
-      .filter((value) => value !== 'Freelancing')
-      .join(', '),
-  })
-);
+const metrics = (profile as { stats_cv?: { valeur: string; label: string }[] }).stats_cv ?? computeStats(profile, 'ans');
+const formation = profile.formation
+  .filter((f: { cv?: boolean }) => f.cv !== false)
+  .map((f: { titre: string; lieu: string; periode: string; description?: string }) => ({
+    titre: f.titre,
+    meta: `${f.lieu} · ${f.periode}`,
+    description: f.description ? collapse(f.description) : '',
+  }));
+
+interface ParcoursEntry {
+  titre: string;
+  periode: string;
+  lieu: string;
+  description: string;
+  competences?: string[];
+  cv?: boolean;
+  cv_detail?: 'full' | 'oneline' | 'grouped';
+  cv_titre?: string;
+  cv_description?: string;
+  cv_bullets?: string[];
+}
+
+const toRow = (entry: ParcoursEntry) => ({
+  role: entry.cv_titre ?? entry.titre,
+  dates: entry.periode,
+  org: entry.lieu,
+});
+
+const visibleParcours = (profile.parcours as ParcoursEntry[]).filter((entry) => entry.cv !== false);
+
+const experiences = visibleParcours
+  .filter((entry) => entry.cv_detail !== 'grouped')
+  .map((entry) => {
+    const detail = entry.cv_detail ?? 'full';
+    return {
+      ...toRow(entry),
+      detail,
+      bullets: entry.cv_bullets ?? null,
+      bullet: collapse(entry.cv_description ?? entry.description),
+      stack:
+        detail === 'full'
+          ? (entry.competences ?? [])
+              .map(tagValue)
+              .filter((value) => value !== 'Freelancing')
+              .join(', ')
+          : '',
+    };
+  });
+
+const earlierExperiences = visibleParcours.filter((entry) => entry.cv_detail === 'grouped').map(toRow);
 ---
 
 <!doctype html>
@@ -88,7 +118,7 @@ const experiences = profile.parcours
       </div>
 
       <div class="metrics">
-        {stats.map((m) => (
+        {metrics.map((m) => (
           <div class="metric">
             <div class="val">{m.valeur}</div>
             <div class="lab">{m.label}</div>
@@ -111,15 +141,13 @@ const experiences = profile.parcours
           ))}
 
           <div class="sec">{ui.cv.projectsTitle}</div>
-          {(projects as { nom: string; description_courte: string; cv?: boolean; tags?: string[] }[])
+          {(projects as { slug: string; nom: string; description_courte: string; cv?: boolean; lien?: string }[])
             .filter((p) => p.cv)
             .map((p) => (
               <div class="proj-item">
                 <div class="proj-name">{parseFeaturedName(p.nom).value}</div>
                 <div class="proj-desc">{p.description_courte}</div>
-                {(p.tags ?? []).length > 0 && (
-                  <div class="proj-stack">{(p.tags ?? []).map(tagValue).join(', ')}</div>
-                )}
+                <div class="proj-link">{stripProtocol(p.lien || `${site.social.github}/${p.slug}`)}</div>
               </div>
             ))}
 
@@ -146,26 +174,47 @@ const experiences = profile.parcours
 
         <main class="main">
           <div class="sec">{ui.cv.profileTitle}</div>
-          <p class="profile">{profile.bio.trim()}</p>
+          <p class="profile">{(profile.cv_summary ?? profile.bio).trim()}</p>
 
           <div class="sec" style="margin-top:13px;">{ui.cv.experienceTitle}</div>
-          {experiences.map((xp: { role: string; dates: string; org: string; bullet: string; stack: string }) => (
-            <div class="xp">
-              <div class="xp-head">
-                <div class="xp-role">{xp.role}</div>
-                <div class="xp-dates">{xp.dates}</div>
+          {experiences.map((xp: { role: string; dates: string; org: string; detail: string; bullets: string[] | null; bullet: string; stack: string }) => (
+            xp.detail === 'oneline' ? (
+              <div class="xp-oneline">
+                <span class="xp-oneline-role">{xp.role}</span>
+                <span class="xp-oneline-org">{xp.org}</span>
+                <span class="xp-oneline-dates">{xp.dates}</span>
               </div>
-              <div class="xp-org">{xp.org}</div>
-              <ul class="bullets">
-                <li>{xp.bullet}</li>
-              </ul>
-              {xp.stack && (
-                <div class="stack">
-                  <span class="k">{ui.cv.stackLabel} ·</span> {xp.stack}
+            ) : (
+              <div class="xp">
+                <div class="xp-head">
+                  <div class="xp-role">{xp.role}</div>
+                  <div class="xp-dates">{xp.dates}</div>
                 </div>
-              )}
-            </div>
+                <div class="xp-org">{xp.org}</div>
+                <ul class="bullets">
+                  {xp.bullets ? xp.bullets.map((b) => <li>{b}</li>) : <li>{xp.bullet}</li>}
+                </ul>
+                {xp.stack && (
+                  <div class="stack">
+                    <span class="k">{ui.cv.stackLabel} ·</span> {xp.stack}
+                  </div>
+                )}
+              </div>
+            )
           ))}
+
+          {earlierExperiences.length > 0 && (
+            <>
+              <div class="sec" style="margin-top:13px;">{ui.cv.earlierExperienceTitle}</div>
+              {earlierExperiences.map((xp: { role: string; dates: string; org: string }) => (
+                <div class="xp-oneline">
+                  <span class="xp-oneline-role">{xp.role}</span>
+                  <span class="xp-oneline-org">{xp.org}</span>
+                  <span class="xp-oneline-dates">{xp.dates}</span>
+                </div>
+              ))}
+            </>
+          )}
         </main>
       </div>
     </div>
@@ -177,7 +226,7 @@ const experiences = profile.parcours
       // même à l'impression/export PDF, avec la même police/taille/couleur que le reste
       // du bloc contact (cv.css → .contact) pour une intégration visuelle homogène.
       function renderContactCanvases() {
-        const fontSize = 7.4;
+        const fontSize = 8.2;
         const fontWeight = 500;
         const scale = 4;
         const font = `${fontWeight} ${fontSize}px 'JetBrains Mono', monospace`;

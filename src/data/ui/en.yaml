@@ -36,6 +36,7 @@ cv:
   interestsTitle: "Interests"
   profileTitle: "Profile"
   experienceTitle: "Professional experience"
+  earlierExperienceTitle: "Earlier experience (2016–2022)"
   projectsTitle: "Projects & contributions"
   stackLabel: "Stack"
   printButton: "Print / Export to PDF"

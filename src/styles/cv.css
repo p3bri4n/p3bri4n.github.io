@@ -25,7 +25,7 @@ html {
   width: 210mm;
   min-height: 297mm;
   margin: 18px auto;
-  padding: 11mm 11mm 9mm 11mm;
+  padding: 13mm 13mm 11mm 13mm;
   background: #ffffff;
   box-shadow: 0 6px 28px rgba(0, 0, 0, 0.28);
 }
@@ -64,8 +64,8 @@ body {
   padding: 0;
   font-family: 'Inter', sans-serif;
   color: var(--ink);
-  font-size: 9.1px;
-  line-height: 1.48;
+  font-size: 12px;
+  line-height: 1.55;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
@@ -101,7 +101,7 @@ body {
   align-items: flex-start;
   gap: 10px;
   border-bottom: 2px solid var(--ink);
-  padding-bottom: 7px;
+  padding-bottom: 8px;
 }
 .masthead .id {
   flex: none;
@@ -136,8 +136,8 @@ body {
   align-self: flex-end;
   text-align: center;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.4px;
-  line-height: 1.6;
+  font-size: 8.2px;
+  line-height: 1.65;
   color: var(--muted);
 }
 .location .loc-line {
@@ -148,8 +148,8 @@ body {
   align-self: flex-end;
   text-align: right;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.4px;
-  line-height: 1.8;
+  font-size: 8.2px;
+  line-height: 1.85;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -167,7 +167,7 @@ body {
 /* ---------- METRICS ---------- */
 .metrics {
   display: flex;
-  margin: 12px 0 4px 0;
+  margin: 14px 0 6px 0;
 }
 .metric {
   flex: 1;
@@ -181,23 +181,23 @@ body {
 .metric .val {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 18px;
   color: var(--ink);
   letter-spacing: -0.4px;
   line-height: 1;
 }
 .metric .lab {
-  font-size: 8px;
+  font-size: 9px;
   color: var(--muted);
-  margin-top: 2px;
-  line-height: 1.3;
+  margin-top: 3px;
+  line-height: 1.35;
 }
 
 /* ---------- BODY GRID ---------- */
 .body {
   display: table;
   width: 100%;
-  margin-top: 7px;
+  margin-top: 9px;
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -207,7 +207,7 @@ body {
   vertical-align: top;
   background: var(--sidebar);
   border-radius: 5px;
-  padding: 10px 15px 16px 15px;
+  padding: 11px 16px 14px 16px;
 }
 .main {
   display: table-cell;
@@ -225,14 +225,14 @@ body {
 .sec {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
-  font-size: 7.8px;
+  font-size: 8.6px;
   letter-spacing: 1.3px;
   text-transform: uppercase;
   color: var(--accent-deep);
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 0 0 7px 0;
+  margin: 0 0 8px 0;
 }
 .sec::before {
   content: '';
@@ -243,8 +243,8 @@ body {
   flex: none;
 }
 .rail .sec {
-  margin-top: 12px;
-  font-size: 8.6px;
+  margin-top: 11px;
+  font-size: 9.4px;
 }
 .rail .sec:first-of-type {
   margin-top: 0;
@@ -252,29 +252,29 @@ body {
 
 /* ---------- SIDEBAR ---------- */
 .skill-group {
-  margin-bottom: 9px;
+  margin-bottom: 8px;
 }
 .skill-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.8px;
+  font-size: 8.6px;
   letter-spacing: 0.7px;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 3px;
+  gap: 4px;
 }
 .chip {
   background: transparent;
   color: #34474d;
   border: 1px solid #aebdb7;
-  font-size: 8.2px;
+  font-size: 9.4px;
   font-weight: 500;
   padding: 2px 6px;
-  line-height: 1.3;
+  line-height: 1.35;
   white-space: nowrap;
 }
 .chip.key {
@@ -284,64 +284,64 @@ body {
 }
 
 .edu-item {
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
 .edu-item:last-child {
   margin-bottom: 0;
 }
 .edu-title {
   font-weight: 600;
-  font-size: 8.7px;
+  font-size: 10px;
   color: var(--ink);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 .edu-meta {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.7px;
+  font-size: 8.8px;
   color: var(--muted);
-  margin-top: 1px;
+  margin-top: 2px;
 }
 .edu-desc {
-  font-size: 7.7px;
+  font-size: 9.4px;
   color: var(--ink-soft);
-  line-height: 1.4;
-  margin-top: 1px;
+  line-height: 1.45;
+  margin-top: 2px;
 }
 
 .lang-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 .lang-name {
   font-weight: 600;
-  font-size: 8.7px;
+  font-size: 10px;
 }
 .lang-lvl {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.7px;
+  font-size: 8.8px;
   color: var(--muted);
 }
 
 .interests {
-  font-size: 8.6px;
+  font-size: 9.8px;
   color: var(--ink-soft);
 }
 
 /* ---------- PROFILE ---------- */
 .profile {
-  font-size: 9.6px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--ink);
-  line-height: 1.55;
+  line-height: 1.6;
   margin: 0;
   white-space: pre-line;
 }
 
 /* ---------- EXPERIENCE ---------- */
 .xp {
-  margin-bottom: 11px;
+  margin-bottom: 13px;
 }
 .xp-head {
   display: flex;
@@ -352,51 +352,51 @@ body {
 .xp-role {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
-  font-size: 10px;
+  font-size: 11.5px;
   color: var(--ink);
-  line-height: 1.15;
+  line-height: 1.2;
 }
 .xp-dates {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.2px;
+  font-size: 8.6px;
   color: var(--accent-deep);
   white-space: nowrap;
   flex: none;
   padding-top: 1px;
 }
 .xp-org {
-  font-size: 8px;
+  font-size: 10px;
   color: var(--ink-soft);
   font-weight: 500;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 ul.bullets {
   list-style: none;
-  margin: 4px 0 0 0;
+  margin: 5px 0 0 0;
   padding: 0;
 }
 ul.bullets li {
   position: relative;
-  padding-left: 11px;
-  margin-bottom: 3px;
-  font-size: 8px;
+  padding-left: 12px;
+  margin-bottom: 4px;
+  font-size: 10px;
   color: var(--ink-soft);
-  line-height: 1.42;
+  line-height: 1.5;
 }
 ul.bullets li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 4px;
+  top: 6px;
   width: 3.5px;
   height: 3.5px;
   background: var(--accent);
 }
 .stack {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7px;
+  font-size: 8.4px;
   color: var(--muted);
-  margin-top: 3px;
+  margin-top: 4px;
   padding-left: 10px;
 }
 .stack .k {
@@ -404,9 +404,41 @@ ul.bullets li::before {
   font-weight: 600;
 }
 
+/* Expériences condensées (Airbus, bloc "Expériences antérieures") : une seule
+   ligne rôle — organisation — dates, sans description ni stack. */
+.xp-oneline {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.xp-oneline-role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 10.2px;
+  color: var(--ink);
+}
+.xp-oneline-org {
+  font-size: 9.2px;
+  color: var(--ink-soft);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.xp-oneline-org::before {
+  content: '— ';
+  color: var(--muted);
+}
+.xp-oneline-dates {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.2px;
+  color: var(--accent-deep);
+  white-space: nowrap;
+  flex: none;
+}
+
 /* ---------- PROJECTS (sidebar) ---------- */
 .proj-item {
-  margin-bottom: 7px;
+  margin-bottom: 6px;
 }
 .proj-item:last-child {
   margin-bottom: 0;
@@ -414,19 +446,19 @@ ul.bullets li::before {
 .proj-name {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
-  font-size: 8.2px;
+  font-size: 9.4px;
   color: var(--accent-deep);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 .proj-desc {
-  font-size: 7.7px;
+  font-size: 9.4px;
   color: var(--ink-soft);
-  line-height: 1.4;
-  margin-top: 1px;
+  line-height: 1.45;
+  margin-top: 2px;
 }
-.proj-stack {
+.proj-link {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.2px;
+  font-size: 8.4px;
   color: var(--muted);
   line-height: 1.4;
   margin-top: 2px;

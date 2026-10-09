@@ -20,13 +20,30 @@ stats:
     label: "Débit de classification après optimisation (KPAM)"
   - valeur: "15h → 30min"
     label: "Temps de remplissage des formulaires en ligne, par dossier (CVG Medical)"
+# KPI spécifiques au CV (page /cv) : remplace stats[] ci-dessus seulement sur le CV.
+# Repli automatique sur stats[] si absent — jamais maintenu séparément sans raison.
+stats_cv:
+  - valeur: "×55"
+    label: "Accélération de l'inférence LLM (KPAM)"
+  - valeur: "15 → 1"
+    label: "Outils legacy remplacés par Athena (KPAM)"
+  - valeur: "3 → 600 avis/s"
+    label: "Débit de classification après optimisation (KPAM)"
+  - valeur: "15h → 30min"
+    label: "Temps de remplissage des formulaires en ligne, par dossier (CVG Medical)"
 accroche: >
   Passionné d'IA et de nouvelles technologies, j'allie rigueur et sens stratégique pour concevoir des solutions innovantes adaptées à vos enjeux.
 
 bio: |
-  Ingénieur IA, 10 ans d'expérience dont 4 sur des systèmes NLP/LLM en production.
+  Ingénieur IA, 10 ans d'expérience, spécialisé en IA générative depuis 2025.
   Après plusieurs années en mission (Airbus, Safran, CVG Medical, KPAM) à concevoir et industrialiser des pipelines IA de bout en bout, je cherche à m'inscrire dans la durée au sein d'un grand groupe pour porter des projets IA de leur conception à leur exploitation.
-  Fine-tuning BERT/LLM, architectures RAG, agents LangGraph/MCP — socle Deep Learning et méthodes classiques de ML ; depuis avril 2026, spécialisation en architectures agentiques et déploiement local de LLM, dans une logique d'edge computing attentive à l'éthique de l'IA.
+  Fine-tuning BERT/LLM, architectures RAG, agents LangGraph/MCP — socle Deep Learning et méthodes classiques de ML, dans une logique d'edge computing attentive à l'éthique de l'IA.
+
+# Résumé spécifique au CV (page /cv), 3 lignes max. Repli sur bio ci-dessus si absent.
+cv_summary: |
+  Ingénieur logiciel depuis 10 ans, spécialisé en IA générative depuis 2025.
+  J'industrialise des systèmes NLP/LLM en production : chez KPAM, la suite Athena a remplacé 15 outils legacy et multiplié par 200 le débit de classification.
+  Je cherche un CDI pour porter des projets IA de la conception à l'exploitation.
 
 formation:
   - periode: "Juin 2026"
@@ -44,16 +61,23 @@ formation:
   - periode: "2006"
     titre: "Baccalauréat scientifique, spécialité Sciences Physiques"
     lieu: "Lycée Bagatelle (Toulouse)"
+    cv: false
     description: >
       Filière scientifique.
     competences: []
 
 parcours:
-  - periode: "Avril 2026 — Aujourd'hui (5 mois)"
+  - periode: "Avril 2026 — Aujourd'hui"
     titre: "Portfolio IA"
     lieu: "Projets personnels"
     description: >
-      Période de 4 mois consacrée à l'approfondissement de mes compétences d'ingénieur en IA générative à travers des projets concrets. Développement de Legitifier, outil d'analyse de dépôts GitHub pour détecter les projets IA potentiellement frauduleux. Développement de pebrian.fr, mon site professionnel (blog technique, portfolio, CV). Développement de Claudeus, environnement Docker isolé pour Claude Code avec permissions maîtrisées et pare-feu de sortie, pour un développement assisté par IA sécurisé. Développement de Mjolnir Agent, agent web autonome tournant à 100% en local sur GPU grand public — démonstration d'optimisation sous contrainte matérielle (edge computing) — avec paliers d'approbation humaine et benchmark de performance.
+      Période consacrée à l'approfondissement de mes compétences d'ingénieur en IA générative à travers des projets concrets. Développement de Legitifier, outil d'analyse de dépôts GitHub pour détecter les projets IA potentiellement frauduleux. Développement de pebrian.fr, mon site professionnel (blog technique, portfolio, CV). Développement de Claudeus, environnement Docker isolé pour Claude Code avec permissions maîtrisées et pare-feu de sortie, pour un développement assisté par IA sécurisé. Développement de Mjolnir Agent, agent web autonome tournant à 100% en local sur GPU grand public — démonstration d'optimisation sous contrainte matérielle (edge computing) — avec paliers d'approbation humaine et benchmark de performance.
+    # Rendu CV uniquement : titre + puces orientées résultat (repli sur titre/description si absents).
+    cv_titre: "R&D GenAI indépendante — projets open source"
+    cv_bullets:
+      - "Mjolnir Agent : agent web 100% local (GPU grand public), benchmark 29/33 tâches réussies (88%)."
+      - "Claudeus : sandbox Docker sécurisée (pare-feu de sortie, sans exposer l'hôte) pour Claude Code."
+      - "Legitifier : détection de projets IA frauduleux sur GitHub (heuristiques + analyse LLM)."
     competences: ["Langages:Python!", "Outils:LangGraph!", "Outils:PyTorch", "Outils:CUDA", "Méthodologies:RAG", "Outils:LLM", "Domaines:Agents IA!"]
   - periode: "Mars 2025 — Mars 2026 (1 an)"
     titre: "Ingénieur IA (Freelance)"
@@ -64,6 +88,7 @@ parcours:
   - periode: "Juil. 2024 — Janv. 2025 (6 mois)"
     titre: "Business Analyst (Intérim)"
     lieu: "Airbus"
+    cv_detail: "oneline"
     description: >
       Interface qualité entre l'équipe offshore et le client : validation par les tests du développement du projet FlowMetrics, développement d'un POC supply chain.
     competences: ["Méthodologies:Tests", "Méthodologies:Business Analysis", "Domaines:Big data", "Domaines:Supply Chain", "Outils:AWS"]
@@ -76,6 +101,7 @@ parcours:
   - periode: "Juil. 2022 — Nov. 2023 (1 an 4 mois)"
     titre: "Product Management Business Partner (Freelance)"
     lieu: "Airbus"
+    cv_detail: "oneline"
     description: >
       Management de projets digitaux et développement data dans la production industrielle aéronautique (programmes A350/A330).
     competences: ["Langages:Python", "Outils:PySpark", "Méthodologies:Product Management", "Domaines:Big data", "Domaines:Aéronautique", "Méthodologies:Freelancing", "Méthodologies:Reporting", "Méthodologies:Prévisionnel budgétaire", "Méthodologies:Séries temporelles", "Méthodologies:Lead time"]
@@ -89,24 +115,30 @@ parcours:
   - periode: "Oct. 2021 — Juil. 2022 (9 mois)"
     titre: "Mentor (Freelance)"
     lieu: "OpenClassrooms"
+    cv_detail: "grouped"
     description: >
       Mentorat de plus de 40 étudiants sur le parcours "Développeur d'app. Python" & évaluations lors des soutenances
     competences: ["Langages:Python", "Méthodologies:Mentorat", "Méthodologies:Pédagogie", "Méthodologies:Évaluation"]
-  - periode: "Févr. 2018 — Mars 2021 (4 ans)"
+  - periode: "Févr. 2018 — Mars 2021 (3 ans 1 mois)"
     titre: "Ingénieur informatique consultant (CDI)"
     lieu: "Inetum, Néo-Soft"
     description: >
       Développeur polyvalent sur des missions multi-clients dans l'aéronautique et l'industrie — Safran, Spherea, SCLE/SFE, TBS — avec évolution vers un rôle de lead technique (encadrement de 2 développeurs).
+    # Rendu CV uniquement : met en avant le rôle de lead technique en tête (repli sur description si absent).
+    cv_description: >
+      Lead technique (encadrement de 2 développeurs) sur des missions multi-clients dans l'aéronautique et l'industrie — Safran, Spherea, SCLE/SFE, TBS.
     competences: ["Langages:Python", "Outils:Django", "Outils:Django Rest Framework", "Méthodologies:Agilité", "Méthodologies:Lead technique"]
   - periode: "Oct. 2017 — Janv. 2018 (4 mois)"
     titre: "Développeur (Stage)"
     lieu: "DECASOFT"
+    cv_detail: "grouped"
     description: >
       Conception & développement d'une solution de migration de base de données pour la CCI de Paris & TMA sur la plateforme de recherche Ecoscope.
     competences: ["Outils:PostgreSQL", "Outils:Elasticsearch"]
   - periode: "Juin 2016 — Mars 2017 (10 mois)"
     titre: "Développeur (Freelance)"
     lieu: "Sématique SARL, Labège"
+    cv_detail: "grouped"
     description: >
       Développement d'une application de recherche de praticiens de médecine alternative en France.
     competences: ["Langages:Python", "Outils:MongoDB"]

@@ -155,7 +155,6 @@
 
 - slug: "athena"
   nom: "Athena!"
-  cv: true
   description_courte: "Proprietary software suite (KPAM) to manage the dataflow of customer review processing."
   description: "A complete proprietary software suite (KPAM) to manage the dataflow of customer review processing. Uses AI to classify, adjust tone and correct verbatims."
   tags: ["Languages:Python", "Tools:Docker Deployment", "Tools:Flet", "Tools:BERT!", "Tools:LLM!"]
@@ -164,7 +163,6 @@
 
 - slug: "smartcry"
   nom: "SmartCry!"
-  cv: true
   description_courte: "Proprietary RPA assistant (CVG Medical) for filling out tender response forms for French public hospitals."
   description: "An RPA assistant for filling out tender response forms for French public hospitals. Substantially reduces the time needed to process a case file."
   tags: ["Domains:Healthcare", "Methodologies:Automation", "Languages:Python", "Tools:Playwright", "Tools:RPA"]
