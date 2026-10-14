@@ -12,9 +12,9 @@ skillCategories: ["Langages", "Outils", "Méthodologies", "Domaines"]
 # doit correspondre exactement à la valeur du tag "Catégorie:Valeur" (sans le "!").
 skillTiers:
   - nom: "Cœur IA"
-    valeurs: ["LLM", "RAG", "Fine-tuning", "BERT", "NER", "LangGraph", "MCP", "vLLM", "Ollama", "Coding agents"]
+    valeurs: ["LLM", "RAG", "Fine-tuning (BERT, OpenAI)", "BERT", "NER", "LangGraph", "MCP", "vLLM", "Ollama", "Claude Code / agents de code", "Agents IA", "Prompt engineering", "Évaluation de LLM"]
   - nom: "Engineering"
-    valeurs: ["Python", "SQL", "Déploiement Docker", "FastAPI", "CI/CD", "PySpark", "Polars", "Playwright", "AWS", "Scaleway"]
+    valeurs: ["Python", "Python asynchrone", "Java", "JEE", "Angular", "SQL", "Déploiement Docker", "FastAPI", "API REST / microservices", "CI/CD", "GitLab CI", "SSO/OAuth2", "PySpark", "Polars", "Playwright", "AWS", "Scaleway"]
 
 home:
   greeting: "Bonjour, je suis"

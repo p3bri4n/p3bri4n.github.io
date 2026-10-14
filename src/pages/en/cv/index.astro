@@ -83,7 +83,7 @@ const experiences = visibleParcours
 
 const earlierExperiences = visibleParcours.filter((entry) => entry.cv_detail === 'grouped').map(toRow);
 
-const mobiliteParts = profile.mobilite.split(', ').map((part: string) => part.replace(/^On-site portion\s*:\s*/, ''));
+const mobiliteParts = profile.mobilite.split(/,\s*On-site portion\s*:\s*/);
 const workMode = mobiliteParts[0];
 const onSiteLocation = mobiliteParts.length > 1 ? mobiliteParts[1] : null;
 ---
@@ -95,12 +95,6 @@ const onSiteLocation = mobiliteParts.length > 1 ? mobiliteParts[1] : null;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Résumé — {profile.nom}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div class="toolbar no-print">
@@ -120,9 +114,17 @@ const onSiteLocation = mobiliteParts.length > 1 ? mobiliteParts[1] : null;
           <span class="loc-line">{profile.disponibilite}</span>
         </div>
         <div class="contact">
-          <span class="c-line"><canvas class="contact-canvas" data-b64={Buffer.from(site.contactEmail).toString('base64')}></canvas></span>
+          {import.meta.env.DEV ? (
+            <span class="c-line">{site.contactEmail}</span>
+          ) : (
+            <span class="c-line"><canvas class="contact-canvas" data-b64={Buffer.from(site.contactEmail).toString('base64')}></canvas></span>
+          )}
           {site.contactPhone && (
-            <span class="c-line"><canvas class="contact-canvas" data-b64={Buffer.from(site.contactPhone).toString('base64')}></canvas></span>
+            import.meta.env.DEV ? (
+              <span class="c-line">{site.contactPhone}</span>
+            ) : (
+              <span class="c-line"><canvas class="contact-canvas" data-b64={Buffer.from(site.contactPhone).toString('base64')}></canvas></span>
+            )
           )}
           {site.social.linkedin && <span class="c-line">{stripProtocol(site.social.linkedin)}</span>}
           {site.social.github && <span class="c-line">{stripProtocol(site.social.github)}</span>}

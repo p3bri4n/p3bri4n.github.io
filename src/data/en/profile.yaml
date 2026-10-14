@@ -3,7 +3,7 @@ titre: "AI Engineer — NLP/LLM in Production"
 avatar: ""
 experienceDepuis: 2016
 localisation: "Toulouse (France)"
-mobilite: "Full or partial remote work, On-site portion: Toulouse and surrounding area (own vehicle)"
+mobilite: "On-site, hybrid, or remote work, On-site portion: Toulouse and surrounding area (own vehicle)"
 disponibilite: "Available — seeking a permanent position"
 langues:
   - nom: "French"
@@ -82,7 +82,7 @@ parcours:
     # cv_links: projects.yaml slugs, one per cv_bullets entry (same order), whose GitHub link is
     # shown right after the matching bullet (discreet style, see .proj-link).
     cv_links: ["mjolnir-agent", "claudeus", "legitifier"]
-    competences: ["Languages:Python!", "Tools:LangGraph!", "Tools:PyTorch", "Tools:CUDA", "Methodologies:RAG", "Tools:LLM", "Domains:AI Agents!"]
+    competences: ["Languages:Python!", "Tools:LangGraph!", "Tools:PyTorch", "Tools:CUDA", "Methodologies:RAG", "Tools:LLM", "Tools:MCP", "Methodologies:LLM evaluation", "Domains:AI Agents!"]
   - periode: "Mar. 2025 — Mar. 2026 (1 year)"
     titre: "AI Engineer (Freelance)"
     lieu: "KPAM"
@@ -93,8 +93,8 @@ parcours:
       - "Designed & built the Athena software suite to replace 15 legacy Excel/VBA tools in customer experience analytics — pipeline handling up to 60k verbatims per study."
       - "Industrialized and optimized inference in production: ×200 on BERT classification (multilingual batching, GPU activation), ×55 on LLM inference (async processing)."
       - "Deployment, monitoring and operational maintenance for 11 business users."
-    cv_stack: ["Python", "NLP", "Big data", "LLM", "BERT", "OpenAI API", "GitHub", "Fine-tuning", "NER"]
-    competences: ["Languages:Python!", "Domains:NLP!", "Domains:Big data", "Tools:LLM!", "Tools:BERT", "Tools:OpenAI API", "Tools:GitHub", "Methodologies:Fine-tuning!", "Methodologies:NER", "Methodologies:Reverse engineering", "Methodologies:Coding agents!", "Methodologies:Testing", "Methodologies:Freelancing", "Methodologies:Technology watch"]
+    cv_stack: ["Python", "NLP", "Big data", "LLM", "BERT", "OpenAI API", "GitHub", "Fine-tuning (BERT, OpenAI)", "NER"]
+    competences: ["Languages:Python!", "Domains:NLP!", "Domains:Big data", "Tools:LLM!", "Tools:BERT", "Tools:OpenAI API", "Tools:GitHub", "Methodologies:Fine-tuning (BERT, OpenAI)!", "Methodologies:NER", "Methodologies:Reverse engineering", "Methodologies:Claude Code / coding agents!", "Methodologies:Prompt engineering", "Methodologies:Async Python", "Methodologies:Testing", "Methodologies:Freelancing", "Methodologies:Technology watch"]
   - periode: "Jul. 2024 — Jan. 2025 (6 months)"
     titre: "Business Analyst (Temporary)"
     lieu: "Airbus"
@@ -123,7 +123,7 @@ parcours:
     cv: false
     description: >
       Short mission: built continuous integration tooling for a client in medical robotics.
-    competences: ["Languages:Python!", "Methodologies:CI/CD", "Tools:Jama", "Tools:Gitlab", "Domains:Robotics", "Domains:Medical", "Methodologies:Freelancing"]
+    competences: ["Languages:Python!", "Methodologies:CI/CD", "Tools:Jama", "Tools:GitLab CI", "Domains:Robotics", "Domains:Medical", "Methodologies:Freelancing"]
   - periode: "Oct. 2021 — Jul. 2022 (9 months)"
     titre: "Mentor (Freelance)"
     lieu: "OpenClassrooms"
@@ -140,16 +140,17 @@ parcours:
     # dans le titre ; met en avant le rôle de lead technique en tête (repli sur description si absent).
     cv_titre: "Consulting Software Engineer"
     cv_complement: "Permanent"
-    cv_description: >
-      Technical lead (overseeing 2 developers) on multi-client missions in aerospace and industry — Safran, Spherea, SCLE/SFE, TBS.
-    competences: ["Languages:Python", "Tools:Django", "Tools:Django Rest Framework", "Methodologies:Agile", "Methodologies:Technical Lead"]
+    cv_bullets:
+      - "Technical lead (overseeing 2 developers) on multi-client missions in aerospace and industry — Safran, Spherea, SCLE/SFE, TBS."
+      - "Implemented an SSO/OAuth2 service (Spherea, TypeScript microservices)."
+    competences: ["Languages:Python", "Tools:Django", "Tools:Django Rest Framework", "Tools:Angular", "Tools:REST API / microservices", "Methodologies:Agile", "Methodologies:Technical Lead", "Methodologies:SSO/OAuth2"]
   - periode: "Oct. 2017 — Jan. 2018 (4 months)"
     titre: "Developer (Internship)"
     lieu: "DECASOFT"
     cv_detail: "grouped"
     description: >
       Designed & built a database migration solution for the Paris Chamber of Commerce (CCI) & maintenance (TMA) on the Ecoscope search platform.
-    competences: ["Tools:PostgreSQL", "Tools:Elasticsearch"]
+    competences: ["Languages:Java", "Tools:JEE", "Tools:PostgreSQL", "Tools:Elasticsearch"]
   - periode: "Jun. 2016 — Mar. 2017 (10 months)"
     titre: "Developer (Freelance)"
     lieu: "Sématique SARL, Labège"

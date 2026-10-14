@@ -12,9 +12,9 @@ skillCategories: ["Languages", "Tools", "Methodologies", "Domains"]
 # (without the "!").
 skillTiers:
   - nom: "Core AI"
-    valeurs: ["LLM", "RAG", "Fine-tuning", "BERT", "NER", "LangGraph", "MCP", "vLLM", "Ollama", "Coding agents"]
+    valeurs: ["LLM", "RAG", "Fine-tuning (BERT, OpenAI)", "BERT", "NER", "LangGraph", "MCP", "vLLM", "Ollama", "Claude Code / coding agents", "AI Agents", "Prompt engineering", "LLM evaluation"]
   - nom: "Engineering"
-    valeurs: ["Python", "SQL", "Docker Deployment", "FastAPI", "CI/CD", "PySpark", "Polars", "Playwright", "AWS", "Scaleway"]
+    valeurs: ["Python", "Async Python", "Java", "JEE", "Angular", "SQL", "Docker Deployment", "FastAPI", "REST API / microservices", "CI/CD", "GitLab CI", "SSO/OAuth2", "PySpark", "Polars", "Playwright", "AWS", "Scaleway"]
 
 home:
   greeting: "Hello, I'm"
